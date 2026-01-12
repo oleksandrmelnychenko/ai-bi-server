@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pyodbc
+httpx
+python-dotenv
+pyyaml

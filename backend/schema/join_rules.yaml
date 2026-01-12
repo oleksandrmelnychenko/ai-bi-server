@@ -1,0 +1,8130 @@
+version: 1
+generated_at: '2026-01-12T19:52:34.179217+00:00'
+tables:
+- name: dbo.AccountingDocumentName
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AccountingOperationName
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ActProvidingService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ActProvidingServiceDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ActReconciliation
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ActReconciliationItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.AdvancePayment
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Agreement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AgreementType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.AgreementTypeCivilCode
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AgreementTypeTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.AllegroCategory
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.AllegroProductReservation
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AssignedPaymentOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.AuditEntity
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AuditEntityProperty
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.AuditEntityPropertyNameTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Bank
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.BaseLifeCycleStatus
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.BaseSalePaymentStatus
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.BillOfLadingDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.BillOfLadingService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.CalculationType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CalculationTypeTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CarBrand
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Category
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ChartMonth
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ChartMonthTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Client
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientAgreement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientBalanceMovement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientBankDetailAccountNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientBankDetailIbanNo
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientBankDetails
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientContractDocument
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientGroup
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientInDebt
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientInRole
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientPerfectClient
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientRegistrationTask
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientShoppingCart
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientSubClient
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientTypeRole
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientTypeRoleTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientTypeTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientUserProfile
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ClientWorkplace
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ColumnItem
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ColumnItemTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CompanyCar
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CompanyCarFueling
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CompanyCarRoadList
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CompanyCarRoadListDriver
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Consignment
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsignmentItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsignmentItemMovement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsignmentItemMovementTypeName
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsignmentNoteSetting
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumableProduct
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumableProductCategory
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumableProductCategoryTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumableProductTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumablesOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumablesOrderDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumablesOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ConsumablesStorage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ContainerService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CountSaleMessage
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Country
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CreditNoteDocument
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CrossExchangeRate
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CrossExchangeRateHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Currency
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CurrencyTrader
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CurrencyTraderExchangeRate
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CurrencyTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.CustomAgencyService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CustomService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.CustomersOwnTtn
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DashboardNode
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DashboardNodeModule
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DataSyncOperation
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Debt
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryExpense
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryProductProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryProductProtocolDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryProductProtocolNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryRecipient
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DeliveryRecipientAddress
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DepreciatedConsumableOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DepreciatedConsumableOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DepreciatedOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DepreciatedOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.DocumentMonth
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DynamicProductPlacement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DynamicProductPlacementColumn
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.DynamicProductPlacementRow
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.EcommerceContactInfo
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.EcommerceContacts
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.EcommerceDefaultPricing
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.EcommercePage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.EcommerceRegion
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ExchangeRate
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ExchangeRateHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ExpiredBillUserNotification
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.FilterItem
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.FilterItemTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.FilterOperationItem
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.FilterOperationItemTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.GovCrossExchangeRate
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.GovCrossExchangeRateHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.GovExchangeRate
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.GovExchangeRateHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.HistoryInvoiceEdit
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.IncomePaymentOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.IncomePaymentOrderSale
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Incoterm
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.InvoiceDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.MeasureUnit
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.MeasureUnitTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.MergedService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.MisplacedSale
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Order
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderItemBaseShiftStatus
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderItemMerged
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderItemMovement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderPackage
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderPackageItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderPackageUser
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrderProductSpecification
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Organization
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrganizationClient
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrganizationClientAgreement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.OrganizationTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.OriginalNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.OutcomePaymentOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OutcomePaymentOrderConsumablesOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.OutcomePaymentOrderSupplyPaymentTask
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingList
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingListDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingListPackage
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingListPackageOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingListPackageOrderItemSupplyService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingMarking
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PackingMarkingPayment
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentCostMovement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentCostMovementOperation
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentCostMovementTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentCurrencyRegister
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentDeliveryDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentMovement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentMovementOperation
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentMovementTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentRegister
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentRegisterCurrencyExchange
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PaymentRegisterTransfer
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PerfectClient
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PerfectClientTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.PerfectClientValue
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PerfectClientValueTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Permission
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.PlaneDeliveryService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PortCustomAgencyService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PortWorkService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PreOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.PriceType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.PriceTypeTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Pricing
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PricingProductGroupDiscount
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.PricingTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProFormDocument
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Product
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductAnalogue
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductAvailability
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductCapitalization
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductCapitalizationItem
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductCarBrand
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductCategory
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductGroup
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductGroupDiscount
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductImage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductIncome
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductIncomeItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductLocation
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductLocationHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductOriginalNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductPlacement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductPlacementHistory
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductPlacementMovement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductPlacementStorage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductPricing
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductProductGroup
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductReservation
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductSet
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductSlug
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductSpecification
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductSubGroup
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductTransfer
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductTransferItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProductWriteOffRule
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ProviderPricing
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ReSale
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ReSaleAvailability
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ReSaleItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Region
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.RegionCode
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.ResidenceCard
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ResponsibilityDeliveryProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.RetailClient
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.RetailClientPaymentImage
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.RetailClientPaymentImageItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.RetailPaymentStatus
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.RetailPaymentTypeTranslate
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.RolePermission
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Sad
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SadDocument
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SadItem
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SadPallet
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SadPalletItem
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SadPalletType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.Sale
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleBaseShiftStatus
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleExchangeRate
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleFutureReservation
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleInvoiceDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleInvoiceNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleMerged
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleMessageNumerator
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleReturn
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleReturnItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleReturnItemProductPlacement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SaleReturnItemStatusName
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SeoPage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ServiceDetailItem
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ServiceDetailItemKey
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ServicePayer
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.ShipmentList
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.ShipmentListItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.Statham
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.StathamCar
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.StathamPassport
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Storage
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyDeliveryDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInformationDeliveryProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInformationDeliveryProtocolKey
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInformationDeliveryProtocolKeyTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInformationTask
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInvoice
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInvoiceBillOfLadingService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInvoiceDeliveryDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInvoiceMergedService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyInvoiceOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrder
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderContainerService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderDeliveryDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderPaymentDeliveryProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderPaymentDeliveryProtocolKey
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraine
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraineCartItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraineCartItemReservation
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraineCartItemReservationProductPlacement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraineDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkraineItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkrainePaymentDeliveryProtocol
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderUkrainePaymentDeliveryProtocolKey
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrderVehicleService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrganization
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrganizationAgreement
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyOrganizationDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyPaymentTask
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyPaymentTaskDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyProForm
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyReturn
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyReturnItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyServiceAccountDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupplyServiceNumber
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.SupportVideo
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxAccountingScheme
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxFree
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxFreeDocument
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxFreeItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxFreePackList
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxFreePackListOrderItem
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.TaxInspection
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.TermsOfDelivery
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.TransportationService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Transporter
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.TransporterType
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.TransporterTypeTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.UpdateDataCarrier
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.User
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.UserDetails
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.UserRole
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.UserRoleDashboardNode
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.UserRoleTranslation
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.UserScreenResolution
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.VatRate
+  primary_key:
+  - ID
+  role: dimension
+  default_filters:
+  - Deleted = 0
+- name: dbo.VehicleDeliveryService
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.VehicleService
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.WarehousesShipment
+  primary_key:
+  - ID
+  role: fact
+  default_filters:
+  - Deleted = 0
+- name: dbo.WorkPermit
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.WorkingContract
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.Workplace
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.WorkplaceClientAgreement
+  primary_key:
+  - ID
+  role: unknown
+  default_filters:
+  - Deleted = 0
+- name: dbo.__EFMigrationsHistory
+  primary_key:
+  - MigrationId
+  role: unknown
+  default_filters: []
+- name: dbo.sysdiagrams
+  primary_key:
+  - diagram_id
+  role: unknown
+  default_filters: []
+joins:
+- name: FK_ActProvidingService_User_UserID
+  left: dbo.ActProvidingService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_ActReconciliationItem_ActReconciliation_ActReconciliationID
+  left: dbo.ActReconciliationItem
+  right: dbo.ActReconciliation
+  columns:
+  - left: ActReconciliationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliationItem_Product_ProductID
+  left: dbo.ActReconciliationItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliationItem_SupplyInvoiceOrderItem_SupplyInvoiceOrderItemID
+  left: dbo.ActReconciliationItem
+  right: dbo.SupplyInvoiceOrderItem
+  columns:
+  - left: SupplyInvoiceOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliationItem_SupplyOrderUkraineItem_SupplyOrderUkraineItemID
+  left: dbo.ActReconciliationItem
+  right: dbo.SupplyOrderUkraineItem
+  columns:
+  - left: SupplyOrderUkraineItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliation_SupplyInvoice_SupplyInvoiceID
+  left: dbo.ActReconciliation
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliation_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.ActReconciliation
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ActReconciliation_User_ResponsibleID
+  left: dbo.ActReconciliation
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_AdvancePayment_ClientAgreement_ClientAgreementID
+  left: dbo.AdvancePayment
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AdvancePayment_OrganizationClientAgreement_OrganizationClientAgreementID
+  left: dbo.AdvancePayment
+  right: dbo.OrganizationClientAgreement
+  columns:
+  - left: OrganizationClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AdvancePayment_Organization_OrganizationID
+  left: dbo.AdvancePayment
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AdvancePayment_Sad_SadID
+  left: dbo.AdvancePayment
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AdvancePayment_TaxFree_TaxFreeID
+  left: dbo.AdvancePayment
+  right: dbo.TaxFree
+  columns:
+  - left: TaxFreeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AdvancePayment_User_UserID
+  left: dbo.AdvancePayment
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_AgreementTypeTranslation_AgreementType_AgreementTypeID
+  left: dbo.AgreementTypeTranslation
+  right: dbo.AgreementType
+  columns:
+  - left: AgreementTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_AgreementTypeCivilCode_AgreementTypeCivilCodeID
+  left: dbo.Agreement
+  right: dbo.AgreementTypeCivilCode
+  columns:
+  - left: AgreementTypeCivilCodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_Currency_CurrencyID
+  left: dbo.Agreement
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_Organization_OrganizationID
+  left: dbo.Agreement
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_Pricing_PricingID
+  left: dbo.Agreement
+  right: dbo.Pricing
+  columns:
+  - left: PricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_Pricing_PromotionalPricingID
+  left: dbo.Agreement
+  right: dbo.Pricing
+  columns:
+  - left: PromotionalPricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_ProviderPricing_ProviderPricingID
+  left: dbo.Agreement
+  right: dbo.ProviderPricing
+  columns:
+  - left: ProviderPricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Agreement_TaxAccountingScheme_TaxAccountingSchemeID
+  left: dbo.Agreement
+  right: dbo.TaxAccountingScheme
+  columns:
+  - left: TaxAccountingSchemeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AllegroProductReservation_Product_ProductID
+  left: dbo.AllegroProductReservation
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AssignedPaymentOrder_IncomePaymentOrder_AssignedIncomePaymentOrderID
+  left: dbo.AssignedPaymentOrder
+  right: dbo.IncomePaymentOrder
+  columns:
+  - left: AssignedIncomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AssignedPaymentOrder_IncomePaymentOrder_RootIncomePaymentOrderID
+  left: dbo.AssignedPaymentOrder
+  right: dbo.IncomePaymentOrder
+  columns:
+  - left: RootIncomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AssignedPaymentOrder_OutcomePaymentOrder_AssignedOutcomePaymentOrderID
+  left: dbo.AssignedPaymentOrder
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: AssignedOutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AssignedPaymentOrder_OutcomePaymentOrder_RootOutcomePaymentOrderID
+  left: dbo.AssignedPaymentOrder
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: RootOutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_AuditEntityProperty_AuditEntity_AuditEntityID
+  left: dbo.AuditEntityProperty
+  right: dbo.AuditEntity
+  columns:
+  - left: AuditEntityID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingDocument_BillOfLadingService_BillOfLadingServiceID
+  left: dbo.BillOfLadingDocument
+  right: dbo.BillOfLadingService
+  columns:
+  - left: BillOfLadingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.BillOfLadingService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_ActProvidingService_AccountingActProvidingServiceID
+  left: dbo.BillOfLadingService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_ActProvidingService_ActProvidingServiceID
+  left: dbo.BillOfLadingService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_DeliveryProductProtocol_DeliveryProductProtocolID
+  left: dbo.BillOfLadingService
+  right: dbo.DeliveryProductProtocol
+  columns:
+  - left: DeliveryProductProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyOrganization_SupplyOrganizationID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: SupplyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.BillOfLadingService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_BillOfLadingService_User_UserID
+  left: dbo.BillOfLadingService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CalculationTypeTranslation_CalculationType_CalculationTypeID
+  left: dbo.CalculationTypeTranslation
+  right: dbo.CalculationType
+  columns:
+  - left: CalculationTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Category_Category_RootCategoryID
+  left: dbo.Category
+  right: dbo.Category
+  columns:
+  - left: RootCategoryID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_ChartMonthTranslation_ChartMonth_ChartMonthID
+  left: dbo.ChartMonthTranslation
+  right: dbo.ChartMonth
+  columns:
+  - left: ChartMonthID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientAgreement_Agreement_AgreementID
+  left: dbo.ClientAgreement
+  right: dbo.Agreement
+  columns:
+  - left: AgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientAgreement_Client_ClientID
+  left: dbo.ClientAgreement
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientBalanceMovement_ClientAgreement_ClientAgreementID
+  left: dbo.ClientBalanceMovement
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientBankDetailAccountNumber_Currency_CurrencyID
+  left: dbo.ClientBankDetailAccountNumber
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientBankDetailIbanNo_Currency_CurrencyID
+  left: dbo.ClientBankDetailIbanNo
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientBankDetails_ClientBankDetailAccountNumber_AccountNumberID
+  left: dbo.ClientBankDetails
+  right: dbo.ClientBankDetailAccountNumber
+  columns:
+  - left: AccountNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientBankDetails_ClientBankDetailIbanNo_ClientBankDetailIbanNoID
+  left: dbo.ClientBankDetails
+  right: dbo.ClientBankDetailIbanNo
+  columns:
+  - left: ClientBankDetailIbanNoID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientContractDocument_Client_ClientID
+  left: dbo.ClientContractDocument
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientGroup_Client_ClientID
+  left: dbo.ClientGroup
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInDebt_Agreement_AgreementID
+  left: dbo.ClientInDebt
+  right: dbo.Agreement
+  columns:
+  - left: AgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInDebt_Client_ClientID
+  left: dbo.ClientInDebt
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInDebt_Debt_DebtID
+  left: dbo.ClientInDebt
+  right: dbo.Debt
+  columns:
+  - left: DebtID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInDebt_ReSale_ReSaleID
+  left: dbo.ClientInDebt
+  right: dbo.ReSale
+  columns:
+  - left: ReSaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInDebt_Sale_SaleID
+  left: dbo.ClientInDebt
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInRole_ClientTypeRole_ClientTypeRoleID
+  left: dbo.ClientInRole
+  right: dbo.ClientTypeRole
+  columns:
+  - left: ClientTypeRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInRole_ClientType_ClientTypeID
+  left: dbo.ClientInRole
+  right: dbo.ClientType
+  columns:
+  - left: ClientTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientInRole_Client_ClientID
+  left: dbo.ClientInRole
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientPerfectClient_Client_ClientID
+  left: dbo.ClientPerfectClient
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientPerfectClient_PerfectClientValue_PerfectClientValueID
+  left: dbo.ClientPerfectClient
+  right: dbo.PerfectClientValue
+  columns:
+  - left: PerfectClientValueID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientPerfectClient_PerfectClient_PerfectClientID
+  left: dbo.ClientPerfectClient
+  right: dbo.PerfectClient
+  columns:
+  - left: PerfectClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientRegistrationTask_Client_ClientID
+  left: dbo.ClientRegistrationTask
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientShoppingCart_ClientAgreement_ClientAgreementID
+  left: dbo.ClientShoppingCart
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientShoppingCart_User_CreatedByID
+  left: dbo.ClientShoppingCart
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ClientShoppingCart_User_OfferProcessingStatusChangedByID
+  left: dbo.ClientShoppingCart
+  right: dbo.User
+  columns:
+  - left: OfferProcessingStatusChangedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ClientShoppingCart_Workplace_WorkplaceID
+  left: dbo.ClientShoppingCart
+  right: dbo.Workplace
+  columns:
+  - left: WorkplaceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientSubClient_Client_RootClientID
+  left: dbo.ClientSubClient
+  right: dbo.Client
+  columns:
+  - left: RootClientID
+    right: ID
+  weight: 6
+  enabled: true
+- name: FK_ClientSubClient_Client_SubClientID
+  left: dbo.ClientSubClient
+  right: dbo.Client
+  columns:
+  - left: SubClientID
+    right: ID
+  weight: 6
+  enabled: true
+- name: FK_ClientTypeRoleTranslation_ClientTypeRole_ClientTypeRoleID
+  left: dbo.ClientTypeRoleTranslation
+  right: dbo.ClientTypeRole
+  columns:
+  - left: ClientTypeRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientTypeRole_ClientType_ClientTypeID
+  left: dbo.ClientTypeRole
+  right: dbo.ClientType
+  columns:
+  - left: ClientTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientTypeTranslation_ClientType_ClientTypeID
+  left: dbo.ClientTypeTranslation
+  right: dbo.ClientType
+  columns:
+  - left: ClientTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientUserProfile_Client_ClientID
+  left: dbo.ClientUserProfile
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientUserProfile_User_UserProfileID
+  left: dbo.ClientUserProfile
+  right: dbo.User
+  columns:
+  - left: UserProfileID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_ClientWorkplace_ClientGroup_ClientGroupId
+  left: dbo.ClientWorkplace
+  right: dbo.ClientGroup
+  columns:
+  - left: ClientGroupId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ClientWorkplace_Client_MainClientID
+  left: dbo.ClientWorkplace
+  right: dbo.Client
+  columns:
+  - left: MainClientID
+    right: ID
+  weight: 6
+  enabled: true
+- name: FK_ClientWorkplace_Client_WorkplaceID
+  left: dbo.ClientWorkplace
+  right: dbo.Client
+  columns:
+  - left: WorkplaceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_ClientBankDetails_ClientBankDetailsID
+  left: dbo.Client
+  right: dbo.ClientBankDetails
+  columns:
+  - left: ClientBankDetailsID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_Client_MainClientID
+  left: dbo.Client
+  right: dbo.Client
+  columns:
+  - left: MainClientID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_Client_Country_CountryID
+  left: dbo.Client
+  right: dbo.Country
+  columns:
+  - left: CountryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_PackingMarkingPayment_PackingMarkingPaymentID
+  left: dbo.Client
+  right: dbo.PackingMarkingPayment
+  columns:
+  - left: PackingMarkingPaymentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_PackingMarking_PackingMarkingID
+  left: dbo.Client
+  right: dbo.PackingMarking
+  columns:
+  - left: PackingMarkingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_RegionCode_RegionCodeID
+  left: dbo.Client
+  right: dbo.RegionCode
+  columns:
+  - left: RegionCodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_Region_RegionID
+  left: dbo.Client
+  right: dbo.Region
+  columns:
+  - left: RegionID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_TermsOfDelivery_TermsOfDeliveryID
+  left: dbo.Client
+  right: dbo.TermsOfDelivery
+  columns:
+  - left: TermsOfDeliveryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Client_User_MainManagerID
+  left: dbo.Client
+  right: dbo.User
+  columns:
+  - left: MainManagerID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ColumnItemTranslation_ColumnItem_ColumnItemID
+  left: dbo.ColumnItemTranslation
+  right: dbo.ColumnItem
+  columns:
+  - left: ColumnItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ColumnItem_User_UserID
+  left: dbo.ColumnItem
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CompanyCarFueling_CompanyCar_CompanyCarID
+  left: dbo.CompanyCarFueling
+  right: dbo.CompanyCar
+  columns:
+  - left: CompanyCarID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarFueling_OutcomePaymentOrder_OutcomePaymentOrderID
+  left: dbo.CompanyCarFueling
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: OutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarFueling_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.CompanyCarFueling
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarFueling_SupplyOrganization_ConsumableProductOrganizationID
+  left: dbo.CompanyCarFueling
+  right: dbo.SupplyOrganization
+  columns:
+  - left: ConsumableProductOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarFueling_User_UserID
+  left: dbo.CompanyCarFueling
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CompanyCarRoadListDriver_CompanyCarRoadList_CompanyCarRoadListID
+  left: dbo.CompanyCarRoadListDriver
+  right: dbo.CompanyCarRoadList
+  columns:
+  - left: CompanyCarRoadListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarRoadListDriver_User_UserID
+  left: dbo.CompanyCarRoadListDriver
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CompanyCarRoadList_CompanyCar_CompanyCarID
+  left: dbo.CompanyCarRoadList
+  right: dbo.CompanyCar
+  columns:
+  - left: CompanyCarID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarRoadList_OutcomePaymentOrder_OutcomePaymentOrderID
+  left: dbo.CompanyCarRoadList
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: OutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCarRoadList_User_CreatedByID
+  left: dbo.CompanyCarRoadList
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_CompanyCarRoadList_User_ResponsibleID
+  left: dbo.CompanyCarRoadList
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_CompanyCarRoadList_User_UpdatedByID
+  left: dbo.CompanyCarRoadList
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_CompanyCar_ConsumablesStorage_ConsumablesStorageID
+  left: dbo.CompanyCar
+  right: dbo.ConsumablesStorage
+  columns:
+  - left: ConsumablesStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCar_Organization_OrganizationID
+  left: dbo.CompanyCar
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CompanyCar_User_CreatedByID
+  left: dbo.CompanyCar
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_CompanyCar_User_UpdatedByID
+  left: dbo.CompanyCar
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ConsignmentItemMovement_ConsignmentItem_ConsignmentItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_DepreciatedOrderItem_DepreciatedOrderItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.DepreciatedOrderItem
+  columns:
+  - left: DepreciatedOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_OrderItemBaseShiftStatus_OrderItemBaseShiftStatusID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.OrderItemBaseShiftStatus
+  columns:
+  - left: OrderItemBaseShiftStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_OrderItem_OrderItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_ProductIncomeItem_ProductIncomeItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.ProductIncomeItem
+  columns:
+  - left: ProductIncomeItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_ProductTransferItem_ProductTransferItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.ProductTransferItem
+  columns:
+  - left: ProductTransferItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_ReSaleItem_ReSaleItemId
+  left: dbo.ConsignmentItemMovement
+  right: dbo.ReSaleItem
+  columns:
+  - left: ReSaleItemId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_SadItem_SadItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.SadItem
+  columns:
+  - left: SadItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_SupplyReturnItem_SupplyReturnItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.SupplyReturnItem
+  columns:
+  - left: SupplyReturnItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItemMovement_TaxFreeItem_TaxFreeItemID
+  left: dbo.ConsignmentItemMovement
+  right: dbo.TaxFreeItem
+  columns:
+  - left: TaxFreeItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItem_ConsignmentItem_RootConsignmentItemID
+  left: dbo.ConsignmentItem
+  right: dbo.ConsignmentItem
+  columns:
+  - left: RootConsignmentItemID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_ConsignmentItem_Consignment_ConsignmentID
+  left: dbo.ConsignmentItem
+  right: dbo.Consignment
+  columns:
+  - left: ConsignmentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItem_ProductIncomeItem_ProductIncomeItemID
+  left: dbo.ConsignmentItem
+  right: dbo.ProductIncomeItem
+  columns:
+  - left: ProductIncomeItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItem_ProductSpecification_ProductSpecificationID
+  left: dbo.ConsignmentItem
+  right: dbo.ProductSpecification
+  columns:
+  - left: ProductSpecificationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsignmentItem_Product_ProductID
+  left: dbo.ConsignmentItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Consignment_Organization_OrganizationID
+  left: dbo.Consignment
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Consignment_ProductIncome_ProductIncomeID
+  left: dbo.Consignment
+  right: dbo.ProductIncome
+  columns:
+  - left: ProductIncomeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Consignment_ProductTransfer_ProductTransferID
+  left: dbo.Consignment
+  right: dbo.ProductTransfer
+  columns:
+  - left: ProductTransferID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Consignment_Storage_StorageID
+  left: dbo.Consignment
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumableProductCategoryTranslation_ConsumableProductCategory_ConsumableProductCategoryID
+  left: dbo.ConsumableProductCategoryTranslation
+  right: dbo.ConsumableProductCategory
+  columns:
+  - left: ConsumableProductCategoryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumableProductTranslation_ConsumableProduct_ConsumableProductID
+  left: dbo.ConsumableProductTranslation
+  right: dbo.ConsumableProduct
+  columns:
+  - left: ConsumableProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumableProduct_ConsumableProductCategory_ConsumableProductCategoryID
+  left: dbo.ConsumableProduct
+  right: dbo.ConsumableProductCategory
+  columns:
+  - left: ConsumableProductCategoryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumableProduct_MeasureUnit_MeasureUnitID
+  left: dbo.ConsumableProduct
+  right: dbo.MeasureUnit
+  columns:
+  - left: MeasureUnitID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderDocument_ConsumablesOrder_ConsumablesOrderID
+  left: dbo.ConsumablesOrderDocument
+  right: dbo.ConsumablesOrder
+  columns:
+  - left: ConsumablesOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderItem_ConsumableProductCategory_ConsumableProductCategoryID
+  left: dbo.ConsumablesOrderItem
+  right: dbo.ConsumableProductCategory
+  columns:
+  - left: ConsumableProductCategoryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderItem_ConsumableProduct_ConsumableProductID
+  left: dbo.ConsumablesOrderItem
+  right: dbo.ConsumableProduct
+  columns:
+  - left: ConsumableProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderItem_ConsumablesOrder_ConsumablesOrderID
+  left: dbo.ConsumablesOrderItem
+  right: dbo.ConsumablesOrder
+  columns:
+  - left: ConsumablesOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderItem_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.ConsumablesOrderItem
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrderItem_SupplyOrganization_ConsumableProductOrganizationID
+  left: dbo.ConsumablesOrderItem
+  right: dbo.SupplyOrganization
+  columns:
+  - left: ConsumableProductOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrder_ConsumablesStorage_ConsumablesStorageID
+  left: dbo.ConsumablesOrder
+  right: dbo.ConsumablesStorage
+  columns:
+  - left: ConsumablesStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrder_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.ConsumablesOrder
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesOrder_User_UserID
+  left: dbo.ConsumablesOrder
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_ConsumablesStorage_Organization_OrganizationID
+  left: dbo.ConsumablesStorage
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ConsumablesStorage_User_ResponsibleUserID
+  left: dbo.ConsumablesStorage
+  right: dbo.User
+  columns:
+  - left: ResponsibleUserID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ContainerService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.ContainerService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.ContainerService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_ActProvidingService_ActProvidingServiceId
+  left: dbo.ContainerService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_BillOfLadingDocument_BillOfLadingDocumentID
+  left: dbo.ContainerService
+  right: dbo.BillOfLadingDocument
+  columns:
+  - left: BillOfLadingDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.ContainerService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.ContainerService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyOrganization_ContainerOrganizationID
+  left: dbo.ContainerService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: ContainerOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.ContainerService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.ContainerService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.ContainerService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ContainerService_User_UserID
+  left: dbo.ContainerService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CountSaleMessage_SaleMessageNumerator_SaleMessageNumeratorID
+  left: dbo.CountSaleMessage
+  right: dbo.SaleMessageNumerator
+  columns:
+  - left: SaleMessageNumeratorID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CountSaleMessage_Sale_SaleID
+  left: dbo.CountSaleMessage
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CreditNoteDocument_SupplyOrder_SupplyOrderID
+  left: dbo.CreditNoteDocument
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CrossExchangeRateHistory_CrossExchangeRate_CrossExchangeRateID
+  left: dbo.CrossExchangeRateHistory
+  right: dbo.CrossExchangeRate
+  columns:
+  - left: CrossExchangeRateID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_CrossExchangeRateHistory_User_UpdatedByID
+  left: dbo.CrossExchangeRateHistory
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_CrossExchangeRate_Currency_CurrencyFromID
+  left: dbo.CrossExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyFromID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CrossExchangeRate_Currency_CurrencyToID
+  left: dbo.CrossExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyToID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CurrencyTraderExchangeRate_CurrencyTrader_CurrencyTraderID
+  left: dbo.CurrencyTraderExchangeRate
+  right: dbo.CurrencyTrader
+  columns:
+  - left: CurrencyTraderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CurrencyTranslation_Currency_CurrencyID
+  left: dbo.CurrencyTranslation
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.CustomAgencyService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.CustomAgencyService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_ActProvidingService_ActProvidingServiceId
+  left: dbo.CustomAgencyService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyOrganization_CustomAgencyOrganizationID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: CustomAgencyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.CustomAgencyService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomAgencyService_User_UserID
+  left: dbo.CustomAgencyService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_CustomService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.CustomService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.CustomService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_ActProvidingService_ActProvidingServiceId
+  left: dbo.CustomService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.CustomService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyOrder_SupplyOrderID
+  left: dbo.CustomService
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.CustomService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyOrganization_CustomOrganizationID
+  left: dbo.CustomService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: CustomOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyOrganization_ExciseDutyOrganizationID
+  left: dbo.CustomService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: ExciseDutyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.CustomService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.CustomService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.CustomService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_CustomService_User_UserID
+  left: dbo.CustomService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_DashboardNode_DashboardNodeModule_DashboardNodeModuleID
+  left: dbo.DashboardNode
+  right: dbo.DashboardNodeModule
+  columns:
+  - left: DashboardNodeModuleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DashboardNode_DashboardNode_ParentDashboardNodeID
+  left: dbo.DashboardNode
+  right: dbo.DashboardNode
+  columns:
+  - left: ParentDashboardNodeID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_DataSyncOperation_User_UserID
+  left: dbo.DataSyncOperation
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_DeliveryExpense_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.DeliveryExpense
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_ActProvidingService_AccountingActProvidingServiceID
+  left: dbo.DeliveryExpense
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_ActProvidingService_ActProvidingServiceID
+  left: dbo.DeliveryExpense
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_ConsumableProduct_ConsumableProductID
+  left: dbo.DeliveryExpense
+  right: dbo.ConsumableProduct
+  columns:
+  - left: ConsumableProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.DeliveryExpense
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.DeliveryExpense
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_SupplyOrganization_SupplyOrganizationID
+  left: dbo.DeliveryExpense
+  right: dbo.SupplyOrganization
+  columns:
+  - left: SupplyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryExpense_User_UserID
+  left: dbo.DeliveryExpense
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_DeliveryProductProtocolDocument_DeliveryProductProtocol_DeliveryProductProtocolID
+  left: dbo.DeliveryProductProtocolDocument
+  right: dbo.DeliveryProductProtocol
+  columns:
+  - left: DeliveryProductProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryProductProtocol_DeliveryProductProtocolNumber_DeliveryProductProtocolNumberID
+  left: dbo.DeliveryProductProtocol
+  right: dbo.DeliveryProductProtocolNumber
+  columns:
+  - left: DeliveryProductProtocolNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryProductProtocol_Organization_OrganizationID
+  left: dbo.DeliveryProductProtocol
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryProductProtocol_User_UserID
+  left: dbo.DeliveryProductProtocol
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_DeliveryRecipientAddress_DeliveryRecipient_DeliveryRecipientID
+  left: dbo.DeliveryRecipientAddress
+  right: dbo.DeliveryRecipient
+  columns:
+  - left: DeliveryRecipientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DeliveryRecipient_Client_ClientID
+  left: dbo.DeliveryRecipient
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedConsumableOrderItem_ConsumablesOrderItem_ConsumablesOrderItemID
+  left: dbo.DepreciatedConsumableOrderItem
+  right: dbo.ConsumablesOrderItem
+  columns:
+  - left: ConsumablesOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedConsumableOrderItem_DepreciatedConsumableOrder_DepreciatedConsumableOrderID
+  left: dbo.DepreciatedConsumableOrderItem
+  right: dbo.DepreciatedConsumableOrder
+  columns:
+  - left: DepreciatedConsumableOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedConsumableOrder_ConsumablesStorage_ConsumablesStorageID
+  left: dbo.DepreciatedConsumableOrder
+  right: dbo.ConsumablesStorage
+  columns:
+  - left: ConsumablesStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedConsumableOrder_User_CommissionHeadID
+  left: dbo.DepreciatedConsumableOrder
+  right: dbo.User
+  columns:
+  - left: CommissionHeadID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_DepreciatedConsumableOrder_User_CreatedByID
+  left: dbo.DepreciatedConsumableOrder
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_DepreciatedConsumableOrder_User_DepreciatedToID
+  left: dbo.DepreciatedConsumableOrder
+  right: dbo.User
+  columns:
+  - left: DepreciatedToID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_DepreciatedConsumableOrder_User_UpdatedByID
+  left: dbo.DepreciatedConsumableOrder
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_DepreciatedOrderItem_ActReconciliationItem_ActReconciliationItemID
+  left: dbo.DepreciatedOrderItem
+  right: dbo.ActReconciliationItem
+  columns:
+  - left: ActReconciliationItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedOrderItem_DepreciatedOrder_DepreciatedOrderID
+  left: dbo.DepreciatedOrderItem
+  right: dbo.DepreciatedOrder
+  columns:
+  - left: DepreciatedOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedOrderItem_Product_ProductID
+  left: dbo.DepreciatedOrderItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedOrder_Organization_OrganizationID
+  left: dbo.DepreciatedOrder
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedOrder_Storage_StorageID
+  left: dbo.DepreciatedOrder
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DepreciatedOrder_User_ResponsibleID
+  left: dbo.DepreciatedOrder
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_DynamicProductPlacementColumn_PackingList_PackingListID
+  left: dbo.DynamicProductPlacementColumn
+  right: dbo.PackingList
+  columns:
+  - left: PackingListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DynamicProductPlacementColumn_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.DynamicProductPlacementColumn
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DynamicProductPlacementRow_DynamicProductPlacementColumn_DynamicProductPlacementColumnID
+  left: dbo.DynamicProductPlacementRow
+  right: dbo.DynamicProductPlacementColumn
+  columns:
+  - left: DynamicProductPlacementColumnID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DynamicProductPlacementRow_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.DynamicProductPlacementRow
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DynamicProductPlacementRow_SupplyOrderUkraineItem_SupplyOrderUkraineItemID
+  left: dbo.DynamicProductPlacementRow
+  right: dbo.SupplyOrderUkraineItem
+  columns:
+  - left: SupplyOrderUkraineItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_DynamicProductPlacement_DynamicProductPlacementRow_DynamicProductPlacementRowID
+  left: dbo.DynamicProductPlacement
+  right: dbo.DynamicProductPlacementRow
+  columns:
+  - left: DynamicProductPlacementRowID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_EcommerceDefaultPricing_Pricing_PricingID
+  left: dbo.EcommerceDefaultPricing
+  right: dbo.Pricing
+  columns:
+  - left: PricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_EcommerceDefaultPricing_Pricing_PromotionalPricingID
+  left: dbo.EcommerceDefaultPricing
+  right: dbo.Pricing
+  columns:
+  - left: PromotionalPricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ExchangeRateHistory_ExchangeRate_ExchangeRateID
+  left: dbo.ExchangeRateHistory
+  right: dbo.ExchangeRate
+  columns:
+  - left: ExchangeRateID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ExchangeRateHistory_User_UpdatedByID
+  left: dbo.ExchangeRateHistory
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ExchangeRate_Currency_CurrencyID
+  left: dbo.ExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ExpiredBillUserNotification_Sale_SaleID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ExpiredBillUserNotification_User_CreatedByID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ExpiredBillUserNotification_User_LastViewedByID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.User
+  columns:
+  - left: LastViewedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ExpiredBillUserNotification_User_LockedByID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.User
+  columns:
+  - left: LockedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ExpiredBillUserNotification_User_ManagerID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.User
+  columns:
+  - left: ManagerID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ExpiredBillUserNotification_User_ProcessedByID
+  left: dbo.ExpiredBillUserNotification
+  right: dbo.User
+  columns:
+  - left: ProcessedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_FilterItemTranslation_FilterItem_FilterItemID
+  left: dbo.FilterItemTranslation
+  right: dbo.FilterItem
+  columns:
+  - left: FilterItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_FilterOperationItemTranslation_FilterOperationItem_FilterOperationItemID
+  left: dbo.FilterOperationItemTranslation
+  right: dbo.FilterOperationItem
+  columns:
+  - left: FilterOperationItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_GovCrossExchangeRateHistory_GovCrossExchangeRate_GovCrossExchangeRateID
+  left: dbo.GovCrossExchangeRateHistory
+  right: dbo.GovCrossExchangeRate
+  columns:
+  - left: GovCrossExchangeRateID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_GovCrossExchangeRateHistory_User_UpdatedByID
+  left: dbo.GovCrossExchangeRateHistory
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_GovCrossExchangeRate_Currency_CurrencyFromID
+  left: dbo.GovCrossExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyFromID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_GovCrossExchangeRate_Currency_CurrencyToID
+  left: dbo.GovCrossExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyToID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_GovExchangeRateHistory_GovExchangeRate_GovExchangeRateID
+  left: dbo.GovExchangeRateHistory
+  right: dbo.GovExchangeRate
+  columns:
+  - left: GovExchangeRateID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_GovExchangeRateHistory_User_UpdatedByID
+  left: dbo.GovExchangeRateHistory
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_GovExchangeRate_Currency_CurrencyID
+  left: dbo.GovExchangeRate
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_HistoryInvoiceEdit_Sale_SaleID
+  left: dbo.HistoryInvoiceEdit
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrderSale_IncomePaymentOrder_IncomePaymentOrderID
+  left: dbo.IncomePaymentOrderSale
+  right: dbo.IncomePaymentOrder
+  columns:
+  - left: IncomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrderSale_ReSale_ReSaleID
+  left: dbo.IncomePaymentOrderSale
+  right: dbo.ReSale
+  columns:
+  - left: ReSaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrderSale_Sale_SaleID
+  left: dbo.IncomePaymentOrderSale
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_ClientAgreement_ClientAgreementID
+  left: dbo.IncomePaymentOrder
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_Client_ClientID
+  left: dbo.IncomePaymentOrder
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_Currency_CurrencyID
+  left: dbo.IncomePaymentOrder
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_OrganizationClientAgreement_OrganizationClientAgreementID
+  left: dbo.IncomePaymentOrder
+  right: dbo.OrganizationClientAgreement
+  columns:
+  - left: OrganizationClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_OrganizationClient_OrganizationClientID
+  left: dbo.IncomePaymentOrder
+  right: dbo.OrganizationClient
+  columns:
+  - left: OrganizationClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_Organization_OrganizationID
+  left: dbo.IncomePaymentOrder
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_PaymentRegister_PaymentRegisterID
+  left: dbo.IncomePaymentOrder
+  right: dbo.PaymentRegister
+  columns:
+  - left: PaymentRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_Sad_SadID
+  left: dbo.IncomePaymentOrder
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.IncomePaymentOrder
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_SupplyOrganization_SupplyOrganizationID
+  left: dbo.IncomePaymentOrder
+  right: dbo.SupplyOrganization
+  columns:
+  - left: SupplyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_TaxFree_TaxFreeID
+  left: dbo.IncomePaymentOrder
+  right: dbo.TaxFree
+  columns:
+  - left: TaxFreeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_IncomePaymentOrder_User_ColleagueID
+  left: dbo.IncomePaymentOrder
+  right: dbo.User
+  columns:
+  - left: ColleagueID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_IncomePaymentOrder_User_UserID
+  left: dbo.IncomePaymentOrder
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_InvoiceDocument_ContainerService_ContainerServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.ContainerService
+  columns:
+  - left: ContainerServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_CustomAgencyService_CustomAgencyServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.CustomAgencyService
+  columns:
+  - left: CustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_CustomService_CustomServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.CustomService
+  columns:
+  - left: CustomServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_MergedService_MergedServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.MergedService
+  columns:
+  - left: MergedServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_PackingList_PackingListID
+  left: dbo.InvoiceDocument
+  right: dbo.PackingList
+  columns:
+  - left: PackingListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_PlaneDeliveryService_PlaneDeliveryServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.PlaneDeliveryService
+  columns:
+  - left: PlaneDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_PortCustomAgencyService_PortCustomAgencyServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.PortCustomAgencyService
+  columns:
+  - left: PortCustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_PortWorkService_PortWorkServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.PortWorkService
+  columns:
+  - left: PortWorkServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_SupplyInvoice_SupplyInvoiceID
+  left: dbo.InvoiceDocument
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_SupplyOrderPolandPaymentDeliveryProtocol_SupplyOrderPolandPaymentDeliveryProtocolID
+  left: dbo.InvoiceDocument
+  right: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  columns:
+  - left: SupplyOrderPolandPaymentDeliveryProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_TransportationService_TransportationServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.TransportationService
+  columns:
+  - left: TransportationServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_VehicleDeliveryService_VehicleDeliveryServiceID
+  left: dbo.InvoiceDocument
+  right: dbo.VehicleDeliveryService
+  columns:
+  - left: VehicleDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_InvoiceDocument_VehicleService_VehicleServiceId
+  left: dbo.InvoiceDocument
+  right: dbo.VehicleService
+  columns:
+  - left: VehicleServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MeasureUnitTranslation_MeasureUnit_MeasureUnitID
+  left: dbo.MeasureUnitTranslation
+  right: dbo.MeasureUnit
+  columns:
+  - left: MeasureUnitID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.MergedService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_ActProvidingService_AccountingActProvidingServiceID
+  left: dbo.MergedService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_ActProvidingService_ActProvidingServiceID
+  left: dbo.MergedService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_ConsumableProduct_ConsumableProductID
+  left: dbo.MergedService
+  right: dbo.ConsumableProduct
+  columns:
+  - left: ConsumableProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_DeliveryProductProtocol_DeliveryProductProtocolID
+  left: dbo.MergedService
+  right: dbo.DeliveryProductProtocol
+  columns:
+  - left: DeliveryProductProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.MergedService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.MergedService
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyOrder_SupplyOrderID
+  left: dbo.MergedService
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.MergedService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyOrganization_SupplyOrganizationID
+  left: dbo.MergedService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: SupplyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.MergedService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.MergedService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.MergedService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MergedService_User_UserID
+  left: dbo.MergedService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_MisplacedSale_RetailClient_RetailClientID
+  left: dbo.MisplacedSale
+  right: dbo.RetailClient
+  columns:
+  - left: RetailClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_MisplacedSale_User_UserID
+  left: dbo.MisplacedSale
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrderItemBaseShiftStatus_HistoryInvoiceEdit_HistoryInvoiceEditID
+  left: dbo.OrderItemBaseShiftStatus
+  right: dbo.HistoryInvoiceEdit
+  columns:
+  - left: HistoryInvoiceEditID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemBaseShiftStatus_OrderItem_OrderItemID
+  left: dbo.OrderItemBaseShiftStatus
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemBaseShiftStatus_Sale_SaleID
+  left: dbo.OrderItemBaseShiftStatus
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemBaseShiftStatus_User_UserID
+  left: dbo.OrderItemBaseShiftStatus
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrderItemMerged_OrderItem_OldOrderItemID
+  left: dbo.OrderItemMerged
+  right: dbo.OrderItem
+  columns:
+  - left: OldOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemMerged_OrderItem_OrderItemID
+  left: dbo.OrderItemMerged
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemMerged_Order_OldOrderID
+  left: dbo.OrderItemMerged
+  right: dbo.Order
+  columns:
+  - left: OldOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemMovement_OrderItem_OrderItemID
+  left: dbo.OrderItemMovement
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItemMovement_User_UserID
+  left: dbo.OrderItemMovement
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrderItem_ClientShoppingCart_ClientShoppingCartID
+  left: dbo.OrderItem
+  right: dbo.ClientShoppingCart
+  columns:
+  - left: ClientShoppingCartID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_MisplacedSale_MisplacedSaleId
+  left: dbo.OrderItem
+  right: dbo.MisplacedSale
+  columns:
+  - left: MisplacedSaleId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_Order_OrderID
+  left: dbo.OrderItem
+  right: dbo.Order
+  columns:
+  - left: OrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_ProductSpecification_AssignedSpecificationID
+  left: dbo.OrderItem
+  right: dbo.ProductSpecification
+  columns:
+  - left: AssignedSpecificationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_Product_ProductID
+  left: dbo.OrderItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_Storage_StorageId
+  left: dbo.OrderItem
+  right: dbo.Storage
+  columns:
+  - left: StorageId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderItem_User_DiscountUpdatedByID
+  left: dbo.OrderItem
+  right: dbo.User
+  columns:
+  - left: DiscountUpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_OrderItem_User_OfferProcessingStatusChangedByID
+  left: dbo.OrderItem
+  right: dbo.User
+  columns:
+  - left: OfferProcessingStatusChangedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_OrderItem_User_UserId
+  left: dbo.OrderItem
+  right: dbo.User
+  columns:
+  - left: UserId
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrderPackageItem_OrderItem_OrderItemID
+  left: dbo.OrderPackageItem
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderPackageItem_OrderPackage_OrderPackageID
+  left: dbo.OrderPackageItem
+  right: dbo.OrderPackage
+  columns:
+  - left: OrderPackageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderPackageUser_OrderPackage_OrderPackageID
+  left: dbo.OrderPackageUser
+  right: dbo.OrderPackage
+  columns:
+  - left: OrderPackageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderPackageUser_User_UserID
+  left: dbo.OrderPackageUser
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrderPackage_Order_OrderID
+  left: dbo.OrderPackage
+  right: dbo.Order
+  columns:
+  - left: OrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderProductSpecification_ProductSpecification_ProductSpecificationId
+  left: dbo.OrderProductSpecification
+  right: dbo.ProductSpecification
+  columns:
+  - left: ProductSpecificationId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderProductSpecification_Sad_SadId
+  left: dbo.OrderProductSpecification
+  right: dbo.Sad
+  columns:
+  - left: SadId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrderProductSpecification_SupplyInvoice_SupplyInvoiceId
+  left: dbo.OrderProductSpecification
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Order_ClientAgreement_ClientAgreementID
+  left: dbo.Order
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Order_ClientShoppingCart_ClientShoppingCartID
+  left: dbo.Order
+  right: dbo.ClientShoppingCart
+  columns:
+  - left: ClientShoppingCartID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Order_User_UserID
+  left: dbo.Order
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_OrganizationClientAgreement_AgreementTypeCivilCode_AgreementTypeCivilCodeID
+  left: dbo.OrganizationClientAgreement
+  right: dbo.AgreementTypeCivilCode
+  columns:
+  - left: AgreementTypeCivilCodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrganizationClientAgreement_Currency_CurrencyID
+  left: dbo.OrganizationClientAgreement
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrganizationClientAgreement_OrganizationClient_OrganizationClientID
+  left: dbo.OrganizationClientAgreement
+  right: dbo.OrganizationClient
+  columns:
+  - left: OrganizationClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrganizationClientAgreement_TaxAccountingScheme_TaxAccountingSchemeID
+  left: dbo.OrganizationClientAgreement
+  right: dbo.TaxAccountingScheme
+  columns:
+  - left: TaxAccountingSchemeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OrganizationTranslation_Organization_OrganizationID
+  left: dbo.OrganizationTranslation
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Organization_Currency_CurrencyID
+  left: dbo.Organization
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Organization_Storage_StorageID
+  left: dbo.Organization
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Organization_TaxInspection_TaxInspectionID
+  left: dbo.Organization
+  right: dbo.TaxInspection
+  columns:
+  - left: TaxInspectionID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Organization_VatRate_VatRateID
+  left: dbo.Organization
+  right: dbo.VatRate
+  columns:
+  - left: VatRateID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrderConsumablesOrder_ConsumablesOrder_ConsumablesOrderID
+  left: dbo.OutcomePaymentOrderConsumablesOrder
+  right: dbo.ConsumablesOrder
+  columns:
+  - left: ConsumablesOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrderConsumablesOrder_OutcomePaymentOrder_OutcomePaymentOrderID
+  left: dbo.OutcomePaymentOrderConsumablesOrder
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: OutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrderSupplyPaymentTask_OutcomePaymentOrder_OutcomePaymentOrderID
+  left: dbo.OutcomePaymentOrderSupplyPaymentTask
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: OutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrderSupplyPaymentTask_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.OutcomePaymentOrderSupplyPaymentTask
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_ClientAgreement_ClientAgreementID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_Client_ClientID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_OrganizationClientAgreement_OrganizationClientAgreementID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.OrganizationClientAgreement
+  columns:
+  - left: OrganizationClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_OrganizationClient_OrganizationClientID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.OrganizationClient
+  columns:
+  - left: OrganizationClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_Organization_OrganizationID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_PaymentCurrencyRegister_PaymentCurrencyRegisterID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.PaymentCurrencyRegister
+  columns:
+  - left: PaymentCurrencyRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_Sad_SadID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_SupplyOrderPolandPaymentDeliveryProtocol_SupplyOrderPolandPaymentDeliveryProtocolID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  columns:
+  - left: SupplyOrderPolandPaymentDeliveryProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_SupplyOrganization_ConsumableProductOrganizationID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.SupplyOrganization
+  columns:
+  - left: ConsumableProductOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_TaxFree_TaxFreeID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.TaxFree
+  columns:
+  - left: TaxFreeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_OutcomePaymentOrder_User_ColleagueID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.User
+  columns:
+  - left: ColleagueID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_OutcomePaymentOrder_User_UserID
+  left: dbo.OutcomePaymentOrder
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PackingListDocument_SupplyOrder_SupplyOrderID
+  left: dbo.PackingListDocument
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_BillOfLadingService_BillOfLadingServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.BillOfLadingService
+  columns:
+  - left: BillOfLadingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_ContainerService_ContainerServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.ContainerService
+  columns:
+  - left: ContainerServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_Currency_CurrencyID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_CustomAgencyService_CustomAgencyServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.CustomAgencyService
+  columns:
+  - left: CustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_CustomService_CustomServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.CustomService
+  columns:
+  - left: CustomServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_MergedService_MergedServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.MergedService
+  columns:
+  - left: MergedServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_PlaneDeliveryService_PlaneDeliveryServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.PlaneDeliveryService
+  columns:
+  - left: PlaneDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_PortCustomAgencyService_PortCustomAgencyServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.PortCustomAgencyService
+  columns:
+  - left: PortCustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_PortWorkService_PortWorkServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.PortWorkService
+  columns:
+  - left: PortWorkServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_TransportationService_TransportationServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.TransportationService
+  columns:
+  - left: TransportationServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_VehicleDeliveryService_VehicleDeliveryServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.VehicleDeliveryService
+  columns:
+  - left: VehicleDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItemSupplyService_VehicleService_VehicleServiceID
+  left: dbo.PackingListPackageOrderItemSupplyService
+  right: dbo.VehicleService
+  columns:
+  - left: VehicleServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItem_PackingListPackage_PackingListPackageID
+  left: dbo.PackingListPackageOrderItem
+  right: dbo.PackingListPackage
+  columns:
+  - left: PackingListPackageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItem_PackingList_PackingListID
+  left: dbo.PackingListPackageOrderItem
+  right: dbo.PackingList
+  columns:
+  - left: PackingListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackageOrderItem_SupplyInvoiceOrderItem_SupplyInvoiceOrderItemID
+  left: dbo.PackingListPackageOrderItem
+  right: dbo.SupplyInvoiceOrderItem
+  columns:
+  - left: SupplyInvoiceOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingListPackage_PackingList_PackingListID
+  left: dbo.PackingListPackage
+  right: dbo.PackingList
+  columns:
+  - left: PackingListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingList_ContainerService_ContainerServiceID
+  left: dbo.PackingList
+  right: dbo.ContainerService
+  columns:
+  - left: ContainerServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingList_PackingList_RootPackingListID
+  left: dbo.PackingList
+  right: dbo.PackingList
+  columns:
+  - left: RootPackingListID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_PackingList_SupplyInvoice_SupplyInvoiceID
+  left: dbo.PackingList
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PackingList_VehicleService_VehicleServiceId
+  left: dbo.PackingList
+  right: dbo.VehicleService
+  columns:
+  - left: VehicleServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCostMovementOperation_CompanyCarFueling_CompanyCarFuelingID
+  left: dbo.PaymentCostMovementOperation
+  right: dbo.CompanyCarFueling
+  columns:
+  - left: CompanyCarFuelingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCostMovementOperation_ConsumablesOrderItem_ConsumablesOrderItemID
+  left: dbo.PaymentCostMovementOperation
+  right: dbo.ConsumablesOrderItem
+  columns:
+  - left: ConsumablesOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCostMovementOperation_DepreciatedConsumableOrderItem_DepreciatedConsumableOrderItemID
+  left: dbo.PaymentCostMovementOperation
+  right: dbo.DepreciatedConsumableOrderItem
+  columns:
+  - left: DepreciatedConsumableOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCostMovementOperation_PaymentCostMovement_PaymentCostMovementID
+  left: dbo.PaymentCostMovementOperation
+  right: dbo.PaymentCostMovement
+  columns:
+  - left: PaymentCostMovementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCostMovementTranslation_PaymentCostMovement_PaymentCostMovementID
+  left: dbo.PaymentCostMovementTranslation
+  right: dbo.PaymentCostMovement
+  columns:
+  - left: PaymentCostMovementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCurrencyRegister_Currency_CurrencyID
+  left: dbo.PaymentCurrencyRegister
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentCurrencyRegister_PaymentRegister_PaymentRegisterID
+  left: dbo.PaymentCurrencyRegister
+  right: dbo.PaymentRegister
+  columns:
+  - left: PaymentRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentDeliveryDocument_SupplyOrderPaymentDeliveryProtocol_SupplyOrderPaymentDeliveryProtocolID
+  left: dbo.PaymentDeliveryDocument
+  right: dbo.SupplyOrderPaymentDeliveryProtocol
+  columns:
+  - left: SupplyOrderPaymentDeliveryProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementOperation_IncomePaymentOrder_IncomePaymentOrderID
+  left: dbo.PaymentMovementOperation
+  right: dbo.IncomePaymentOrder
+  columns:
+  - left: IncomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementOperation_OutcomePaymentOrder_OutcomePaymentOrderID
+  left: dbo.PaymentMovementOperation
+  right: dbo.OutcomePaymentOrder
+  columns:
+  - left: OutcomePaymentOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementOperation_PaymentMovement_PaymentMovementID
+  left: dbo.PaymentMovementOperation
+  right: dbo.PaymentMovement
+  columns:
+  - left: PaymentMovementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementOperation_PaymentRegisterCurrencyExchange_PaymentRegisterCurrencyExchangeID
+  left: dbo.PaymentMovementOperation
+  right: dbo.PaymentRegisterCurrencyExchange
+  columns:
+  - left: PaymentRegisterCurrencyExchangeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementOperation_PaymentRegisterTransfer_PaymentRegisterTransferID
+  left: dbo.PaymentMovementOperation
+  right: dbo.PaymentRegisterTransfer
+  columns:
+  - left: PaymentRegisterTransferID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentMovementTranslation_PaymentMovement_PaymentMovementID
+  left: dbo.PaymentMovementTranslation
+  right: dbo.PaymentMovement
+  columns:
+  - left: PaymentMovementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterCurrencyExchange_CurrencyTrader_CurrencyTraderID
+  left: dbo.PaymentRegisterCurrencyExchange
+  right: dbo.CurrencyTrader
+  columns:
+  - left: CurrencyTraderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterCurrencyExchange_PaymentCurrencyRegister_FromPaymentCurrencyRegisterID
+  left: dbo.PaymentRegisterCurrencyExchange
+  right: dbo.PaymentCurrencyRegister
+  columns:
+  - left: FromPaymentCurrencyRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterCurrencyExchange_PaymentCurrencyRegister_ToPaymentCurrencyRegisterID
+  left: dbo.PaymentRegisterCurrencyExchange
+  right: dbo.PaymentCurrencyRegister
+  columns:
+  - left: ToPaymentCurrencyRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterCurrencyExchange_User_UserID
+  left: dbo.PaymentRegisterCurrencyExchange
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PaymentRegisterTransfer_PaymentCurrencyRegister_FromPaymentCurrencyRegisterID
+  left: dbo.PaymentRegisterTransfer
+  right: dbo.PaymentCurrencyRegister
+  columns:
+  - left: FromPaymentCurrencyRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterTransfer_PaymentCurrencyRegister_ToPaymentCurrencyRegisterID
+  left: dbo.PaymentRegisterTransfer
+  right: dbo.PaymentCurrencyRegister
+  columns:
+  - left: ToPaymentCurrencyRegisterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PaymentRegisterTransfer_User_UserID
+  left: dbo.PaymentRegisterTransfer
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PaymentRegister_Organization_OrganizationID
+  left: dbo.PaymentRegister
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PerfectClientTranslation_PerfectClient_PerfectClientID
+  left: dbo.PerfectClientTranslation
+  right: dbo.PerfectClient
+  columns:
+  - left: PerfectClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PerfectClientValueTranslation_PerfectClientValue_PerfectClientValueID
+  left: dbo.PerfectClientValueTranslation
+  right: dbo.PerfectClientValue
+  columns:
+  - left: PerfectClientValueID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PerfectClientValue_PerfectClient_PerfectClientID
+  left: dbo.PerfectClientValue
+  right: dbo.PerfectClient
+  columns:
+  - left: PerfectClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PerfectClient_ClientTypeRole_ClientTypeRoleID
+  left: dbo.PerfectClient
+  right: dbo.ClientTypeRole
+  columns:
+  - left: ClientTypeRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Permission_DashboardNode_DashboardNodeID
+  left: dbo.Permission
+  right: dbo.DashboardNode
+  columns:
+  - left: DashboardNodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.PlaneDeliveryService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.PlaneDeliveryService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_ActProvidingService_ActProvidingServiceId
+  left: dbo.PlaneDeliveryService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyOrganization_PlaneDeliveryOrganizationID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: PlaneDeliveryOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.PlaneDeliveryService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PlaneDeliveryService_User_UserID
+  left: dbo.PlaneDeliveryService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PortCustomAgencyService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.PortCustomAgencyService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.PortCustomAgencyService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_ActProvidingService_ActProvidingServiceId
+  left: dbo.PortCustomAgencyService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyOrganization_PortCustomAgencyOrganizationID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: PortCustomAgencyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.PortCustomAgencyService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortCustomAgencyService_User_UserID
+  left: dbo.PortCustomAgencyService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PortWorkService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.PortWorkService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.PortWorkService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_ActProvidingService_ActProvidingServiceId
+  left: dbo.PortWorkService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.PortWorkService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.PortWorkService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyOrganization_PortWorkOrganizationID
+  left: dbo.PortWorkService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: PortWorkOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.PortWorkService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.PortWorkService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.PortWorkService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PortWorkService_User_UserID
+  left: dbo.PortWorkService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_PreOrder_Client_ClientID
+  left: dbo.PreOrder
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PreOrder_Product_ProductID
+  left: dbo.PreOrder
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PriceTypeTranslation_PriceType_PriceTypeID
+  left: dbo.PriceTypeTranslation
+  right: dbo.PriceType
+  columns:
+  - left: PriceTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PricingProductGroupDiscount_Pricing_BasePricingID
+  left: dbo.PricingProductGroupDiscount
+  right: dbo.Pricing
+  columns:
+  - left: BasePricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PricingProductGroupDiscount_Pricing_PricingID
+  left: dbo.PricingProductGroupDiscount
+  right: dbo.Pricing
+  columns:
+  - left: PricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PricingProductGroupDiscount_ProductGroup_ProductGroupID
+  left: dbo.PricingProductGroupDiscount
+  right: dbo.ProductGroup
+  columns:
+  - left: ProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_PricingTranslation_Pricing_PricingID
+  left: dbo.PricingTranslation
+  right: dbo.Pricing
+  columns:
+  - left: PricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Pricing_Currency_CurrencyID
+  left: dbo.Pricing
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Pricing_PriceType_PriceTypeID
+  left: dbo.Pricing
+  right: dbo.PriceType
+  columns:
+  - left: PriceTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Pricing_Pricing_BasePricingID
+  left: dbo.Pricing
+  right: dbo.Pricing
+  columns:
+  - left: BasePricingID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_ProFormDocument_SupplyProForm_SupplyProFormID
+  left: dbo.ProFormDocument
+  right: dbo.SupplyProForm
+  columns:
+  - left: SupplyProFormID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductAnalogue_Product_AnalogueProductID
+  left: dbo.ProductAnalogue
+  right: dbo.Product
+  columns:
+  - left: AnalogueProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductAnalogue_Product_BaseProductID
+  left: dbo.ProductAnalogue
+  right: dbo.Product
+  columns:
+  - left: BaseProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductAvailability_Product_ProductID
+  left: dbo.ProductAvailability
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductAvailability_Storage_StorageID
+  left: dbo.ProductAvailability
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCapitalizationItem_ProductCapitalization_ProductCapitalizationID
+  left: dbo.ProductCapitalizationItem
+  right: dbo.ProductCapitalization
+  columns:
+  - left: ProductCapitalizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCapitalizationItem_Product_ProductID
+  left: dbo.ProductCapitalizationItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCapitalization_Organization_OrganizationID
+  left: dbo.ProductCapitalization
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCapitalization_Storage_StorageID
+  left: dbo.ProductCapitalization
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCapitalization_User_ResponsibleID
+  left: dbo.ProductCapitalization
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ProductCarBrand_CarBrand_CarBrandID
+  left: dbo.ProductCarBrand
+  right: dbo.CarBrand
+  columns:
+  - left: CarBrandID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCarBrand_Product_ProductID
+  left: dbo.ProductCarBrand
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCategory_Category_CategoryID
+  left: dbo.ProductCategory
+  right: dbo.Category
+  columns:
+  - left: CategoryID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductCategory_Product_ProductID
+  left: dbo.ProductCategory
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductGroupDiscount_ClientAgreement_ClientAgreementID
+  left: dbo.ProductGroupDiscount
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductGroupDiscount_ProductGroup_ProductGroupID
+  left: dbo.ProductGroupDiscount
+  right: dbo.ProductGroup
+  columns:
+  - left: ProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductImage_Product_ProductID
+  left: dbo.ProductImage
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_ActReconciliationItem_ActReconciliationItemID
+  left: dbo.ProductIncomeItem
+  right: dbo.ActReconciliationItem
+  columns:
+  - left: ActReconciliationItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.ProductIncomeItem
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_ProductCapitalizationItem_ProductCapitalizationItemID
+  left: dbo.ProductIncomeItem
+  right: dbo.ProductCapitalizationItem
+  columns:
+  - left: ProductCapitalizationItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_ProductIncome_ProductIncomeID
+  left: dbo.ProductIncomeItem
+  right: dbo.ProductIncome
+  columns:
+  - left: ProductIncomeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_SaleReturnItem_SaleReturnItemID
+  left: dbo.ProductIncomeItem
+  right: dbo.SaleReturnItem
+  columns:
+  - left: SaleReturnItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncomeItem_SupplyOrderUkraineItem_SupplyOrderUkraineItemID
+  left: dbo.ProductIncomeItem
+  right: dbo.SupplyOrderUkraineItem
+  columns:
+  - left: SupplyOrderUkraineItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncome_Storage_StorageID
+  left: dbo.ProductIncome
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductIncome_User_UserID
+  left: dbo.ProductIncome
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_ProductLocationHistory_DepreciatedOrderItem_DepreciatedOrderItemID
+  left: dbo.ProductLocationHistory
+  right: dbo.DepreciatedOrderItem
+  columns:
+  - left: DepreciatedOrderItemID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductLocationHistory_HistoryInvoiceEdit_HistoryInvoiceEditID
+  left: dbo.ProductLocationHistory
+  right: dbo.HistoryInvoiceEdit
+  columns:
+  - left: HistoryInvoiceEditID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductLocationHistory_OrderItem_OrderItemID
+  left: dbo.ProductLocationHistory
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductLocationHistory_ProductPlacement_ProductPlacementID
+  left: dbo.ProductLocationHistory
+  right: dbo.ProductPlacement
+  columns:
+  - left: ProductPlacementID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductLocationHistory_Storage_StorageID
+  left: dbo.ProductLocationHistory
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductLocation_DepreciatedOrderItem_DepreciatedOrderItemID
+  left: dbo.ProductLocation
+  right: dbo.DepreciatedOrderItem
+  columns:
+  - left: DepreciatedOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductLocation_OrderItem_OrderItemID
+  left: dbo.ProductLocation
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductLocation_ProductPlacement_ProductPlacementID
+  left: dbo.ProductLocation
+  right: dbo.ProductPlacement
+  columns:
+  - left: ProductPlacementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductLocation_ProductTransferItem_ProductTransferItemID
+  left: dbo.ProductLocation
+  right: dbo.ProductTransferItem
+  columns:
+  - left: ProductTransferItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductLocation_Storage_StorageID
+  left: dbo.ProductLocation
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductOriginalNumber_OriginalNumber_OriginalNumberID
+  left: dbo.ProductOriginalNumber
+  right: dbo.OriginalNumber
+  columns:
+  - left: OriginalNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductOriginalNumber_Product_ProductID
+  left: dbo.ProductOriginalNumber
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacementHistory_Product_ProductId
+  left: dbo.ProductPlacementHistory
+  right: dbo.Product
+  columns:
+  - left: ProductId
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductPlacementHistory_Storage_StorageId
+  left: dbo.ProductPlacementHistory
+  right: dbo.Storage
+  columns:
+  - left: StorageId
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductPlacementHistory_User_UserId
+  left: dbo.ProductPlacementHistory
+  right: dbo.User
+  columns:
+  - left: UserId
+    right: ID
+  weight: 4
+  enabled: true
+- name: FK_ProductPlacementMovement_ProductPlacement_FromProductPlacementID
+  left: dbo.ProductPlacementMovement
+  right: dbo.ProductPlacement
+  columns:
+  - left: FromProductPlacementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacementMovement_ProductPlacement_ToProductPlacementID
+  left: dbo.ProductPlacementMovement
+  right: dbo.ProductPlacement
+  columns:
+  - left: ToProductPlacementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacementMovement_User_ResponsibleID
+  left: dbo.ProductPlacementMovement
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ProductPlacementStorage_ProductPlacement_ProductPlacementId
+  left: dbo.ProductPlacementStorage
+  right: dbo.ProductPlacement
+  columns:
+  - left: ProductPlacementId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacementStorage_Product_ProductId
+  left: dbo.ProductPlacementStorage
+  right: dbo.Product
+  columns:
+  - left: ProductId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacementStorage_Storage_StorageId
+  left: dbo.ProductPlacementStorage
+  right: dbo.Storage
+  columns:
+  - left: StorageId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_ConsignmentItem_ConsignmentItemID
+  left: dbo.ProductPlacement
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.ProductPlacement
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_ProductIncomeItem_ProductIncomeItemID
+  left: dbo.ProductPlacement
+  right: dbo.ProductIncomeItem
+  columns:
+  - left: ProductIncomeItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_Product_ProductID
+  left: dbo.ProductPlacement
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_Storage_StorageID
+  left: dbo.ProductPlacement
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPlacement_SupplyOrderUkraineItem_SupplyOrderUkraineItemID
+  left: dbo.ProductPlacement
+  right: dbo.SupplyOrderUkraineItem
+  columns:
+  - left: SupplyOrderUkraineItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPricing_Pricing_PricingID
+  left: dbo.ProductPricing
+  right: dbo.Pricing
+  columns:
+  - left: PricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductPricing_Product_ProductID
+  left: dbo.ProductPricing
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductProductGroup_ProductGroup_ProductGroupID
+  left: dbo.ProductProductGroup
+  right: dbo.ProductGroup
+  columns:
+  - left: ProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductProductGroup_Product_ProductID
+  left: dbo.ProductProductGroup
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductReservation_ConsignmentItem_ConsignmentItemID
+  left: dbo.ProductReservation
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductReservation_OrderItem_OrderItemID
+  left: dbo.ProductReservation
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductReservation_ProductAvailability_ProductAvailabilityID
+  left: dbo.ProductReservation
+  right: dbo.ProductAvailability
+  columns:
+  - left: ProductAvailabilityID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSet_Product_BaseProductID
+  left: dbo.ProductSet
+  right: dbo.Product
+  columns:
+  - left: BaseProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSet_Product_ComponentProductID
+  left: dbo.ProductSet
+  right: dbo.Product
+  columns:
+  - left: ComponentProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSlug_Product_ProductID
+  left: dbo.ProductSlug
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSpecification_Product_ProductID
+  left: dbo.ProductSpecification
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSpecification_User_AddedByID
+  left: dbo.ProductSpecification
+  right: dbo.User
+  columns:
+  - left: AddedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ProductSubGroup_ProductGroup_RootProductGroupID
+  left: dbo.ProductSubGroup
+  right: dbo.ProductGroup
+  columns:
+  - left: RootProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductSubGroup_ProductGroup_SubProductGroupID
+  left: dbo.ProductSubGroup
+  right: dbo.ProductGroup
+  columns:
+  - left: SubProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransferItem_ActReconciliationItem_ActReconciliationItemID
+  left: dbo.ProductTransferItem
+  right: dbo.ActReconciliationItem
+  columns:
+  - left: ActReconciliationItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransferItem_ProductTransfer_ProductTransferID
+  left: dbo.ProductTransferItem
+  right: dbo.ProductTransfer
+  columns:
+  - left: ProductTransferID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransferItem_Product_ProductID
+  left: dbo.ProductTransferItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransfer_Organization_OrganizationID
+  left: dbo.ProductTransfer
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransfer_Storage_FromStorageID
+  left: dbo.ProductTransfer
+  right: dbo.Storage
+  columns:
+  - left: FromStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransfer_Storage_ToStorageID
+  left: dbo.ProductTransfer
+  right: dbo.Storage
+  columns:
+  - left: ToStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductTransfer_User_ResponsibleID
+  left: dbo.ProductTransfer
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ProductWriteOffRule_ProductGroup_ProductGroupID
+  left: dbo.ProductWriteOffRule
+  right: dbo.ProductGroup
+  columns:
+  - left: ProductGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductWriteOffRule_Product_ProductID
+  left: dbo.ProductWriteOffRule
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProductWriteOffRule_User_CreatedByID
+  left: dbo.ProductWriteOffRule
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ProductWriteOffRule_User_UpdatedByID
+  left: dbo.ProductWriteOffRule
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_Product_MeasureUnit_MeasureUnitID
+  left: dbo.Product
+  right: dbo.MeasureUnit
+  columns:
+  - left: MeasureUnitID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProviderPricing_Currency_CurrencyID
+  left: dbo.ProviderPricing
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ProviderPricing_Pricing_BasePricingID
+  left: dbo.ProviderPricing
+  right: dbo.Pricing
+  columns:
+  - left: BasePricingID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_ConsignmentItem_ConsignmentItemID
+  left: dbo.ReSaleAvailability
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_DepreciatedOrderItem_DepreciatedOrderItemID
+  left: dbo.ReSaleAvailability
+  right: dbo.DepreciatedOrderItem
+  columns:
+  - left: DepreciatedOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_OrderItem_OrderItemID
+  left: dbo.ReSaleAvailability
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_ProductAvailability_ProductAvailabilityID
+  left: dbo.ReSaleAvailability
+  right: dbo.ProductAvailability
+  columns:
+  - left: ProductAvailabilityID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_ProductReservation_ProductReservationID
+  left: dbo.ReSaleAvailability
+  right: dbo.ProductReservation
+  columns:
+  - left: ProductReservationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_ProductTransferItem_ProductTransferItemID
+  left: dbo.ReSaleAvailability
+  right: dbo.ProductTransferItem
+  columns:
+  - left: ProductTransferItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleAvailability_SupplyReturnItem_SupplyReturnItemId
+  left: dbo.ReSaleAvailability
+  right: dbo.SupplyReturnItem
+  columns:
+  - left: SupplyReturnItemId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleItem_Product_ProductID
+  left: dbo.ReSaleItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleItem_ReSaleAvailability_ReSaleAvailabilityID
+  left: dbo.ReSaleItem
+  right: dbo.ReSaleAvailability
+  columns:
+  - left: ReSaleAvailabilityID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSaleItem_ReSale_ReSaleID
+  left: dbo.ReSaleItem
+  right: dbo.ReSale
+  columns:
+  - left: ReSaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_BaseLifeCycleStatus_BaseLifeCycleStatusID
+  left: dbo.ReSale
+  right: dbo.BaseLifeCycleStatus
+  columns:
+  - left: BaseLifeCycleStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_BaseSalePaymentStatus_BaseSalePaymentStatusID
+  left: dbo.ReSale
+  right: dbo.BaseSalePaymentStatus
+  columns:
+  - left: BaseSalePaymentStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_ClientAgreement_ClientAgreementID
+  left: dbo.ReSale
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_Organization_OrganizationID
+  left: dbo.ReSale
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_SaleNumber_SaleNumberID
+  left: dbo.ReSale
+  right: dbo.SaleNumber
+  columns:
+  - left: SaleNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_Storage_FromStorageID
+  left: dbo.ReSale
+  right: dbo.Storage
+  columns:
+  - left: FromStorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ReSale_User_ChangedToInvoiceByID
+  left: dbo.ReSale
+  right: dbo.User
+  columns:
+  - left: ChangedToInvoiceByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_ReSale_User_UserID
+  left: dbo.ReSale
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_RegionCode_Region_RegionID
+  left: dbo.RegionCode
+  right: dbo.Region
+  columns:
+  - left: RegionID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ResponsibilityDeliveryProtocol_SupplyOrder_SupplyOrderID
+  left: dbo.ResponsibilityDeliveryProtocol
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ResponsibilityDeliveryProtocol_User_UserId
+  left: dbo.ResponsibilityDeliveryProtocol
+  right: dbo.User
+  columns:
+  - left: UserId
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_RetailClientPaymentImageItem_RetailClientPaymentImage_RetailClientPaymentImageID
+  left: dbo.RetailClientPaymentImageItem
+  right: dbo.RetailClientPaymentImage
+  columns:
+  - left: RetailClientPaymentImageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RetailClientPaymentImageItem_User_UserID
+  left: dbo.RetailClientPaymentImageItem
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_RetailClientPaymentImage_RetailClient_RetailClientId
+  left: dbo.RetailClientPaymentImage
+  right: dbo.RetailClient
+  columns:
+  - left: RetailClientId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RetailClientPaymentImage_RetailPaymentStatus_RetailPaymentStatusId
+  left: dbo.RetailClientPaymentImage
+  right: dbo.RetailPaymentStatus
+  columns:
+  - left: RetailPaymentStatusId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RetailClientPaymentImage_Sale_SaleId
+  left: dbo.RetailClientPaymentImage
+  right: dbo.Sale
+  columns:
+  - left: SaleId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RetailClient_EcommerceRegion_EcommerceRegionId
+  left: dbo.RetailClient
+  right: dbo.EcommerceRegion
+  columns:
+  - left: EcommerceRegionId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RolePermission_Permission_PermissionID
+  left: dbo.RolePermission
+  right: dbo.Permission
+  columns:
+  - left: PermissionID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_RolePermission_UserRole_UserRoleID
+  left: dbo.RolePermission
+  right: dbo.UserRole
+  columns:
+  - left: UserRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadDocument_Sad_SadID
+  left: dbo.SadDocument
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadItem_Client_SupplierID
+  left: dbo.SadItem
+  right: dbo.Client
+  columns:
+  - left: SupplierID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadItem_ConsignmentItem_ConsignmentItemID
+  left: dbo.SadItem
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadItem_OrderItem_OrderItemID
+  left: dbo.SadItem
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadItem_Sad_SadID
+  left: dbo.SadItem
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadItem_SupplyOrderUkraineCartItem_SupplyOrderUkraineCartItemID
+  left: dbo.SadItem
+  right: dbo.SupplyOrderUkraineCartItem
+  columns:
+  - left: SupplyOrderUkraineCartItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadPalletItem_SadItem_SadItemID
+  left: dbo.SadPalletItem
+  right: dbo.SadItem
+  columns:
+  - left: SadItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadPalletItem_SadPallet_SadPalletID
+  left: dbo.SadPalletItem
+  right: dbo.SadPallet
+  columns:
+  - left: SadPalletID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadPallet_SadPalletType_SadPalletTypeID
+  left: dbo.SadPallet
+  right: dbo.SadPalletType
+  columns:
+  - left: SadPalletTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SadPallet_Sad_SadID
+  left: dbo.SadPallet
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_ClientAgreement_ClientAgreementID
+  left: dbo.Sad
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_Client_ClientID
+  left: dbo.Sad
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_OrganizationClientAgreement_OrganizationClientAgreementID
+  left: dbo.Sad
+  right: dbo.OrganizationClientAgreement
+  columns:
+  - left: OrganizationClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_OrganizationClient_OrganizationClientID
+  left: dbo.Sad
+  right: dbo.OrganizationClient
+  columns:
+  - left: OrganizationClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_Organization_OrganizationID
+  left: dbo.Sad
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_StathamCar_StathamCarID
+  left: dbo.Sad
+  right: dbo.StathamCar
+  columns:
+  - left: StathamCarID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_StathamPassport_StathamPassportID
+  left: dbo.Sad
+  right: dbo.StathamPassport
+  columns:
+  - left: StathamPassportID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_Statham_StathamID
+  left: dbo.Sad
+  right: dbo.Statham
+  columns:
+  - left: StathamID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.Sad
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sad_User_ResponsibleID
+  left: dbo.Sad
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleExchangeRate_ExchangeRate_ExchangeRateID
+  left: dbo.SaleExchangeRate
+  right: dbo.ExchangeRate
+  columns:
+  - left: ExchangeRateID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleExchangeRate_Sale_SaleID
+  left: dbo.SaleExchangeRate
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleFutureReservation_Client_ClientID
+  left: dbo.SaleFutureReservation
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleFutureReservation_Product_ProductID
+  left: dbo.SaleFutureReservation
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleFutureReservation_SupplyOrder_SupplyOrderID
+  left: dbo.SaleFutureReservation
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleMerged_Sale_InputSaleID
+  left: dbo.SaleMerged
+  right: dbo.Sale
+  columns:
+  - left: InputSaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleMerged_Sale_OutputSaleID
+  left: dbo.SaleMerged
+  right: dbo.Sale
+  columns:
+  - left: OutputSaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleNumber_Organization_OrganizationID
+  left: dbo.SaleNumber
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItemProductPlacement_ProductPlacement_ProductPlacementID
+  left: dbo.SaleReturnItemProductPlacement
+  right: dbo.ProductPlacement
+  columns:
+  - left: ProductPlacementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItemProductPlacement_SaleReturnItem_SaleReturnItemId
+  left: dbo.SaleReturnItemProductPlacement
+  right: dbo.SaleReturnItem
+  columns:
+  - left: SaleReturnItemId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItem_OrderItem_OrderItemID
+  left: dbo.SaleReturnItem
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItem_SaleReturn_SaleReturnID
+  left: dbo.SaleReturnItem
+  right: dbo.SaleReturn
+  columns:
+  - left: SaleReturnID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItem_Storage_StorageID
+  left: dbo.SaleReturnItem
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturnItem_User_CreatedByID
+  left: dbo.SaleReturnItem
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleReturnItem_User_MoneyReturnedByID
+  left: dbo.SaleReturnItem
+  right: dbo.User
+  columns:
+  - left: MoneyReturnedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleReturnItem_User_UpdatedByID
+  left: dbo.SaleReturnItem
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleReturn_ClientAgreement_ClientAgreementID
+  left: dbo.SaleReturn
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturn_Client_ClientID
+  left: dbo.SaleReturn
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SaleReturn_User_CanceledByID
+  left: dbo.SaleReturn
+  right: dbo.User
+  columns:
+  - left: CanceledByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleReturn_User_CreatedByID
+  left: dbo.SaleReturn
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SaleReturn_User_UpdatedByID
+  left: dbo.SaleReturn
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_Sale_BaseLifeCycleStatus_BaseLifeCycleStatusID
+  left: dbo.Sale
+  right: dbo.BaseLifeCycleStatus
+  columns:
+  - left: BaseLifeCycleStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_BaseSalePaymentStatus_BaseSalePaymentStatusID
+  left: dbo.Sale
+  right: dbo.BaseSalePaymentStatus
+  columns:
+  - left: BaseSalePaymentStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_ClientAgreement_ClientAgreementID
+  left: dbo.Sale
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_CustomersOwnTtn_CustomersOwnTtnID
+  left: dbo.Sale
+  right: dbo.CustomersOwnTtn
+  columns:
+  - left: CustomersOwnTtnID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_DeliveryRecipientAddress_DeliveryRecipientAddressID
+  left: dbo.Sale
+  right: dbo.DeliveryRecipientAddress
+  columns:
+  - left: DeliveryRecipientAddressID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_DeliveryRecipient_DeliveryRecipientID
+  left: dbo.Sale
+  right: dbo.DeliveryRecipient
+  columns:
+  - left: DeliveryRecipientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_MisplacedSale_MisplacedSaleId
+  left: dbo.Sale
+  right: dbo.MisplacedSale
+  columns:
+  - left: MisplacedSaleId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_Order_OrderID
+  left: dbo.Sale
+  right: dbo.Order
+  columns:
+  - left: OrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_RetailClient_RetailClientId
+  left: dbo.Sale
+  right: dbo.RetailClient
+  columns:
+  - left: RetailClientId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_Sad_SadID
+  left: dbo.Sale
+  right: dbo.Sad
+  columns:
+  - left: SadID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_SaleBaseShiftStatus_ShiftStatusID
+  left: dbo.Sale
+  right: dbo.SaleBaseShiftStatus
+  columns:
+  - left: ShiftStatusID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_SaleInvoiceDocument_SaleInvoiceDocumentID
+  left: dbo.Sale
+  right: dbo.SaleInvoiceDocument
+  columns:
+  - left: SaleInvoiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_SaleInvoiceNumber_SaleInvoiceNumberID
+  left: dbo.Sale
+  right: dbo.SaleInvoiceNumber
+  columns:
+  - left: SaleInvoiceNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_SaleNumber_SaleNumberID
+  left: dbo.Sale
+  right: dbo.SaleNumber
+  columns:
+  - left: SaleNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_TaxFreePackList_TaxFreePackListID
+  left: dbo.Sale
+  right: dbo.TaxFreePackList
+  columns:
+  - left: TaxFreePackListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_Transporter_TransporterID
+  left: dbo.Sale
+  right: dbo.Transporter
+  columns:
+  - left: TransporterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Sale_User_ChangedToInvoiceByID
+  left: dbo.Sale
+  right: dbo.User
+  columns:
+  - left: ChangedToInvoiceByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_Sale_User_UpdateUserID
+  left: dbo.Sale
+  right: dbo.User
+  columns:
+  - left: UpdateUserID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_Sale_User_UserID
+  left: dbo.Sale
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_Sale_Workplace_WorkplaceID
+  left: dbo.Sale
+  right: dbo.Workplace
+  columns:
+  - left: WorkplaceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_CustomAgencyService_CustomAgencyServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.CustomAgencyService
+  columns:
+  - left: CustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_CustomService_CustomServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.CustomService
+  columns:
+  - left: CustomServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_MergedService_MergedServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.MergedService
+  columns:
+  - left: MergedServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_PlaneDeliveryService_PlaneDeliveryServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.PlaneDeliveryService
+  columns:
+  - left: PlaneDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_PortCustomAgencyService_PortCustomAgencyServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.PortCustomAgencyService
+  columns:
+  - left: PortCustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_PortWorkService_PortWorkServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.PortWorkService
+  columns:
+  - left: PortWorkServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_ServiceDetailItemKey_ServiceDetailItemKeyID
+  left: dbo.ServiceDetailItem
+  right: dbo.ServiceDetailItemKey
+  columns:
+  - left: ServiceDetailItemKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_TransportationService_TransportationServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.TransportationService
+  columns:
+  - left: TransportationServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServiceDetailItem_VehicleDeliveryService_VehicleDeliveryServiceID
+  left: dbo.ServiceDetailItem
+  right: dbo.VehicleDeliveryService
+  columns:
+  - left: VehicleDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ServicePayer_Client_ClientID
+  left: dbo.ServicePayer
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ShipmentListItem_Sale_SaleID
+  left: dbo.ShipmentListItem
+  right: dbo.Sale
+  columns:
+  - left: SaleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ShipmentListItem_ShipmentList_ShipmentListID
+  left: dbo.ShipmentListItem
+  right: dbo.ShipmentList
+  columns:
+  - left: ShipmentListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ShipmentList_Transporter_TransporterID
+  left: dbo.ShipmentList
+  right: dbo.Transporter
+  columns:
+  - left: TransporterID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_ShipmentList_User_ResponsibleID
+  left: dbo.ShipmentList
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_StathamCar_Statham_StathamID
+  left: dbo.StathamCar
+  right: dbo.Statham
+  columns:
+  - left: StathamID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_StathamPassport_Statham_StathamID
+  left: dbo.StathamPassport
+  right: dbo.Statham
+  columns:
+  - left: StathamID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Storage_Organization_OrganizationID
+  left: dbo.Storage
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocolKeyTranslation_SupplyInformationDeliveryProtocolKey_SupplyInformationDeliveryProtocolKeyID
+  left: dbo.SupplyInformationDeliveryProtocolKeyTranslation
+  right: dbo.SupplyInformationDeliveryProtocolKey
+  columns:
+  - left: SupplyInformationDeliveryProtocolKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocol_SupplyInformationDeliveryProtocolKey_SupplyInformationDeliveryProtocolKeyID
+  left: dbo.SupplyInformationDeliveryProtocol
+  right: dbo.SupplyInformationDeliveryProtocolKey
+  columns:
+  - left: SupplyInformationDeliveryProtocolKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocol_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyInformationDeliveryProtocol
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocol_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyInformationDeliveryProtocol
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocol_SupplyProForm_SupplyProFormID
+  left: dbo.SupplyInformationDeliveryProtocol
+  right: dbo.SupplyProForm
+  columns:
+  - left: SupplyProFormID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInformationDeliveryProtocol_User_UserID
+  left: dbo.SupplyInformationDeliveryProtocol
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyInformationTask_User_DeletedByID
+  left: dbo.SupplyInformationTask
+  right: dbo.User
+  columns:
+  - left: DeletedByID
+    right: ID
+  weight: 1
+  enabled: false
+- name: FK_SupplyInformationTask_User_UpdatedByID
+  left: dbo.SupplyInformationTask
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyInformationTask_User_UserID
+  left: dbo.SupplyInformationTask
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyInvoiceBillOfLadingService_BillOfLadingService_BillOfLadingServiceID
+  left: dbo.SupplyInvoiceBillOfLadingService
+  right: dbo.BillOfLadingService
+  columns:
+  - left: BillOfLadingServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceBillOfLadingService_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyInvoiceBillOfLadingService
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceDeliveryDocument_SupplyDeliveryDocument_SupplyDeliveryDocumentID
+  left: dbo.SupplyInvoiceDeliveryDocument
+  right: dbo.SupplyDeliveryDocument
+  columns:
+  - left: SupplyDeliveryDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceDeliveryDocument_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyInvoiceDeliveryDocument
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceMergedService_MergedService_MergedServiceID
+  left: dbo.SupplyInvoiceMergedService
+  right: dbo.MergedService
+  columns:
+  - left: MergedServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceMergedService_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyInvoiceMergedService
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceOrderItem_Product_ProductID
+  left: dbo.SupplyInvoiceOrderItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceOrderItem_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyInvoiceOrderItem
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoiceOrderItem_SupplyOrderItem_SupplyOrderItemID
+  left: dbo.SupplyInvoiceOrderItem
+  right: dbo.SupplyOrderItem
+  columns:
+  - left: SupplyOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoice_DeliveryProductProtocol_DeliveryProductProtocolID
+  left: dbo.SupplyInvoice
+  right: dbo.DeliveryProductProtocol
+  columns:
+  - left: DeliveryProductProtocolID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyInvoice_SupplyInvoice_RootSupplyInvoiceID
+  left: dbo.SupplyInvoice
+  right: dbo.SupplyInvoice
+  columns:
+  - left: RootSupplyInvoiceID
+    right: ID
+  weight: 7
+  enabled: true
+- name: FK_SupplyInvoice_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyInvoice
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderContainerService_ContainerService_ContainerServiceID
+  left: dbo.SupplyOrderContainerService
+  right: dbo.ContainerService
+  columns:
+  - left: ContainerServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderContainerService_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyOrderContainerService
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderDeliveryDocument_SupplyDeliveryDocument_SupplyDeliveryDocumentID
+  left: dbo.SupplyOrderDeliveryDocument
+  right: dbo.SupplyDeliveryDocument
+  columns:
+  - left: SupplyDeliveryDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderDeliveryDocument_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyOrderDeliveryDocument
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderDeliveryDocument_User_UserID
+  left: dbo.SupplyOrderDeliveryDocument
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyOrderItem_Product_ProductID
+  left: dbo.SupplyOrderItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderItem_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyOrderItem
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPaymentDeliveryProtocol_SupplyInvoice_SupplyInvoiceID
+  left: dbo.SupplyOrderPaymentDeliveryProtocol
+  right: dbo.SupplyInvoice
+  columns:
+  - left: SupplyInvoiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPaymentDeliveryProtocol_SupplyOrderPaymentDeliveryProtocolKey_SupplyOrderPaymentDeliveryProtocolKeyID
+  left: dbo.SupplyOrderPaymentDeliveryProtocol
+  right: dbo.SupplyOrderPaymentDeliveryProtocolKey
+  columns:
+  - left: SupplyOrderPaymentDeliveryProtocolKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPaymentDeliveryProtocol_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.SupplyOrderPaymentDeliveryProtocol
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPaymentDeliveryProtocol_SupplyProForm_SupplyProFormID
+  left: dbo.SupplyOrderPaymentDeliveryProtocol
+  right: dbo.SupplyProForm
+  columns:
+  - left: SupplyProFormID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPaymentDeliveryProtocol_User_UserID
+  left: dbo.SupplyOrderPaymentDeliveryProtocol
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyOrderPolandPaymentDeliveryProtocol_SupplyOrderPaymentDeliveryProtocolKey_SupplyOrderPaymentDeliveryProtocolKeyID
+  left: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  right: dbo.SupplyOrderPaymentDeliveryProtocolKey
+  columns:
+  - left: SupplyOrderPaymentDeliveryProtocolKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPolandPaymentDeliveryProtocol_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPolandPaymentDeliveryProtocol_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderPolandPaymentDeliveryProtocol_User_UserID
+  left: dbo.SupplyOrderPolandPaymentDeliveryProtocol
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItemReservationProductPlacement_ProductPlacement_ProductPlacementID
+  left: dbo.SupplyOrderUkraineCartItemReservationProductPlacement
+  right: dbo.ProductPlacement
+  columns:
+  - left: ProductPlacementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItemReservationProductPlacement_SupplyOrderUkraineCartItemReservation_SupplyOrderUkraineCartItemReserv~
+  left: dbo.SupplyOrderUkraineCartItemReservationProductPlacement
+  right: dbo.SupplyOrderUkraineCartItemReservation
+  columns:
+  - left: SupplyOrderUkraineCartItemReservationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItemReservation_ConsignmentItem_ConsignmentItemID
+  left: dbo.SupplyOrderUkraineCartItemReservation
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItemReservation_ProductAvailability_ProductAvailabilityID
+  left: dbo.SupplyOrderUkraineCartItemReservation
+  right: dbo.ProductAvailability
+  columns:
+  - left: ProductAvailabilityID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItemReservation_SupplyOrderUkraineCartItem_SupplyOrderUkraineCartItemID
+  left: dbo.SupplyOrderUkraineCartItemReservation
+  right: dbo.SupplyOrderUkraineCartItem
+  columns:
+  - left: SupplyOrderUkraineCartItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_Client_SupplierID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.Client
+  columns:
+  - left: SupplierID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_Product_ProductID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_TaxFreePackList_TaxFreePackListID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.TaxFreePackList
+  columns:
+  - left: TaxFreePackListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_User_CreatedByID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.User
+  columns:
+  - left: CreatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_User_ResponsibleID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyOrderUkraineCartItem_User_UpdatedByID
+  left: dbo.SupplyOrderUkraineCartItem
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyOrderUkraineDocument_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.SupplyOrderUkraineDocument
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_Client_SupplierID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.Client
+  columns:
+  - left: SupplierID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_ConsignmentItem_ConsignmentItemID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_PackingListPackageOrderItem_PackingListPackageOrderItemID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.PackingListPackageOrderItem
+  columns:
+  - left: PackingListPackageOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_ProductSpecification_ProductSpecificationID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.ProductSpecification
+  columns:
+  - left: ProductSpecificationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_Product_ProductID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraineItem_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.SupplyOrderUkraineItem
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkrainePaymentDeliveryProtocol_SupplyOrderUkrainePaymentDeliveryProtocolKey_SupplyOrderUkrainePaymentDeliveryProt~
+  left: dbo.SupplyOrderUkrainePaymentDeliveryProtocol
+  right: dbo.SupplyOrderUkrainePaymentDeliveryProtocolKey
+  columns:
+  - left: SupplyOrderUkrainePaymentDeliveryProtocolKeyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkrainePaymentDeliveryProtocol_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.SupplyOrderUkrainePaymentDeliveryProtocol
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkrainePaymentDeliveryProtocol_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.SupplyOrderUkrainePaymentDeliveryProtocol
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkrainePaymentDeliveryProtocol_User_UserID
+  left: dbo.SupplyOrderUkrainePaymentDeliveryProtocol
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyOrderUkraine_ClientAgreement_ClientAgreementID
+  left: dbo.SupplyOrderUkraine
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraine_Client_SupplierID
+  left: dbo.SupplyOrderUkraine
+  right: dbo.Client
+  columns:
+  - left: SupplierID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraine_Currency_AdditionalPaymentCurrencyID
+  left: dbo.SupplyOrderUkraine
+  right: dbo.Currency
+  columns:
+  - left: AdditionalPaymentCurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraine_Organization_OrganizationID
+  left: dbo.SupplyOrderUkraine
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderUkraine_User_ResponsibleID
+  left: dbo.SupplyOrderUkraine
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyOrderVehicleService_SupplyOrder_SupplyOrderID
+  left: dbo.SupplyOrderVehicleService
+  right: dbo.SupplyOrder
+  columns:
+  - left: SupplyOrderID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrderVehicleService_VehicleService_VehicleServiceID
+  left: dbo.SupplyOrderVehicleService
+  right: dbo.VehicleService
+  columns:
+  - left: VehicleServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_ClientAgreement_ClientAgreementID
+  left: dbo.SupplyOrder
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_Client_ClientID
+  left: dbo.SupplyOrder
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_Currency_AdditionalPaymentCurrencyID
+  left: dbo.SupplyOrder
+  right: dbo.Currency
+  columns:
+  - left: AdditionalPaymentCurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_CustomAgencyService_CustomAgencyServiceID
+  left: dbo.SupplyOrder
+  right: dbo.CustomAgencyService
+  columns:
+  - left: CustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_Organization_OrganizationID
+  left: dbo.SupplyOrder
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_PlaneDeliveryService_PlaneDeliveryServiceID
+  left: dbo.SupplyOrder
+  right: dbo.PlaneDeliveryService
+  columns:
+  - left: PlaneDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_PortCustomAgencyService_PortCustomAgencyServiceID
+  left: dbo.SupplyOrder
+  right: dbo.PortCustomAgencyService
+  columns:
+  - left: PortCustomAgencyServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_PortWorkService_PortWorkServiceID
+  left: dbo.SupplyOrder
+  right: dbo.PortWorkService
+  columns:
+  - left: PortWorkServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_SupplyOrderNumber_SupplyOrderNumberID
+  left: dbo.SupplyOrder
+  right: dbo.SupplyOrderNumber
+  columns:
+  - left: SupplyOrderNumberID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_SupplyProForm_SupplyProFormID
+  left: dbo.SupplyOrder
+  right: dbo.SupplyProForm
+  columns:
+  - left: SupplyProFormID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_TransportationService_TransportationServiceID
+  left: dbo.SupplyOrder
+  right: dbo.TransportationService
+  columns:
+  - left: TransportationServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrder_User_ResponsibleId
+  left: dbo.SupplyOrder
+  right: dbo.User
+  columns:
+  - left: ResponsibleId
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyOrder_VehicleDeliveryService_VehicleDeliveryServiceID
+  left: dbo.SupplyOrder
+  right: dbo.VehicleDeliveryService
+  columns:
+  - left: VehicleDeliveryServiceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationAgreement_AgreementTypeCivilCode_AgreementTypeCivilCodeID
+  left: dbo.SupplyOrganizationAgreement
+  right: dbo.AgreementTypeCivilCode
+  columns:
+  - left: AgreementTypeCivilCodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationAgreement_Currency_CurrencyID
+  left: dbo.SupplyOrganizationAgreement
+  right: dbo.Currency
+  columns:
+  - left: CurrencyID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationAgreement_Organization_OrganizationID
+  left: dbo.SupplyOrganizationAgreement
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationAgreement_SupplyOrganization_SupplyOrganizationID
+  left: dbo.SupplyOrganizationAgreement
+  right: dbo.SupplyOrganization
+  columns:
+  - left: SupplyOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationAgreement_TaxAccountingScheme_TaxAccountingSchemeID
+  left: dbo.SupplyOrganizationAgreement
+  right: dbo.TaxAccountingScheme
+  columns:
+  - left: TaxAccountingSchemeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyOrganizationDocument_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.SupplyOrganizationDocument
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyPaymentTaskDocument_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.SupplyPaymentTaskDocument
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyPaymentTask_User_DeletedByID
+  left: dbo.SupplyPaymentTask
+  right: dbo.User
+  columns:
+  - left: DeletedByID
+    right: ID
+  weight: 1
+  enabled: false
+- name: FK_SupplyPaymentTask_User_UpdatedByID
+  left: dbo.SupplyPaymentTask
+  right: dbo.User
+  columns:
+  - left: UpdatedByID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_SupplyPaymentTask_User_UserID
+  left: dbo.SupplyPaymentTask
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_SupplyReturnItem_ConsignmentItem_ConsignmentItemID
+  left: dbo.SupplyReturnItem
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturnItem_Product_ProductID
+  left: dbo.SupplyReturnItem
+  right: dbo.Product
+  columns:
+  - left: ProductID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturnItem_SupplyReturn_SupplyReturnID
+  left: dbo.SupplyReturnItem
+  right: dbo.SupplyReturn
+  columns:
+  - left: SupplyReturnID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturn_ClientAgreement_ClientAgreementID
+  left: dbo.SupplyReturn
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturn_Client_SupplierID
+  left: dbo.SupplyReturn
+  right: dbo.Client
+  columns:
+  - left: SupplierID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturn_Organization_OrganizationID
+  left: dbo.SupplyReturn
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturn_Storage_StorageID
+  left: dbo.SupplyReturn
+  right: dbo.Storage
+  columns:
+  - left: StorageID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_SupplyReturn_User_ResponsibleID
+  left: dbo.SupplyReturn
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_TaxFreeDocument_TaxFree_TaxFreeID
+  left: dbo.TaxFreeDocument
+  right: dbo.TaxFree
+  columns:
+  - left: TaxFreeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreeItem_SupplyOrderUkraineCartItem_SupplyOrderUkraineCartItemID
+  left: dbo.TaxFreeItem
+  right: dbo.SupplyOrderUkraineCartItem
+  columns:
+  - left: SupplyOrderUkraineCartItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreeItem_TaxFreePackListOrderItem_TaxFreePackListOrderItemID
+  left: dbo.TaxFreeItem
+  right: dbo.TaxFreePackListOrderItem
+  columns:
+  - left: TaxFreePackListOrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreeItem_TaxFree_TaxFreeID
+  left: dbo.TaxFreeItem
+  right: dbo.TaxFree
+  columns:
+  - left: TaxFreeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackListOrderItem_ConsignmentItem_ConsignmentItemID
+  left: dbo.TaxFreePackListOrderItem
+  right: dbo.ConsignmentItem
+  columns:
+  - left: ConsignmentItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackListOrderItem_OrderItem_OrderItemID
+  left: dbo.TaxFreePackListOrderItem
+  right: dbo.OrderItem
+  columns:
+  - left: OrderItemID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackListOrderItem_TaxFreePackList_TaxFreePackListID
+  left: dbo.TaxFreePackListOrderItem
+  right: dbo.TaxFreePackList
+  columns:
+  - left: TaxFreePackListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackList_ClientAgreement_ClientAgreementID
+  left: dbo.TaxFreePackList
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackList_Client_ClientID
+  left: dbo.TaxFreePackList
+  right: dbo.Client
+  columns:
+  - left: ClientID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackList_Organization_OrganizationID
+  left: dbo.TaxFreePackList
+  right: dbo.Organization
+  columns:
+  - left: OrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackList_SupplyOrderUkraine_SupplyOrderUkraineID
+  left: dbo.TaxFreePackList
+  right: dbo.SupplyOrderUkraine
+  columns:
+  - left: SupplyOrderUkraineID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFreePackList_User_ResponsibleID
+  left: dbo.TaxFreePackList
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_TaxFree_StathamCar_StathamCarID
+  left: dbo.TaxFree
+  right: dbo.StathamCar
+  columns:
+  - left: StathamCarID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFree_StathamPassport_StathamPassportID
+  left: dbo.TaxFree
+  right: dbo.StathamPassport
+  columns:
+  - left: StathamPassportID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFree_Statham_StathamID
+  left: dbo.TaxFree
+  right: dbo.Statham
+  columns:
+  - left: StathamID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFree_TaxFreePackList_TaxFreePackListID
+  left: dbo.TaxFree
+  right: dbo.TaxFreePackList
+  columns:
+  - left: TaxFreePackListID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TaxFree_User_ResponsibleID
+  left: dbo.TaxFree
+  right: dbo.User
+  columns:
+  - left: ResponsibleID
+    right: ID
+  weight: 9
+  enabled: true
+- name: FK_TransportationService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.TransportationService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.TransportationService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_ActProvidingService_ActProvidingServiceId
+  left: dbo.TransportationService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.TransportationService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.TransportationService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyOrganization_TransportationOrganizationID
+  left: dbo.TransportationService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: TransportationOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.TransportationService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.TransportationService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.TransportationService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_TransportationService_User_UserID
+  left: dbo.TransportationService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_TransporterTypeTranslation_TransporterType_TransporterTypeID
+  left: dbo.TransporterTypeTranslation
+  right: dbo.TransporterType
+  columns:
+  - left: TransporterTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Transporter_TransporterType_TransporterTypeID
+  left: dbo.Transporter
+  right: dbo.TransporterType
+  columns:
+  - left: TransporterTypeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UpdateDataCarrier_Sale_SaleId
+  left: dbo.UpdateDataCarrier
+  right: dbo.Sale
+  columns:
+  - left: SaleId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UpdateDataCarrier_Transporter_TransporterId
+  left: dbo.UpdateDataCarrier
+  right: dbo.Transporter
+  columns:
+  - left: TransporterId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UpdateDataCarrier_User_UserId
+  left: dbo.UpdateDataCarrier
+  right: dbo.User
+  columns:
+  - left: UserId
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_UserDetails_ResidenceCard_ResidenceCardID
+  left: dbo.UserDetails
+  right: dbo.ResidenceCard
+  columns:
+  - left: ResidenceCardID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserDetails_WorkPermit_WorkPermitID
+  left: dbo.UserDetails
+  right: dbo.WorkPermit
+  columns:
+  - left: WorkPermitID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserDetails_WorkingContract_WorkingContractID
+  left: dbo.UserDetails
+  right: dbo.WorkingContract
+  columns:
+  - left: WorkingContractID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserRoleDashboardNode_DashboardNode_DashboardNodeID
+  left: dbo.UserRoleDashboardNode
+  right: dbo.DashboardNode
+  columns:
+  - left: DashboardNodeID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserRoleDashboardNode_UserRole_UserRoleID
+  left: dbo.UserRoleDashboardNode
+  right: dbo.UserRole
+  columns:
+  - left: UserRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserRoleTranslation_UserRole_UserRoleID
+  left: dbo.UserRoleTranslation
+  right: dbo.UserRole
+  columns:
+  - left: UserRoleID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_UserScreenResolution_User_UserID
+  left: dbo.UserScreenResolution
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_User_UserDetails_UserDetailsId
+  left: dbo.User
+  right: dbo.UserDetails
+  columns:
+  - left: UserDetailsId
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_User_UserRole_UserRoleID
+  left: dbo.User
+  right: dbo.UserRole
+  columns:
+  - left: UserRoleID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_VehicleDeliveryService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.VehicleDeliveryService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.VehicleDeliveryService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_ActProvidingService_ActProvidingServiceId
+  left: dbo.VehicleDeliveryService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyOrganization_VehicleDeliveryOrganizationID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: VehicleDeliveryOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.VehicleDeliveryService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleDeliveryService_User_UserID
+  left: dbo.VehicleDeliveryService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_VehicleService_ActProvidingServiceDocument_ActProvidingServiceDocumentID
+  left: dbo.VehicleService
+  right: dbo.ActProvidingServiceDocument
+  columns:
+  - left: ActProvidingServiceDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_ActProvidingService_AccountingActProvidingServiceId
+  left: dbo.VehicleService
+  right: dbo.ActProvidingService
+  columns:
+  - left: AccountingActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_ActProvidingService_ActProvidingServiceId
+  left: dbo.VehicleService
+  right: dbo.ActProvidingService
+  columns:
+  - left: ActProvidingServiceId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_BillOfLadingDocument_BillOfLadingDocumentID
+  left: dbo.VehicleService
+  right: dbo.BillOfLadingDocument
+  columns:
+  - left: BillOfLadingDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyInformationTask_SupplyInformationTaskID
+  left: dbo.VehicleService
+  right: dbo.SupplyInformationTask
+  columns:
+  - left: SupplyInformationTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyOrganizationAgreement_SupplyOrganizationAgreementID
+  left: dbo.VehicleService
+  right: dbo.SupplyOrganizationAgreement
+  columns:
+  - left: SupplyOrganizationAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyOrganization_VehicleOrganizationID
+  left: dbo.VehicleService
+  right: dbo.SupplyOrganization
+  columns:
+  - left: VehicleOrganizationID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyPaymentTask_AccountingPaymentTaskID
+  left: dbo.VehicleService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: AccountingPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyPaymentTask_SupplyPaymentTaskID
+  left: dbo.VehicleService
+  right: dbo.SupplyPaymentTask
+  columns:
+  - left: SupplyPaymentTaskID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_SupplyServiceAccountDocument_SupplyServiceAccountDocumentID
+  left: dbo.VehicleService
+  right: dbo.SupplyServiceAccountDocument
+  columns:
+  - left: SupplyServiceAccountDocumentID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_VehicleService_User_UserID
+  left: dbo.VehicleService
+  right: dbo.User
+  columns:
+  - left: UserID
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_WarehousesShipment_Sale_SaleId
+  left: dbo.WarehousesShipment
+  right: dbo.Sale
+  columns:
+  - left: SaleId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_WarehousesShipment_Transporter_TransporterId
+  left: dbo.WarehousesShipment
+  right: dbo.Transporter
+  columns:
+  - left: TransporterId
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_WarehousesShipment_User_UserId
+  left: dbo.WarehousesShipment
+  right: dbo.User
+  columns:
+  - left: UserId
+    right: ID
+  weight: 3
+  enabled: true
+- name: FK_WorkplaceClientAgreement_ClientAgreement_ClientAgreementID
+  left: dbo.WorkplaceClientAgreement
+  right: dbo.ClientAgreement
+  columns:
+  - left: ClientAgreementID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_WorkplaceClientAgreement_Workplace_WorkplaceID
+  left: dbo.WorkplaceClientAgreement
+  right: dbo.Workplace
+  columns:
+  - left: WorkplaceID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Workplace_ClientGroup_ClientGroupID
+  left: dbo.Workplace
+  right: dbo.ClientGroup
+  columns:
+  - left: ClientGroupID
+    right: ID
+  weight: 1
+  enabled: true
+- name: FK_Workplace_Client_MainClientID
+  left: dbo.Workplace
+  right: dbo.Client
+  columns:
+  - left: MainClientID
+    right: ID
+  weight: 6
+  enabled: true
