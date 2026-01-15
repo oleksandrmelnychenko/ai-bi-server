@@ -18,6 +18,7 @@ class Settings:
     db_trust_cert: bool
     ollama_base_url: str
     ollama_model: str
+    ollama_sql_model: str  # Specialized model for SQL generation (empty = use ollama_model)
     max_rows: int
     request_timeout: int
     join_rules_path: str
@@ -47,6 +48,7 @@ def get_settings() -> Settings:
         db_trust_cert=os.getenv("DB_TRUST_CERT", "yes").lower() in ("1", "true", "yes", "y"),
         ollama_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/"),
         ollama_model=os.getenv("OLLAMA_MODEL", "qwen2.5-coder:30b"),
+        ollama_sql_model=os.getenv("OLLAMA_SQL_MODEL", ""),  # Empty = use ollama_model
         max_rows=int(os.getenv("MAX_ROWS", "200")),
         request_timeout=int(os.getenv("REQUEST_TIMEOUT", "90")),
         join_rules_path=os.getenv("JOIN_RULES_PATH", default_rules),

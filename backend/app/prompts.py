@@ -26,6 +26,28 @@ Rules:
 - Use table roles (fact, dimension, bridge) to keep joins at the right grain.
 """
 
+# SQLCoder-specific prompt template (optimized for Code Llama-based models)
+# Uses structured sections and special tags as per SQLCoder documentation
+SQL_GENERATION_SQLCODER = """### Task
+Generate a SQL query to answer [QUESTION]{question}[/QUESTION]
+
+### Instructions
+- Use only the tables and columns provided in the schema
+- Use explicit JOINs with proper ON clauses
+- Use Table Aliases to prevent ambiguity (e.g., SELECT t1.col FROM table1 t1)
+- For SQL Server: use TOP for row limits, schema-qualified names (dbo.TableName)
+- Include any default_filters mentioned in the schema
+- Output SQL only, no explanations
+- If you cannot answer, return 'I do not know'
+
+### Database Schema
+{schema}
+
+### Answer
+Given the database schema, here is the SQL query that answers [QUESTION]{question}[/QUESTION]
+[SQL]
+"""
+
 ANSWER_SYSTEM = """
 You are a BI assistant. Answer in Ukrainian using only the query results.
 If the result set is empty, say so and suggest what filter might be missing.

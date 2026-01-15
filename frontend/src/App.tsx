@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+// Request timeout in milliseconds
+const REQUEST_TIMEOUT = 60000;
 
 type Role = "user" | "assistant";
 
@@ -11,17 +13,41 @@ type ChatMessage = {
   columns?: string[];
   rows?: Array<Array<unknown>>;
   warnings?: string[];
+  failed?: boolean;
+  originalMessage?: string;
 };
 
 type ChatResponse = {
   answer: string;
-  sql?: string | null;
-  columns?: string[];
-  rows?: Array<Array<unknown>>;
-  warnings?: string[];
+  sql: string | null;
+  columns: string[];
+  rows: Array<Array<unknown>>;
+  warnings: string[];
+};
+
+type ErrorResponse = {
+  error_code: string;
+  message: string;
+  details?: Record<string, unknown>;
 };
 
 const makeId = () => `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+function parseErrorResponse(text: string): string {
+  try {
+    const data = JSON.parse(text);
+    if (data.detail) {
+      if (typeof data.detail === "string") {
+        return data.detail;
+      }
+      const err = data.detail as ErrorResponse;
+      return err.message || "Unknown error";
+    }
+    return text;
+  } catch {
+    return text || "Request failed";
+  }
+}
 
 export default function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -29,13 +55,14 @@ export default function App() {
       id: "welcome",
       role: "assistant",
       content:
-        "Вітаю! Поставте питання українською, і я сформую SQL-запит до вашої бази даних та поверну відповідь."
-    }
+        "Р’С–С‚Р°СЋ! Р—Р°РґР°РІР°Р№С‚Рµ РїРёС‚Р°РЅРЅСЏ СѓРєСЂР°С—РЅСЃСЊРєРѕСЋ, С– СЏ СЃС‚РІРѕСЂСЋ SQL-Р·Р°РїРёС‚ РґР»СЏ РІР°С€РѕС— Р±Р°Р·Рё РґР°РЅРёС… С‚Р° РїРѕСЏСЃРЅСЋ СЂРµР·СѓР»СЊС‚Р°С‚Рё.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -44,97 +71,149 @@ export default function App() {
   const compactHistory = useMemo(
     () =>
       messages
-        .filter((message) => message.role === "user" || message.role === "assistant")
+        .filter((msg) => msg.role === "user" || msg.role === "assistant")
+        .filter((msg) => !msg.failed)
         .slice(-6)
-        .map((message) => ({ role: message.role, content: message.content })),
+        .map((msg) => ({ role: msg.role, content: msg.content })),
     [messages]
   );
 
-  const sendMessage = async () => {
-    const trimmed = input.trim();
-    if (!trimmed || loading) {
-      return;
-    }
-
-    const userMessage: ChatMessage = {
-      id: makeId(),
-      role: "user",
-      content: trimmed
-    };
-
-    const nextMessages = [...messages, userMessage];
-    setMessages(nextMessages);
-    setInput("");
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed, history: compactHistory })
-      });
-
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(text || "Request failed");
+  const sendMessageWithContent = useCallback(
+    async (messageContent: string) => {
+      const trimmed = messageContent.trim();
+      if (!trimmed || loading) {
+        return;
       }
 
-      const data = (await response.json()) as ChatResponse;
-      const assistantMessage: ChatMessage = {
+      const userMessage: ChatMessage = {
         id: makeId(),
-        role: "assistant",
-        content: data.answer,
-        sql: data.sql || undefined,
-        columns: data.columns || undefined,
-        rows: data.rows || undefined,
-        warnings: data.warnings || undefined
+        role: "user",
+        content: trimmed,
       };
-      setMessages([...nextMessages, assistantMessage]);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      setMessages((prev) => [
-        ...prev,
-        {
+
+      const nextMessages = [...messages, userMessage];
+      setMessages(nextMessages);
+      setInput("");
+      setLoading(true);
+      setError(null);
+
+      // Create abort controller for timeout
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: trimmed, history: compactHistory }),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(parseErrorResponse(text));
+        }
+
+        const data = (await response.json()) as ChatResponse;
+        const assistantMessage: ChatMessage = {
           id: makeId(),
           role: "assistant",
-          content: "Сталася помилка під час запиту. Перевірте сервер і спробуйте ще раз."
+          content: data.answer,
+          sql: data.sql || undefined,
+          columns: data.columns.length > 0 ? data.columns : undefined,
+          rows: data.rows.length > 0 ? data.rows : undefined,
+          warnings: data.warnings.length > 0 ? data.warnings : undefined,
+        };
+        setMessages([...nextMessages, assistantMessage]);
+      } catch (err) {
+        clearTimeout(timeoutId);
+
+        let errorMessage: string;
+        if (err instanceof Error) {
+          if (err.name === "AbortError") {
+            errorMessage = "Request timed out. Please try again.";
+          } else {
+            errorMessage = err.message;
+          }
+        } else {
+          errorMessage = "Unknown error";
         }
-      ]);
-    } finally {
-      setLoading(false);
+
+        setError(errorMessage);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: makeId(),
+            role: "assistant",
+            content:
+              "Р’РёРЅРёРєР»Р° РїРѕРјРёР»РєР° РїСЂРё РѕР±СЂРѕР±С†С– Р·Р°РїРёС‚Сѓ. РџРµСЂРµРІС–СЂС‚Рµ РїС–РґРєР»СЋС‡РµРЅРЅСЏ С‚Р° СЃРїСЂРѕР±СѓР№С‚Рµ С‰Рµ СЂР°Р·.",
+            failed: true,
+            originalMessage: trimmed,
+          },
+        ]);
+      } finally {
+        setLoading(false);
+        abortControllerRef.current = null;
+      }
+    },
+    [messages, loading, compactHistory]
+  );
+
+  const sendMessage = useCallback(() => {
+    sendMessageWithContent(input);
+  }, [input, sendMessageWithContent]);
+
+  const retryMessage = useCallback(
+    (originalMessage: string) => {
+      // Remove the failed message before retrying
+      setMessages((prev) => prev.filter((msg) => msg.originalMessage !== originalMessage));
+      sendMessageWithContent(originalMessage);
+    },
+    [sendMessageWithContent]
+  );
+
+  const cancelRequest = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
     }
-  };
+  }, []);
 
   return (
     <div className="app">
       <header className="hero">
         <div>
           <p className="eyebrow">Concord Insight</p>
-          <h1>Живий діалог з даними</h1>
+          <h1>Р›РµРіРєРёР№ РґРѕСЃС‚СѓРї РґРѕ РґР°РЅРёС…</h1>
           <p className="subtitle">
-            Напишіть запит українською. Система сформує складні JOIN-и та поверне відповідь.
+            Р—Р°РґР°РІР°Р№С‚Рµ РїРёС‚Р°РЅРЅСЏ СѓРєСЂР°С—РЅСЃСЊРєРѕСЋ. РЎРёСЃС‚РµРјР° Р·РЅР°Р№РґРµ РїРѕС‚СЂС–Р±РЅС– JOIN-Рё С‚Р° РїРѕРІРµСЂРЅРµ СЂРµР·СѓР»СЊС‚Р°С‚.
           </p>
         </div>
-        <div className="status">
-          <span className="pulse" />
+        <div className="status" aria-label="Service status: online">
+          <span className="pulse" aria-hidden="true" />
           <span>LLM + SQL Server</span>
         </div>
       </header>
 
-      <section className="chat">
-        <div className="messages">
+      <section className="chat" aria-label="Chat interface">
+        <div
+          className="messages"
+          role="log"
+          aria-label="Chat messages"
+          aria-live="polite"
+        >
           {messages.map((message, index) => (
             <div
               key={message.id}
-              className={`message ${message.role}`}
+              className={`message ${message.role}${message.failed ? " failed" : ""}`}
               style={{ animationDelay: `${Math.min(index * 0.04, 0.3)}s` }}
             >
               <div className="bubble">
                 <p>{message.content}</p>
                 {message.warnings && message.warnings.length > 0 ? (
-                  <div className="warning">
+                  <div className="warning" role="alert">
                     {message.warnings.map((warning) => (
                       <span key={warning}>{warning}</span>
                     ))}
@@ -142,7 +221,7 @@ export default function App() {
                 ) : null}
                 {message.sql ? (
                   <details className="details">
-                    <summary>SQL-запит</summary>
+                    <summary>SQL-Р·Р°РїРёС‚</summary>
                     <pre>
                       <code>{message.sql}</code>
                     </pre>
@@ -150,7 +229,10 @@ export default function App() {
                 ) : null}
                 {message.rows && message.columns ? (
                   <details className="details">
-                    <summary>Попередній перегляд даних</summary>
+                    <summary>
+                      Р РµР·СѓР»СЊС‚Р°С‚Рё Р·Р°РїРёС‚Сѓ ({message.rows.length} СЂСЏРґРєС–РІ
+                      {message.rows.length >= 25 ? ", РїРѕРєР°Р·Р°РЅРѕ РїРµСЂС€С– 25" : ""})
+                    </summary>
                     <div className="table-wrap">
                       <table>
                         <thead>
@@ -164,7 +246,9 @@ export default function App() {
                           {message.rows.slice(0, 25).map((row, rowIndex) => (
                             <tr key={rowIndex}>
                               {row.map((cell, cellIndex) => (
-                                <td key={`${rowIndex}-${cellIndex}`}>{String(cell ?? "")}</td>
+                                <td key={`${rowIndex}-${cellIndex}`}>
+                                  {String(cell ?? "")}
+                                </td>
                               ))}
                             </tr>
                           ))}
@@ -173,13 +257,29 @@ export default function App() {
                     </div>
                   </details>
                 ) : null}
+                {message.failed && message.originalMessage ? (
+                  <button
+                    className="retry-button"
+                    onClick={() => retryMessage(message.originalMessage!)}
+                    aria-label="Retry this message"
+                  >
+                    РЎРїСЂРѕР±СѓРІР°С‚Рё С‰Рµ СЂР°Р·
+                  </button>
+                ) : null}
               </div>
             </div>
           ))}
           {loading ? (
             <div className="message assistant">
               <div className="bubble thinking">
-                <span>Збираю дані...</span>
+                <span>РћР±СЂРѕР±Р»СЏСЋ Р·Р°РїРёС‚...</span>
+                <button
+                  className="cancel-button"
+                  onClick={cancelRequest}
+                  aria-label="Cancel request"
+                >
+                  РЎРєР°СЃСѓРІР°С‚Рё
+                </button>
               </div>
             </div>
           ) : null}
@@ -196,14 +296,25 @@ export default function App() {
                 sendMessage();
               }
             }}
-            placeholder="Наприклад: Покажи продажі за останні 30 днів по категоріях"
+            placeholder="РќР°РїСЂРёРєР»Р°Рґ: РїРѕРєР°Р¶Рё РїСЂРѕРґР°Р¶С– Р·Р° РѕСЃС‚Р°РЅРЅС– 30 РґРЅС–РІ РїРѕ РєР°С‚РµРіРѕСЂС–СЏС…"
             rows={2}
+            aria-label="Type your question"
+            disabled={loading}
           />
-          <button onClick={sendMessage} disabled={loading}>
-            {loading ? "Працюю" : "Надіслати"}
+          <button
+            onClick={sendMessage}
+            disabled={loading || !input.trim()}
+            aria-label={loading ? "Processing request" : "Send message"}
+            aria-busy={loading}
+          >
+            {loading ? "РћР±СЂРѕР±РєР°..." : "РќР°РґС–СЃР»Р°С‚Рё"}
           </button>
         </div>
-        {error ? <p className="error">{error}</p> : null}
+        {error ? (
+          <p className="error" role="alert">
+            {error}
+          </p>
+        ) : null}
       </section>
     </div>
   );

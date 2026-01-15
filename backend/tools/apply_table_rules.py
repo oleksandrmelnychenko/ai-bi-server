@@ -98,10 +98,13 @@ def build_default_filters(columns: list[str]) -> list[str]:
 
 
 def main() -> None:
+    # Use relative path from tools directory
+    default_path = Path(__file__).resolve().parent.parent / "schema" / "join_rules.yaml"
+
     parser = argparse.ArgumentParser(description="Apply table roles and default filters to join_rules.yaml")
     parser.add_argument(
         "--path",
-        default=r"C:\Users\123\AI-BI-Server\backend\schema\join_rules.yaml",
+        default=str(default_path),
         help="Path to join_rules.yaml",
     )
     args = parser.parse_args()

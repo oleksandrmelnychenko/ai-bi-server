@@ -56,40 +56,44 @@ class SchemaCache:
         self.foreign_keys.clear()
         with get_connection() as conn:
             cursor = conn.cursor()
+            # Combined query: tables + columns + primary keys in a single round trip
             cursor.execute(
                 """
-                SELECT s.name AS schema_name, t.name AS table_name
+                SELECT
+                    s.name AS schema_name,
+                    t.name AS table_name,
+                    c.name AS column_name,
+                    ty.name AS data_type,
+                    c.max_length,
+                    c.is_nullable,
+                    CASE WHEN pk_cols.column_id IS NOT NULL THEN 1 ELSE 0 END AS is_primary_key,
+                    pk_cols.key_ordinal
                 FROM sys.tables t
                 JOIN sys.schemas s ON t.schema_id = s.schema_id
-                ORDER BY s.name, t.name;
-                """
-            )
-            for schema_name, table_name in cursor.fetchall():
-                table = TableInfo(schema=schema_name, name=table_name)
-                self.tables[table.key] = table
-
-            cursor.execute(
-                """
-                SELECT s.name AS schema_name,
-                       t.name AS table_name,
-                       c.name AS column_name,
-                       ty.name AS data_type,
-                       c.max_length,
-                       c.is_nullable
-                FROM sys.columns c
-                JOIN sys.tables t ON c.object_id = t.object_id
-                JOIN sys.schemas s ON t.schema_id = s.schema_id
+                JOIN sys.columns c ON c.object_id = t.object_id
                 JOIN sys.types ty ON c.user_type_id = ty.user_type_id
+                LEFT JOIN (
+                    SELECT ic.object_id, ic.column_id, ic.key_ordinal
+                    FROM sys.indexes i
+                    JOIN sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
+                    WHERE i.is_primary_key = 1
+                ) pk_cols ON pk_cols.object_id = t.object_id AND pk_cols.column_id = c.column_id
                 ORDER BY s.name, t.name, c.column_id;
                 """
             )
-            for schema_name, table_name, column_name, data_type, max_length, is_nullable in cursor.fetchall():
+            # Track primary key columns to add in correct order after all columns processed
+            pk_columns: dict[str, list[tuple[str, int]]] = {}
+
+            for row in cursor.fetchall():
+                schema_name, table_name, column_name, data_type, max_length, is_nullable, is_pk, pk_ordinal = row
                 key = f"{schema_name}.{table_name}"
-                table = self.tables.get(key)
-                if not table:
-                    table = TableInfo(schema=schema_name, name=table_name)
-                    self.tables[key] = table
-                table.columns.append(
+
+                # Create table if not exists
+                if key not in self.tables:
+                    self.tables[key] = TableInfo(schema=schema_name, name=table_name)
+
+                # Add column
+                self.tables[key].columns.append(
                     ColumnInfo(
                         name=column_name,
                         data_type=data_type,
@@ -98,28 +102,16 @@ class SchemaCache:
                     )
                 )
 
-            cursor.execute(
-                """
-                SELECT s.name AS schema_name,
-                       t.name AS table_name,
-                       c.name AS column_name
-                FROM sys.indexes i
-                JOIN sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
-                JOIN sys.columns c ON ic.object_id = c.object_id AND ic.column_id = c.column_id
-                JOIN sys.tables t ON t.object_id = i.object_id
-                JOIN sys.schemas s ON t.schema_id = s.schema_id
-                WHERE i.is_primary_key = 1
-                ORDER BY s.name, t.name, ic.key_ordinal;
-                """
-            )
-            for schema_name, table_name, column_name in cursor.fetchall():
-                key = f"{schema_name}.{table_name}"
-                table = self.tables.get(key)
-                if not table:
-                    table = TableInfo(schema=schema_name, name=table_name)
-                    self.tables[key] = table
-                table.primary_key.append(column_name)
+                # Track primary key columns with their ordinal for correct ordering
+                if is_pk:
+                    pk_columns.setdefault(key, []).append((column_name, pk_ordinal or 0))
 
+            # Add primary keys in correct order
+            for key, pk_list in pk_columns.items():
+                pk_list.sort(key=lambda x: x[1])
+                self.tables[key].primary_key = [col for col, _ in pk_list]
+
+            # Foreign keys query (separate due to different structure)
             cursor.execute(
                 """
                 SELECT sch1.name AS fk_schema,

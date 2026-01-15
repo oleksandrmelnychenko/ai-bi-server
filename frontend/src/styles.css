@@ -315,6 +315,63 @@ button:not(:disabled):hover {
   font-size: 0.9rem;
 }
 
+/* Failed message styling */
+.message.failed .bubble {
+  border-color: rgba(179, 33, 23, 0.3);
+}
+
+/* Retry and Cancel buttons */
+.retry-button,
+.cancel-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.retry-button:hover,
+.cancel-button:hover {
+  background: #d94d2d;
+}
+
+.cancel-button {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  margin-left: 12px;
+}
+
+.cancel-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.thinking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Textarea disabled state */
+textarea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Focus visible for accessibility */
+button:focus-visible,
+textarea:focus-visible,
+.retry-button:focus-visible,
+.cancel-button:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
 @media (max-width: 900px) {
   .hero {
     flex-direction: column;

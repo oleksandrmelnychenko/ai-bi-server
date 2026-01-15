@@ -6,6 +6,9 @@ from typing import Iterable
 
 from .schema_cache import ForeignKeyInfo
 
+# Infinity constant for Dijkstra's algorithm (unreachable nodes)
+INFINITY = 1_000_000_000
+
 
 @dataclass(frozen=True)
 class JoinEdge:
@@ -72,14 +75,14 @@ def _find_path(adjacency: dict[str, list[JoinEdge]], start: str, goal: str) -> t
             next_table = edge.right_table
             edge_cost = max(edge.weight, 1)
             next_cost = cost + edge_cost
-            if next_cost < distances.get(next_table, 1_000_000_000):
+            if next_cost < distances.get(next_table, INFINITY):
                 distances[next_table] = next_cost
                 prev[next_table] = current
                 prev_edge[next_table] = edge
                 heapq.heappush(heap, (next_cost, next_table))
 
     if goal not in distances:
-        return [], 1_000_000_000
+        return [], INFINITY
 
     path: list[JoinEdge] = []
     cursor = goal
@@ -103,7 +106,7 @@ def build_join_plan(adjacency: dict[str, list[JoinEdge]], table_keys: list[str])
         if target in joined:
             continue
         best_path: list[JoinEdge] | None = None
-        best_cost = 1_000_000_000
+        best_cost = INFINITY
         for source in list(joined):
             path, cost = _find_path(adjacency, source, target)
             if not path:

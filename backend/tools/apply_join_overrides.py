@@ -34,6 +34,19 @@ DISABLED_USER_COLUMNS = {"DeletedByID"}
 
 CLIENT_HIERARCHY_COLUMNS = {"MainClientID", "RootClientID", "SubClientID"}
 
+# Weight penalties for different join types
+# Higher weight = less preferred in Dijkstra path finding
+class JoinWeights:
+    """
+    Weight penalties applied to join edges.
+    Higher values make the join less likely to be used.
+    """
+    SELF_JOIN = 7           # Self-referential joins create ambiguous loops
+    HISTORY_TABLE = 4       # History tables shouldn't be bridge nodes
+    AUDIT_USER = 9          # Audit columns (CreatedByID, etc.) are rarely needed for joins
+    GENERIC_USER = 3        # Generic User joins, slightly deprioritized
+    CLIENT_HIERARCHY = 6    # Client hierarchy columns (MainClientID, etc.)
+
 
 def _is_history_table(name: str) -> bool:
     return name.endswith("History") or name.startswith("History")
@@ -64,14 +77,14 @@ def apply_overrides(payload: dict) -> int:
         # Self joins create ambiguous loops.
         if left == right:
             before = join.get("weight")
-            _bump_weight(join, 7)
+            _bump_weight(join, JoinWeights.SELF_JOIN)
             if join.get("weight") != before:
                 changed += 1
 
         # Penalize history tables as bridge nodes.
         if _is_history_table(left) or _is_history_table(right):
             before = join.get("weight")
-            _bump_weight(join, 4)
+            _bump_weight(join, JoinWeights.HISTORY_TABLE)
             if join.get("weight") != before:
                 changed += 1
 
@@ -84,12 +97,12 @@ def apply_overrides(payload: dict) -> int:
                     changed += 1
             elif any(col in AUDIT_USER_COLUMNS for col in fk_cols):
                 before = join.get("weight")
-                _bump_weight(join, 9)
+                _bump_weight(join, JoinWeights.AUDIT_USER)
                 if join.get("weight") != before:
                     changed += 1
             else:
                 before = join.get("weight")
-                _bump_weight(join, 3)
+                _bump_weight(join, JoinWeights.GENERIC_USER)
                 if join.get("weight") != before:
                     changed += 1
 
@@ -98,7 +111,7 @@ def apply_overrides(payload: dict) -> int:
             fk_cols = _other_side_columns(join, "dbo.Client")
             if any(col in CLIENT_HIERARCHY_COLUMNS for col in fk_cols):
                 before = join.get("weight")
-                _bump_weight(join, 6)
+                _bump_weight(join, JoinWeights.CLIENT_HIERARCHY)
                 if join.get("weight") != before:
                     changed += 1
 
@@ -116,10 +129,13 @@ def apply_overrides_to_path(path: Path) -> int:
 
 
 def main() -> None:
+    # Use relative path from tools directory
+    default_path = Path(__file__).resolve().parent.parent / "schema" / "join_rules.yaml"
+
     parser = argparse.ArgumentParser(description="Apply manual join overrides to join_rules.yaml")
     parser.add_argument(
         "--path",
-        default=r"C:\Users\123\AI-BI-Server\backend\schema\join_rules.yaml",
+        default=str(default_path),
         help="Path to join_rules.yaml",
     )
     args = parser.parse_args()
