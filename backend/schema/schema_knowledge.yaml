@@ -1,0 +1,616 @@
+# Schema Knowledge Base for Vector Search
+# Ukrainian keywords help match user questions to relevant schema
+
+tables:
+  # ===========================================================================
+  # CLIENT CORE
+  # ===========================================================================
+  - name: Client
+    description: "Клієнт (покупець, контрагент)"
+    keywords_uk: ["клієнт", "покупець", "контрагент", "замовник"]
+    columns:
+      - name: ID
+        type: int
+        description: "Primary key"
+      - name: Name
+        type: nvarchar
+        description: "Назва клієнта (коротка)"
+        keywords_uk: ["назва", "ім'я", "найменування"]
+      - name: FullName
+        type: nvarchar
+        description: "Повна назва клієнта"
+        keywords_uk: ["повна назва", "юридична назва"]
+      - name: FirstName
+        type: nvarchar
+        description: "Ім'я контактної особи"
+      - name: LastName
+        type: nvarchar
+        description: "Прізвище контактної особи"
+      - name: MiddleName
+        type: nvarchar
+        description: "По-батькові контактної особи"
+      - name: MobileNumber
+        type: nvarchar
+        description: "Номер телефону"
+        keywords_uk: ["телефон", "мобільний", "номер"]
+      - name: EmailAddress
+        type: nvarchar
+        description: "Email адреса"
+        keywords_uk: ["email", "пошта", "електронна"]
+      - name: TIN
+        type: nvarchar
+        description: "ІПН - індивідуальний податковий номер"
+        keywords_uk: ["іпн", "податковий номер", "інн"]
+      - name: USREOU
+        type: nvarchar
+        description: "ЄДРПОУ - код підприємства"
+        keywords_uk: ["єдрпоу", "код підприємства", "реєстраційний"]
+      - name: RegionCodeID
+        type: int
+        description: "FK до RegionCode - регіон клієнта"
+        keywords_uk: ["регіон", "область"]
+      - name: MainClientID
+        type: int
+        description: "FK до Client - головний клієнт (для філій)"
+        keywords_uk: ["головний", "батьківський", "материнський"]
+      - name: ClientBankDetailsID
+        type: int
+        description: "FK до ClientBankDetails - банківські реквізити"
+        keywords_uk: ["банк", "реквізити"]
+      - name: IsActive
+        type: bit
+        description: "Чи активний клієнт"
+        keywords_uk: ["активний", "діючий"]
+      - name: IsSubClient
+        type: bit
+        description: "Чи є філією (підлеглим клієнтом)"
+        keywords_uk: ["філія", "підлеглий", "дочірній"]
+      - name: IsTemporaryClient
+        type: bit
+        description: "Тимчасовий клієнт"
+        keywords_uk: ["тимчасовий"]
+      - name: IsTradePoint
+        type: bit
+        description: "Торгова точка"
+        keywords_uk: ["торгова точка", "магазин"]
+      - name: IsForRetail
+        type: bit
+        description: "Роздрібний клієнт"
+        keywords_uk: ["роздріб", "роздрібний"]
+      - name: Created
+        type: datetime
+        description: "Дата створення запису"
+        keywords_uk: ["дата реєстрації", "коли створено"]
+      - name: Deleted
+        type: bit
+        description: "Soft delete flag (0 = active)"
+
+  # ===========================================================================
+  # AGREEMENTS
+  # ===========================================================================
+  - name: ClientAgreement
+    description: "Зв'язок клієнта з договором"
+    keywords_uk: ["договір клієнта", "угода"]
+    columns:
+      - name: ClientID
+        type: int
+        description: "FK до Client"
+      - name: AgreementID
+        type: int
+        description: "FK до Agreement"
+      - name: OriginalClientAmgCode
+        type: nvarchar
+        description: "Код оригінального клієнта AMG"
+      - name: OriginalClientFenixCode
+        type: nvarchar
+        description: "Код оригінального клієнта Fenix"
+      - name: CurrentAmount
+        type: money
+        description: "Поточна сума по договору"
+
+  - name: Agreement
+    description: "Договір з клієнтом"
+    keywords_uk: ["договір", "контракт", "угода", "умови"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва договору"
+      - name: Number
+        type: nvarchar
+        description: "Номер договору"
+      - name: OrganizationID
+        type: int
+        description: "FK до Organization - наша організація"
+      - name: CurrencyID
+        type: int
+        description: "FK до Currency - валюта договору"
+        keywords_uk: ["валюта"]
+      - name: PricingID
+        type: int
+        description: "FK до Pricing - прайс-лист"
+        keywords_uk: ["прайс", "ціни"]
+      - name: NumberDaysDebt
+        type: int
+        description: "Кількість днів відстрочки платежу"
+        keywords_uk: ["відстрочка", "днів оплати", "термін оплати", "кредит днів"]
+      - name: AmountDebt
+        type: money
+        description: "Кредитний ліміт"
+        keywords_uk: ["ліміт", "кредитний ліміт", "максимальний борг"]
+      - name: IsControlNumberDaysDebt
+        type: bit
+        description: "Контроль терміну оплати"
+      - name: IsControlAmountDebt
+        type: bit
+        description: "Контроль кредитного ліміту"
+      - name: IsPrePayment
+        type: bit
+        description: "Передоплата"
+        keywords_uk: ["передоплата", "аванс"]
+      - name: IsActive
+        type: bit
+        description: "Активний договір"
+
+  # ===========================================================================
+  # CLIENT TYPE & ROLE
+  # ===========================================================================
+  - name: ClientInRole
+    description: "Призначення типу та ролі клієнту"
+    keywords_uk: ["тип клієнта", "роль клієнта"]
+    columns:
+      - name: ClientID
+        type: int
+        description: "FK до Client"
+      - name: ClientTypeID
+        type: int
+        description: "FK до ClientType"
+      - name: ClientTypeRoleID
+        type: int
+        description: "FK до ClientTypeRole"
+
+  - name: ClientType
+    description: "Тип клієнта (Покупець, Постачальник, тощо)"
+    keywords_uk: ["тип клієнта", "категорія клієнта", "покупець", "постачальник"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва типу"
+      - name: Type
+        type: int
+        description: "Код типу"
+
+  - name: ClientTypeRole
+    description: "Роль в межах типу клієнта"
+    keywords_uk: ["роль клієнта", "підтип"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва ролі"
+      - name: Description
+        type: nvarchar
+        description: "Опис ролі"
+      - name: ClientTypeID
+        type: int
+        description: "FK до ClientType"
+
+  # ===========================================================================
+  # HIERARCHY
+  # ===========================================================================
+  - name: ClientSubClient
+    description: "Ієрархія клієнтів (головний -> філія)"
+    keywords_uk: ["філія", "підлеглий", "структура", "ієрархія", "головний клієнт"]
+    columns:
+      - name: RootClientID
+        type: int
+        description: "FK до Client - головний клієнт"
+        keywords_uk: ["головний", "материнський", "root"]
+      - name: SubClientID
+        type: int
+        description: "FK до Client - підлеглий клієнт (філія)"
+        keywords_uk: ["філія", "підлеглий", "дочірній"]
+
+  - name: ClientUserProfile
+    description: "Менеджер клієнта"
+    keywords_uk: ["менеджер", "відповідальний", "куратор"]
+    columns:
+      - name: ClientID
+        type: int
+        description: "FK до Client"
+      - name: UserProfileID
+        type: int
+        description: "FK до User - менеджер"
+
+  # ===========================================================================
+  # BANKING
+  # ===========================================================================
+  - name: ClientBankDetails
+    description: "Банківські реквізити клієнта"
+    keywords_uk: ["банк", "реквізити", "рахунок"]
+    columns:
+      - name: BankAndBranch
+        type: nvarchar
+        description: "Назва банку та відділення"
+        keywords_uk: ["банк", "назва банку"]
+      - name: BankAddress
+        type: nvarchar
+        description: "Адреса банку"
+      - name: Swift
+        type: nvarchar
+        description: "SWIFT код"
+        keywords_uk: ["swift", "свіфт"]
+      - name: BranchCode
+        type: nvarchar
+        description: "Код відділення"
+      - name: AccountNumberID
+        type: int
+        description: "FK до ClientBankDetailAccountNumber"
+      - name: ClientBankDetailIbanNoID
+        type: int
+        description: "FK до ClientBankDetailIbanNo"
+
+  - name: ClientBankDetailIbanNo
+    description: "IBAN рахунок"
+    keywords_uk: ["iban", "ібан", "міжнародний рахунок"]
+    columns:
+      - name: IBANNO
+        type: nvarchar
+        description: "Номер IBAN"
+        keywords_uk: ["iban", "ібан"]
+      - name: CurrencyID
+        type: int
+        description: "FK до Currency"
+
+  - name: ClientBankDetailAccountNumber
+    description: "Номер рахунку"
+    keywords_uk: ["рахунок", "номер рахунку", "розрахунковий"]
+    columns:
+      - name: AccountNumber
+        type: nvarchar
+        description: "Номер рахунку"
+      - name: CurrencyID
+        type: int
+        description: "FK до Currency"
+
+  # ===========================================================================
+  # DEBT
+  # ===========================================================================
+  - name: ClientInDebt
+    description: "Зв'язок клієнта з боргом"
+    keywords_uk: ["борг", "заборгованість"]
+    columns:
+      - name: ClientID
+        type: int
+        description: "FK до Client"
+      - name: AgreementID
+        type: int
+        description: "FK до Agreement"
+      - name: DebtID
+        type: int
+        description: "FK до Debt"
+      - name: SaleID
+        type: int
+        description: "FK до Sale - джерело боргу"
+      - name: ReSaleID
+        type: int
+        description: "FK до ReSale - джерело боргу"
+
+  - name: Debt
+    description: "Запис про борг"
+    keywords_uk: ["борг", "заборгованість", "сума боргу"]
+    columns:
+      - name: Total
+        type: money
+        description: "Сума боргу"
+        keywords_uk: ["сума", "скільки винен", "розмір боргу"]
+      - name: Created
+        type: datetime
+        description: "Дата виникнення боргу"
+        keywords_uk: ["дата боргу", "коли виник", "початок боргу"]
+
+  # ===========================================================================
+  # PAYMENTS
+  # ===========================================================================
+  - name: OutcomePaymentOrder
+    description: "Вихідний платіж (ми платимо)"
+    keywords_uk: ["вихідний платіж", "оплата", "ми платимо"]
+    columns:
+      - name: ClientAgreementID
+        type: int
+        description: "FK до ClientAgreement"
+      - name: Amount
+        type: money
+        description: "Сума платежу"
+        keywords_uk: ["сума", "скільки"]
+      - name: EuroAmount
+        type: money
+        description: "Сума в євро"
+      - name: AfterExchangeAmount
+        type: money
+        description: "Сума після конвертації"
+      - name: FromDate
+        type: datetime
+        description: "Дата платежу"
+        keywords_uk: ["дата платежу", "коли оплачено"]
+      - name: IsCanceled
+        type: bit
+        description: "Скасований платіж"
+
+  - name: IncomePaymentOrder
+    description: "Вхідний платіж (нам платять)"
+    keywords_uk: ["вхідний платіж", "надходження", "нам платять"]
+    columns:
+      - name: ClientID
+        type: int
+        description: "FK до Client"
+      - name: ClientAgreementID
+        type: int
+        description: "FK до ClientAgreement"
+      - name: Amount
+        type: money
+        description: "Сума платежу"
+      - name: EuroAmount
+        type: money
+        description: "Сума в євро"
+      - name: FromDate
+        type: datetime
+        description: "Дата платежу"
+      - name: CurrencyID
+        type: int
+        description: "FK до Currency"
+      - name: IsCanceled
+        type: bit
+        description: "Скасований платіж"
+
+  # ===========================================================================
+  # LOCATION
+  # ===========================================================================
+  - name: RegionCode
+    description: "Код регіону"
+    keywords_uk: ["регіон", "область"]
+    columns:
+      - name: RegionID
+        type: int
+        description: "FK до Region"
+      - name: Code
+        type: nvarchar
+        description: "Код регіону"
+
+  - name: Region
+    description: "Регіон (область)"
+    keywords_uk: ["регіон", "область", "край"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва регіону"
+      - name: CountryID
+        type: int
+        description: "FK до Country"
+
+  - name: Country
+    description: "Країна"
+    keywords_uk: ["країна", "держава"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва країни"
+
+  # ===========================================================================
+  # REFERENCE
+  # ===========================================================================
+  - name: Currency
+    description: "Валюта"
+    keywords_uk: ["валюта", "гроші", "курс"]
+    columns:
+      - name: Code
+        type: nvarchar
+        description: "Код валюти (EUR, USD, UAH)"
+        keywords_uk: ["євро", "долар", "гривня"]
+      - name: Name
+        type: nvarchar
+        description: "Назва валюти"
+
+  - name: Organization
+    description: "Наша організація"
+    keywords_uk: ["організація", "компанія", "фірма"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва організації"
+      - name: FullName
+        type: nvarchar
+        description: "Повна назва"
+
+  - name: User
+    description: "Користувач (менеджер)"
+    keywords_uk: ["користувач", "менеджер", "працівник"]
+    columns:
+      - name: FirstName
+        type: nvarchar
+        description: "Ім'я"
+      - name: LastName
+        type: nvarchar
+        description: "Прізвище"
+      - name: Email
+        type: nvarchar
+        description: "Email"
+
+  # ===========================================================================
+  # SALES
+  # ===========================================================================
+  - name: Sale
+    description: "Продаж (накладна)"
+    keywords_uk: ["продаж", "накладна", "реалізація"]
+    columns:
+      - name: ClientAgreementID
+        type: int
+        description: "FK до ClientAgreement"
+      - name: OrderID
+        type: int
+        description: "FK до Order"
+      - name: SaleNumberID
+        type: int
+        description: "FK до SaleNumber"
+      - name: Total
+        type: money
+        description: "Сума продажу"
+        keywords_uk: ["сума", "всього"]
+      - name: Created
+        type: datetime
+        description: "Дата продажу"
+      - name: ChangedToInvoice
+        type: datetime
+        description: "Дата перетворення в накладну"
+
+  - name: SaleNumber
+    description: "Номер накладної"
+    keywords_uk: ["номер накладної", "номер продажу"]
+    columns:
+      - name: Value
+        type: nvarchar
+        description: "Номер"
+
+  - name: Order
+    description: "Замовлення"
+    keywords_uk: ["замовлення", "ордер"]
+    columns:
+      - name: ClientAgreementID
+        type: int
+        description: "FK до ClientAgreement"
+      - name: UserID
+        type: int
+        description: "FK до User - хто створив"
+      - name: OrderStatus
+        type: int
+        description: "Статус замовлення"
+      - name: Created
+        type: datetime
+        description: "Дата замовлення"
+
+  - name: OrderItem
+    description: "Позиція замовлення"
+    keywords_uk: ["позиція", "товар в замовленні", "рядок"]
+    columns:
+      - name: OrderID
+        type: int
+        description: "FK до Order"
+      - name: ProductID
+        type: int
+        description: "FK до Product"
+      - name: Qty
+        type: decimal
+        description: "Кількість"
+        keywords_uk: ["кількість", "скільки штук"]
+      - name: PricePerItem
+        type: money
+        description: "Ціна за одиницю"
+        keywords_uk: ["ціна", "вартість"]
+      - name: DiscountAmount
+        type: money
+        description: "Сума знижки"
+        keywords_uk: ["знижка"]
+
+  - name: Product
+    description: "Товар (продукт)"
+    keywords_uk: ["товар", "продукт", "артикул"]
+    columns:
+      - name: Name
+        type: nvarchar
+        description: "Назва товару"
+      - name: VendorCode
+        type: nvarchar
+        description: "Артикул"
+        keywords_uk: ["артикул", "код товару"]
+      - name: MainOriginalNumber
+        type: nvarchar
+        description: "Оригінальний номер"
+
+# ===========================================================================
+# UDF FUNCTIONS
+# ===========================================================================
+functions:
+  - name: dbo.GetExchangedToEuroValue
+    description: "Конвертує суму в євро за курсом на дату"
+    keywords_uk: ["конвертація", "євро", "курс валют"]
+    parameters:
+      - name: amount
+        description: "Сума в вихідній валюті"
+      - name: currencyId
+        description: "ID валюти"
+      - name: date
+        description: "Дата для курсу"
+    returns: "Сума в EUR"
+
+  - name: dbo.GetExchangeRateByCurrencyIdAndCode
+    description: "Отримує курс валюти на дату"
+    keywords_uk: ["курс", "валюта", "обмін"]
+    parameters:
+      - name: currencyId
+        description: "ID валюти (може бути NULL)"
+      - name: currencyCode
+        description: "Код валюти (EUR, USD)"
+      - name: date
+        description: "Дата курсу"
+
+# ===========================================================================
+# RELATIONSHIPS
+# ===========================================================================
+relationships:
+  - from: Client
+    to: ClientAgreement
+    via: ClientAgreement.ClientID = Client.ID
+    description: "Клієнт має багато договорів"
+
+  - from: ClientAgreement
+    to: Agreement
+    via: ClientAgreement.AgreementID = Agreement.ID
+    description: "Договір клієнта посилається на шаблон договору"
+
+  - from: Client
+    to: ClientInRole
+    via: ClientInRole.ClientID = Client.ID
+    description: "Клієнт має тип і роль"
+
+  - from: ClientInRole
+    to: ClientType
+    via: ClientInRole.ClientTypeID = ClientType.ID
+    description: "Роль посилається на тип клієнта"
+
+  - from: Client
+    to: ClientSubClient
+    via: ClientSubClient.RootClientID = Client.ID
+    description: "Клієнт може мати підлеглих (філії)"
+
+  - from: Client
+    to: ClientUserProfile
+    via: ClientUserProfile.ClientID = Client.ID
+    description: "Клієнт має менеджера"
+
+  - from: Client
+    to: ClientBankDetails
+    via: Client.ClientBankDetailsID = ClientBankDetails.ID
+    description: "Клієнт має банківські реквізити"
+
+  - from: ClientAgreement
+    to: ClientInDebt
+    via: ClientInDebt.AgreementID = Agreement.ID
+    description: "Договір може мати борги"
+
+  - from: ClientInDebt
+    to: Debt
+    via: ClientInDebt.DebtID = Debt.ID
+    description: "Запис боргу"
+
+  - from: Client
+    to: RegionCode
+    via: Client.RegionCodeID = RegionCode.ID
+    description: "Клієнт має регіон"
+
+  - from: RegionCode
+    to: Region
+    via: RegionCode.RegionID = Region.ID
+    description: "Код регіону посилається на регіон"
+
+  - from: Region
+    to: Country
+    via: Region.CountryID = Country.ID
+    description: "Регіон належить країні"

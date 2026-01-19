@@ -6,19 +6,33 @@ import re
 import threading
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 from pydantic import BaseModel
 
-from .config import get_settings
-from .db import fetch_rows, DatabaseError
-from .join_graph import build_adjacency, build_join_plan, edges_from_foreign_keys
-from .join_rules import JoinRules, load_join_rules
-from .llm import compose_answer, generate_sql, select_tables, LLMError
-from .models import ChatRequest, ChatResponse
-from .schema_cache import SchemaCache
-from .sql_guard import apply_row_limit, extract_sql, is_safe_sql
+from .core import (
+    DatabaseError,
+    get_settings,
+    ChatRequest,
+    ChatResponse,
+    DatabaseType,
+    test_connection,
+    test_all_connections,
+    get_available_databases,
+)
+from .core.exceptions import LLMError
+from .schema import (
+    SchemaCache,
+    JoinRules,
+    build_adjacency,
+    build_join_plan,
+    edges_from_foreign_keys,
+    load_join_rules,
+)
+from .core.db import fetch_rows
+from .llm import compose_answer, generate_sql, select_tables
+from .security import apply_row_limit, extract_sql, is_safe_sql
 
 # Configure logging
 logging.basicConfig(
@@ -144,6 +158,174 @@ def schema_refresh() -> dict[str, int | str]:
     return schema_summary()
 
 
+# --- Database Endpoints ---
+
+@app.get("/api/databases")
+def list_databases() -> dict[str, Any]:
+    """List all configured databases and their status."""
+    databases = get_available_databases()
+    return {
+        "databases": databases,
+        "default": settings.default_database.value,
+        "count": len(databases),
+    }
+
+
+@app.get("/api/databases/test")
+def test_all_databases() -> dict[str, Any]:
+    """Test connections to all configured databases."""
+    results = test_all_connections()
+    all_connected = all(r.get("connected", False) for r in results.values())
+    return {
+        "all_connected": all_connected,
+        "results": results,
+    }
+
+
+@app.get("/api/databases/{db_type}/test")
+def test_database(db_type: str) -> dict[str, Any]:
+    """Test connection to a specific database."""
+    try:
+        db_enum = DatabaseType(db_type)
+    except ValueError:
+        raise_error(400, "invalid_database", f"Unknown database type: {db_type}")
+
+    result = test_connection(db_enum)
+    if not result["connected"]:
+        raise_error(503, "connection_failed", f"Failed to connect to {db_type}", result)
+
+    return result
+
+
+# --- Query Endpoint (GET) ---
+
+@app.get("/api/query", response_model=ChatResponse)
+def query_llm(
+    q: str = Query(..., min_length=1, max_length=2000, description="Question in Ukrainian or English"),
+    db: str = Query(default="local", description="Database to query (local, identity)"),
+) -> ChatResponse:
+    """
+    Query the database using natural language.
+
+    - **q**: Your question (e.g., "Який борг клієнта Acme?")
+    - **db**: Target database (default: local)
+
+    Returns SQL query, results, and natural language answer.
+    """
+    # Validate database type
+    try:
+        db_type = DatabaseType(db)
+    except ValueError:
+        raise_error(400, "invalid_database", f"Unknown database: {db}. Use: local, identity")
+
+    # Sanitize input
+    message = sanitize_user_input(q)
+    if not message:
+        raise_error(400, "empty_query", "Query parameter 'q' is required")
+
+    logger.info(f"GET query request: {message[:100]}... (db={db})")
+
+    # Ensure schema is loaded
+    with _state_lock:
+        if not schema_cache.tables:
+            logger.info("Schema not loaded, loading now...")
+            schema_cache.load()
+
+    # Stage 1: Table Selection
+    try:
+        with _state_lock:
+            table_keys = schema_cache.table_keys()
+        selection = select_tables(message, table_keys)
+    except LLMError as exc:
+        logger.error(f"LLM error during table selection: {exc}")
+        raise_error(502, "llm_error", f"LLM service error: {exc}")
+    except httpx.HTTPError as exc:
+        logger.error(f"HTTP error during table selection: {exc}")
+        raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
+
+    if selection.need_clarification:
+        logger.info("Returning clarification request")
+        return ChatResponse(answer=selection.clarifying_question, warnings=["clarification"])
+
+    if not selection.tables:
+        logger.warning("No tables selected for query")
+        return ChatResponse(
+            answer="Не вдалося визначити потрібні таблиці. Будь ласка, уточніть ваш запит.",
+            warnings=["no_tables"],
+        )
+
+    # Build join plan
+    with _state_lock:
+        available_edges = join_rules.to_edges() if join_rules.joins else edges_from_foreign_keys(schema_cache.foreign_keys)
+    adjacency = build_adjacency(available_edges)
+    join_edges, missing = build_join_plan(adjacency, selection.tables)
+    table_details = _format_table_details(selection.tables)
+    join_hints = _format_join_hints(join_edges)
+
+    logger.info(f"Selected {len(selection.tables)} tables, {len(join_edges)} joins")
+
+    # Stage 2: SQL Generation
+    sql_model = settings.ollama_sql_model or None
+    try:
+        sql_raw = generate_sql(
+            message,
+            table_details,
+            join_hints,
+            settings.max_rows,
+            selected_tables=selection.tables,
+            model=sql_model,
+        )
+    except LLMError as exc:
+        logger.error(f"LLM error during SQL generation: {exc}")
+        raise_error(502, "llm_error", f"LLM service error: {exc}")
+    except httpx.HTTPError as exc:
+        logger.error(f"HTTP error during SQL generation: {exc}")
+        raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
+
+    # Extract and validate SQL
+    sql = extract_sql(sql_raw)
+    sql = apply_row_limit(sql, settings.max_rows)
+
+    ok, reason = is_safe_sql(sql)
+    if not ok:
+        logger.warning(f"SQL validation failed: {reason}")
+        raise_error(400, "invalid_sql", f"Generated SQL failed validation: {reason}")
+
+    # Execute query on specified database
+    try:
+        columns, rows = fetch_rows(sql, max_rows=settings.max_rows, db_type=db_type)
+        logger.info(f"Query returned {len(rows)} rows from {db}")
+    except DatabaseError as exc:
+        logger.error(f"Database error: {exc}")
+        raise_error(500, "database_error", f"Database query failed: {exc}")
+    except Exception as exc:
+        logger.error(f"Unexpected error: {exc}")
+        raise_error(500, "query_error", f"Query execution failed: {exc}")
+
+    # Stage 3: Answer Composition
+    try:
+        answer = compose_answer(message, sql, columns, rows)
+    except LLMError as exc:
+        logger.error(f"LLM error during answer composition: {exc}")
+        raise_error(502, "llm_error", f"LLM service error: {exc}")
+    except httpx.HTTPError as exc:
+        logger.error(f"HTTP error during answer composition: {exc}")
+        raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
+
+    # Collect warnings
+    warnings: list[str] = []
+    if missing:
+        warnings.append(f"missing_join_path: {', '.join(missing)}")
+    if len(rows) == settings.max_rows:
+        warnings.append(f"results_truncated: {settings.max_rows}")
+    if db != "local":
+        warnings.append(f"database: {db}")
+
+    logger.info("GET query complete")
+
+    return ChatResponse(answer=answer, sql=sql, columns=columns, rows=rows, warnings=warnings)
+
+
 # --- Helper Functions ---
 
 def _format_table_details(table_keys: list[str]) -> str:
@@ -233,7 +415,14 @@ def chat(request: ChatRequest) -> ChatResponse:
     if sql_model:
         logger.info(f"Using specialized SQL model: {sql_model}")
     try:
-        sql_raw = generate_sql(message, table_details, join_hints, settings.max_rows, model=sql_model)
+        sql_raw = generate_sql(
+            message,
+            table_details,
+            join_hints,
+            settings.max_rows,
+            selected_tables=selection.tables,
+            model=sql_model,
+        )
     except LLMError as exc:
         logger.error(f"LLM error during SQL generation: {exc}")
         raise_error(502, "llm_error", f"LLM service error: {exc}")

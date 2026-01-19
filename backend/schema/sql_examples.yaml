@@ -1,0 +1,397 @@
+﻿categories:
+  simple_select:
+    description: "Basic SELECT with soft-delete filter"
+    keywords: ["покажи", "список", "знайди", "всі", "виведи", "дай"]
+    examples:
+      - question: "Покажи всі активні продукти"
+        sql: |
+          SELECT [Product].ID, [Product].Name, [Product].Code, [Product].MainOriginalNumber
+          FROM [Product]
+          WHERE [Product].Deleted = 0
+      - question: "Знайди клієнта за назвою"
+        sql: |
+          SELECT [Client].ID, [Client].FullName, [Client].Phone, [Client].Email
+          FROM [Client]
+          WHERE [Client].Deleted = 0
+            AND [Client].FullName LIKE '%пошуковий_термін%'
+
+  aggregation:
+    description: "GROUP BY with SUM/COUNT/TOP"
+    keywords: ["топ", "сума", "кількість", "найбільш", "скільки", "загальн", "середн"]
+    examples:
+      - question: "Топ 5 клієнтів за сумою боргу"
+        sql: |
+          SELECT TOP(5) [Client].FullName, SUM([Debt].Total) AS TotalAmount
+          FROM [Debt]
+          LEFT OUTER JOIN [ClientInDebt] ON [ClientInDebt].DebtID = [Debt].ID AND [ClientInDebt].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID AND [Client].Deleted = 0
+          WHERE [Debt].Deleted = 0
+          GROUP BY [Client].FullName
+          ORDER BY TotalAmount DESC
+      - question: "Кількість продажів по регіонах"
+        sql: |
+          SELECT [Region].Name AS RegionName, COUNT([Sale].ID) AS SalesCount,
+                 ROUND(SUM([Sale].Total), 2) AS TotalAmount
+          FROM [Region]
+          LEFT OUTER JOIN [Client] ON [Client].RegionID = [Region].ID AND [Client].Deleted = 0
+          LEFT OUTER JOIN [Sale] ON [Sale].ClientID = [Client].ID AND [Sale].Deleted = 0
+          WHERE [Region].Deleted = 0
+          GROUP BY [Region].Name
+          ORDER BY SalesCount DESC
+
+  multi_join:
+    description: "Multiple table JOINs with related data"
+    keywords: ["деталі", "разом", "включаючи", "повна інформація", "з", "інформац"]
+    examples:
+      - question: "Деталі замовлення з продуктами та клієнтом"
+        sql: |
+          SELECT [Order].ID, [Order].Created, [Client].FullName AS ClientName,
+                 [Product].Name AS ProductName, [OrderItem].Qty, [OrderItem].Price
+          FROM [Order]
+          LEFT OUTER JOIN [User] ON [User].ID = [Order].UserID AND [User].Deleted = 0
+          LEFT OUTER JOIN [OrderItem] ON [OrderItem].OrderID = [Order].ID AND [OrderItem].Deleted = 0
+          LEFT OUTER JOIN [Product] ON [Product].ID = [OrderItem].ProductID AND [Product].Deleted = 0
+          LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [Order].ClientAgreementID AND [ClientAgreement].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientAgreement].ClientID AND [Client].Deleted = 0
+          WHERE [Order].Deleted = 0
+          ORDER BY [Order].Created DESC
+      - question: "Інформація про користувача з роллю"
+        sql: |
+          SELECT [User].ID, [User].Login, [User].FirstName, [User].LastName,
+                 [UserRole].Name AS RoleName
+          FROM [User]
+          LEFT OUTER JOIN [UserRole] ON [UserRole].ID = [User].UserRoleID AND [UserRole].Deleted = 0
+          WHERE [User].Deleted = 0
+
+  cte_ranking:
+    description: "CTE with ROW_NUMBER for ranking/pagination"
+    keywords: ["перші", "останні", "ранжуван", "пагінац", "сторінк", "рейтинг"]
+    examples:
+      - question: "Останні 10 замовлень"
+        sql: |
+          ;WITH [Orders_CTE] AS (
+            SELECT ROW_NUMBER() OVER (ORDER BY [Order].Created DESC) AS RowNumber,
+                   [Order].ID, [Order].Created
+            FROM [Order]
+            WHERE [Order].Deleted = 0
+          )
+          SELECT TOP(10) o.ID, o.Created, o.RowNumber
+          FROM [Orders_CTE] o
+          ORDER BY o.RowNumber
+
+  subquery:
+    description: "Queries with subqueries"
+    keywords: ["які мають", "без", "з найбільш", "де є", "у яких"]
+    examples:
+      - question: "Клієнти які мають замовлення"
+        sql: |
+          SELECT [Client].ID, [Client].FullName
+          FROM [Client]
+          WHERE [Client].Deleted = 0
+            AND EXISTS (
+              SELECT 1 FROM [Order]
+              LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [Order].ClientAgreementID
+              WHERE [ClientAgreement].ClientID = [Client].ID
+                AND [Order].Deleted = 0
+            )
+
+  debt_financial:
+    description: "Debt and financial calculations with currency conversion"
+    keywords: ["борг", "заборгован", "баланс", "оплат", "платіж", "прострочен", "валют", "євро"]
+    examples:
+      - question: "Топ 5 клієнтів за сумою боргу в євро"
+        sql: |
+          SELECT TOP(5) [Client].FullName,
+                 SUM(dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE())) AS TotalDebtEuro
+          FROM [Debt]
+          LEFT OUTER JOIN [ClientInDebt] ON [ClientInDebt].DebtID = [Debt].ID AND [ClientInDebt].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID AND [Client].Deleted = 0
+          LEFT OUTER JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID AND [Agreement].Deleted = 0
+          WHERE [Debt].Deleted = 0
+            AND [Debt].Total != 0
+          GROUP BY [Client].FullName
+          ORDER BY TotalDebtEuro DESC
+      - question: "Прострочені борги клієнтів"
+        sql: |
+          SELECT [Client].FullName, [Debt].Total, [Debt].Created,
+                 DATEDIFF(day, [Debt].Created, GETUTCDATE()) AS DaysOverdue,
+                 [Agreement].NumberDaysDebt AS PaymentTermDays
+          FROM [ClientInDebt]
+          LEFT OUTER JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID AND [Debt].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID AND [Client].Deleted = 0
+          LEFT OUTER JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID AND [Agreement].Deleted = 0
+          WHERE [ClientInDebt].Deleted = 0
+            AND [Debt].Total <> 0
+            AND [Agreement].NumberDaysDebt < DATEDIFF(day, [Debt].Created, GETUTCDATE())
+          ORDER BY DaysOverdue DESC
+
+  hierarchical_aggregation:
+    description: "CTE with hierarchical data aggregation (parent-child)"
+    keywords: ["субклієнт", "підпорядкован", "разом з дочірн", "ієрарх", "загальний борг", "дочірн"]
+    examples:
+      - question: "Загальний борг клієнта включаючи субклієнтів"
+        sql: |
+          ;WITH [SubClientDebts_CTE] AS (
+            SELECT SUM([Debt].Total) AS TotalSubClientsDebt, [ClientSubClient].RootClientID
+            FROM [ClientInDebt]
+            LEFT OUTER JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID AND [Debt].Deleted = 0
+            LEFT OUTER JOIN [ClientSubClient] ON [ClientSubClient].SubClientID = [ClientInDebt].ClientID
+              AND [ClientSubClient].Deleted = 0
+            WHERE [ClientInDebt].Deleted = 0
+            GROUP BY [ClientSubClient].RootClientID
+          )
+          SELECT [Client].FullName,
+                 ROUND(ISNULL([SubClientDebts_CTE].TotalSubClientsDebt, 0) + SUM([Debt].Total), 2) AS TotalDebt,
+                 ROUND(ISNULL([SubClientDebts_CTE].TotalSubClientsDebt, 0), 2) AS SubClientsDebt
+          FROM [ClientInDebt]
+          LEFT OUTER JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID AND [Debt].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID AND [Client].Deleted = 0
+          LEFT OUTER JOIN [SubClientDebts_CTE] ON [SubClientDebts_CTE].RootClientID = [Client].ID
+          WHERE [ClientInDebt].Deleted = 0
+          GROUP BY [Client].FullName, [SubClientDebts_CTE].TotalSubClientsDebt
+
+  payment_calculation:
+    description: "Complex payment calculations with assigned amounts"
+    keywords: ["залишок", "сплачено", "призначен", "розподіл", "невикористан", "платіжн"]
+    examples:
+      - question: "Залишок по вхідних платежах"
+        sql: |
+          SELECT [IncomePaymentOrder].ID, [IncomePaymentOrder].Number,
+                 ROUND([IncomePaymentOrder].Amount
+                   - ISNULL((SELECT SUM([AssignedOutcome].Amount)
+                             FROM [AssignedPaymentOrder]
+                             LEFT OUTER JOIN [OutcomePaymentOrder] AS [AssignedOutcome]
+                               ON [AssignedOutcome].ID = [AssignedPaymentOrder].AssignedOutcomePaymentOrderID
+                             WHERE [AssignedPaymentOrder].RootIncomePaymentOrderID = [IncomePaymentOrder].ID
+                               AND [AssignedPaymentOrder].Deleted = 0), 0)
+                   + ISNULL((SELECT SUM([AssignedIncome].Amount)
+                             FROM [AssignedPaymentOrder]
+                             LEFT OUTER JOIN [IncomePaymentOrder] AS [AssignedIncome]
+                               ON [AssignedIncome].ID = [AssignedPaymentOrder].AssignedIncomePaymentOrderID
+                             WHERE [AssignedPaymentOrder].RootIncomePaymentOrderID = [IncomePaymentOrder].ID
+                               AND [AssignedPaymentOrder].Deleted = 0), 0), 2) AS RemainingAmount
+          FROM [IncomePaymentOrder]
+          WHERE [IncomePaymentOrder].Deleted = 0
+
+  cash_flow_union:
+    description: "Cash flow with UNION of multiple sources"
+    keywords: ["грошовий потік", "рух коштів", "надходження", "витрат", "приход", "розход"]
+    examples:
+      - question: "Грошовий потік клієнта"
+        sql: |
+          ;WITH [CashFlow_CTE] AS (
+            SELECT [IncomePaymentOrder].ID, 'Income' AS [Type],
+                   [IncomePaymentOrder].FromDate, [IncomePaymentOrder].Amount
+            FROM [IncomePaymentOrder]
+            LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [IncomePaymentOrder].ClientAgreementID
+            WHERE [ClientAgreement].ClientID = @ClientId
+              AND [IncomePaymentOrder].Deleted = 0
+
+            UNION ALL
+
+            SELECT [OutcomePaymentOrder].ID, 'Outcome' AS [Type],
+                   [OutcomePaymentOrder].FromDate, [OutcomePaymentOrder].Amount
+            FROM [OutcomePaymentOrder]
+            LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [OutcomePaymentOrder].ClientAgreementID
+            WHERE [ClientAgreement].ClientID = @ClientId
+              AND [OutcomePaymentOrder].Deleted = 0
+          )
+          SELECT * FROM [CashFlow_CTE]
+          ORDER BY [CashFlow_CTE].FromDate DESC
+
+  date_calculation:
+    description: "Date/time calculations and filtering"
+    keywords: ["сьогодні", "вчора", "місяць", "тиждень", "рік", "період", "дата", "час"]
+    examples:
+      - question: "Замовлення за останній місяць"
+        sql: |
+          SELECT [Order].ID, [Order].Created, [Order].Total, [Client].FullName
+          FROM [Order]
+          LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [Order].ClientAgreementID AND [ClientAgreement].Deleted = 0
+          LEFT OUTER JOIN [Client] ON [Client].ID = [ClientAgreement].ClientID AND [Client].Deleted = 0
+          WHERE [Order].Deleted = 0
+            AND [Order].Created >= DATEADD(month, -1, GETUTCDATE())
+          ORDER BY [Order].Created DESC
+      - question: "Продажі за поточний рік"
+        sql: |
+          SELECT MONTH([Sale].Created) AS SaleMonth, COUNT([Sale].ID) AS SalesCount,
+                 ROUND(SUM([Sale].Total), 2) AS MonthlyTotal
+          FROM [Sale]
+          WHERE [Sale].Deleted = 0
+            AND YEAR([Sale].Created) = YEAR(GETUTCDATE())
+          GROUP BY MONTH([Sale].Created)
+          ORDER BY SaleMonth
+
+  price_calculation:
+    description: "Price calculations using Pricing and ProductPricing tables"
+    keywords: ["ціна", "вартість", "знижка", "прайс", "розрахув", "націнк"]
+    examples:
+      - question: "Ціни продуктів з прайсингу"
+        sql: |
+          SELECT [Product].ID, [Product].Name, [Product].MainOriginalNumber,
+                 [ProductPricing].Price,
+                 [Pricing].Name AS PricingName,
+                 [Pricing].ExtraCharge
+          FROM [Product]
+          LEFT OUTER JOIN [ProductPricing] ON [ProductPricing].ProductID = [Product].ID
+            AND [ProductPricing].Deleted = 0
+          LEFT OUTER JOIN [Pricing] ON [Pricing].ID = [ProductPricing].PricingID
+            AND [Pricing].Deleted = 0
+          WHERE [Product].Deleted = 0
+          ORDER BY [Product].Name
+      - question: "Ціни продуктів для угоди клієнта"
+        sql: |
+          SELECT [Product].ID, [Product].Name,
+                 [ProductPricing].Price,
+                 [Agreement].ID AS AgreementID,
+                 [Pricing].Name AS PricingName
+          FROM [Product]
+          LEFT OUTER JOIN [ProductPricing] ON [ProductPricing].ProductID = [Product].ID
+            AND [ProductPricing].Deleted = 0
+          LEFT OUTER JOIN [Pricing] ON [Pricing].ID = [ProductPricing].PricingID
+            AND [Pricing].Deleted = 0
+          LEFT OUTER JOIN [Agreement] ON [Agreement].PricingID = [Pricing].ID
+            AND [Agreement].Deleted = 0
+          WHERE [Product].Deleted = 0
+          ORDER BY [Product].Name
+      - question: "Середня ціна по замовленнях"
+        sql: |
+          SELECT [Product].ID, [Product].Name,
+                 ROUND(AVG([OrderItem].PricePerItem), 2) AS AvgPrice,
+                 COUNT([OrderItem].ID) AS OrdersCount
+          FROM [OrderItem]
+          LEFT OUTER JOIN [Product] ON [Product].ID = [OrderItem].ProductID
+            AND [Product].Deleted = 0
+          WHERE [OrderItem].Deleted = 0
+          GROUP BY [Product].ID, [Product].Name
+          HAVING COUNT([OrderItem].ID) > 0
+          ORDER BY AvgPrice DESC
+
+  warehouse_inventory:
+    description: "Inventory queries using ConsignmentItem and Storage tables"
+    keywords: ["склад", "залишок", "залишки", "запас", "наявн", "рух товар", "інвентар", "кількість на складі"]
+    examples:
+      - question: "Залишки товарів по консигнаціях"
+        sql: |
+          SELECT [Product].ID, [Product].Name, [Product].MainOriginalNumber,
+                 [Storage].Name AS StorageName,
+                 SUM([ConsignmentItem].RemainingQty) AS TotalQty
+          FROM [ConsignmentItem]
+          LEFT OUTER JOIN [Product] ON [Product].ID = [ConsignmentItem].ProductID
+            AND [Product].Deleted = 0
+          LEFT OUTER JOIN [Consignment] ON [Consignment].ID = [ConsignmentItem].ConsignmentID
+            AND [Consignment].Deleted = 0
+          LEFT OUTER JOIN [Storage] ON [Storage].ID = [Consignment].StorageID
+            AND [Storage].Deleted = 0
+          WHERE [ConsignmentItem].Deleted = 0
+            AND [ConsignmentItem].RemainingQty > 0
+          GROUP BY [Product].ID, [Product].Name, [Product].MainOriginalNumber, [Storage].Name
+          ORDER BY [Storage].Name, [Product].Name
+      - question: "Товари без залишків на складі"
+        sql: |
+          SELECT [Product].ID, [Product].Name, [Product].MainOriginalNumber
+          FROM [Product]
+          WHERE [Product].Deleted = 0
+            AND NOT EXISTS (
+              SELECT 1 FROM [ConsignmentItem]
+              WHERE [ConsignmentItem].ProductID = [Product].ID
+                AND [ConsignmentItem].Deleted = 0
+                AND [ConsignmentItem].RemainingQty > 0
+            )
+          ORDER BY [Product].Name
+      - question: "Список складів з кількістю товарів"
+        sql: |
+          SELECT [Storage].ID, [Storage].Name,
+                 COUNT(DISTINCT [ConsignmentItem].ProductID) AS ProductCount,
+                 SUM([ConsignmentItem].RemainingQty) AS TotalQty
+          FROM [Storage]
+          LEFT OUTER JOIN [Consignment] ON [Consignment].StorageID = [Storage].ID
+            AND [Consignment].Deleted = 0
+          LEFT OUTER JOIN [ConsignmentItem] ON [ConsignmentItem].ConsignmentID = [Consignment].ID
+            AND [ConsignmentItem].Deleted = 0
+            AND [ConsignmentItem].RemainingQty > 0
+          WHERE [Storage].Deleted = 0
+          GROUP BY [Storage].ID, [Storage].Name
+          ORDER BY TotalQty DESC
+
+  time_period_report:
+    description: "Reports aggregated by time periods"
+    keywords: ["за місяць", "за рік", "за тиждень", "по датах", "звіт", "по місяцях", "по роках", "щомісячн", "щорічн"]
+    examples:
+      - question: "Кількість продажів по місяцях за рік"
+        sql: |
+          SELECT YEAR([Sale].Created) AS SaleYear,
+                 MONTH([Sale].Created) AS SaleMonth,
+                 COUNT([Sale].ID) AS SalesCount
+          FROM [Sale]
+          WHERE [Sale].Deleted = 0
+            AND YEAR([Sale].Created) = YEAR(GETUTCDATE())
+          GROUP BY YEAR([Sale].Created), MONTH([Sale].Created)
+          ORDER BY SaleYear, SaleMonth
+      - question: "Звіт замовлень по тижнях"
+        sql: |
+          SELECT YEAR([Order].Created) AS OrderYear,
+                 DATEPART(week, [Order].Created) AS WeekNumber,
+                 COUNT([Order].ID) AS OrdersCount,
+                 COUNT(DISTINCT [OrderItem].ProductID) AS UniqueProducts
+          FROM [Order]
+          LEFT OUTER JOIN [OrderItem] ON [OrderItem].OrderID = [Order].ID
+            AND [OrderItem].Deleted = 0
+          WHERE [Order].Deleted = 0
+            AND [Order].Created >= DATEADD(month, -3, GETUTCDATE())
+          GROUP BY YEAR([Order].Created), DATEPART(week, [Order].Created)
+          ORDER BY OrderYear, WeekNumber
+      - question: "Порівняння кількості продажів по роках"
+        sql: |
+          SELECT YEAR([Sale].Created) AS SaleYear,
+                 COUNT([Sale].ID) AS TotalSales,
+                 COUNT(DISTINCT [ClientAgreement].ClientID) AS UniqueClients
+          FROM [Sale]
+          LEFT OUTER JOIN [ClientAgreement] ON [ClientAgreement].ID = [Sale].ClientAgreementID
+            AND [ClientAgreement].Deleted = 0
+          WHERE [Sale].Deleted = 0
+          GROUP BY YEAR([Sale].Created)
+          ORDER BY SaleYear DESC
+
+  document_query:
+    description: "Document and invoice queries using SupplyInvoice and related tables"
+    keywords: ["документ", "накладна", "рахунок", "акт", "друк", "інвойс", "фактур"]
+    examples:
+      - question: "Деталі накладної постачання"
+        sql: |
+          SELECT [SupplyInvoice].ID, [SupplyInvoice].Number, [SupplyInvoice].Created,
+                 [SupplyInvoice].NetPrice,
+                 [Organization].Name AS OrganizationName,
+                 [SupplyInvoiceOrderItem].Qty,
+                 [Product].Name AS ProductName, [Product].MainOriginalNumber
+          FROM [SupplyInvoice]
+          LEFT OUTER JOIN [SupplyInvoiceOrderItem] ON [SupplyInvoiceOrderItem].SupplyInvoiceID = [SupplyInvoice].ID
+            AND [SupplyInvoiceOrderItem].Deleted = 0
+          LEFT OUTER JOIN [Product] ON [Product].ID = [SupplyInvoiceOrderItem].ProductID
+            AND [Product].Deleted = 0
+          LEFT OUTER JOIN [SupplyOrder] ON [SupplyOrder].ID = [SupplyInvoice].SupplyOrderID
+            AND [SupplyOrder].Deleted = 0
+          LEFT OUTER JOIN [Organization] ON [Organization].ID = [SupplyOrder].OrganizationID
+            AND [Organization].Deleted = 0
+          WHERE [SupplyInvoice].Deleted = 0
+          ORDER BY [SupplyInvoice].Created DESC
+      - question: "Список накладних по замовленнях"
+        sql: |
+          SELECT [SupplyInvoice].ID, [SupplyInvoice].Number, [SupplyInvoice].Created,
+                 [SupplyInvoice].NetPrice, [SupplyInvoice].IsShipped,
+                 [SupplyOrder].ID AS SupplyOrderID
+          FROM [SupplyInvoice]
+          LEFT OUTER JOIN [SupplyOrder] ON [SupplyOrder].ID = [SupplyInvoice].SupplyOrderID
+            AND [SupplyOrder].Deleted = 0
+          WHERE [SupplyInvoice].Deleted = 0
+          ORDER BY [SupplyInvoice].Created DESC
+      - question: "Акти надання послуг"
+        sql: |
+          SELECT [ActProvidingService].ID, [ActProvidingService].Number, [ActProvidingService].Created,
+                 [ActProvidingService].Price, [ActProvidingService].Comment,
+                 [User].FirstName, [User].LastName
+          FROM [ActProvidingService]
+          LEFT OUTER JOIN [User] ON [User].ID = [ActProvidingService].UserID
+            AND [User].Deleted = 0
+          WHERE [ActProvidingService].Deleted = 0
+          ORDER BY [ActProvidingService].Created DESC

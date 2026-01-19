@@ -5,3 +5,5 @@ httpx
 python-dotenv
 pyyaml
 sqlparse
+sentence-transformers>=2.2.0
+numpy>=1.24.0

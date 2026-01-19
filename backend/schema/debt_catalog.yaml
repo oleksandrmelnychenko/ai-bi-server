@@ -1,0 +1,341 @@
+# Debt Query Catalog
+# Maps user questions to SQL patterns from GBA repository
+# All SQL is from ClientRepository and ClientInDebtRepository
+
+domain: debt
+description: "Борги клієнтів - розрахунок заборгованості"
+
+# Entity relationships
+schema:
+  tables:
+    - name: Client
+      role: dimension
+      key: ID
+      description: "Клієнт (покупець)"
+
+    - name: ClientAgreement
+      role: bridge
+      key: ID
+      description: "Зв'язок клієнта з договором"
+      fk: [ClientID -> Client.ID, AgreementID -> Agreement.ID]
+
+    - name: Agreement
+      role: dimension
+      key: ID
+      description: "Договір з клієнтом"
+      important_columns:
+        - NumberDaysDebt: "Кількість днів відстрочки платежу"
+        - CurrencyID: "Валюта договору"
+
+    - name: ClientInDebt
+      role: bridge
+      key: ID
+      description: "Зв'язок клієнта з боргом"
+      fk: [ClientID -> Client.ID, AgreementID -> Agreement.ID, DebtID -> Debt.ID, SaleID -> Sale.ID]
+
+    - name: Debt
+      role: fact
+      key: ID
+      description: "Запис про борг"
+      important_columns:
+        - Total: "Сума боргу в валюті договору"
+        - Created: "Дата виникнення боргу"
+
+    - name: ClientSubClient
+      role: bridge
+      description: "Ієрархія клієнтів (головний -> підлеглий)"
+      fk: [RootClientID -> Client.ID, SubClientID -> Client.ID]
+
+# User question patterns -> SQL queries
+queries:
+
+  # ============================================================
+  # CASE 1: Current debt total for a client
+  # ============================================================
+  current_debt_total:
+    name: "Поточний борг клієнта"
+    questions:
+      - "Який борг у клієнта {name}?"
+      - "Скільки винен клієнт {name}?"
+      - "Покажи заборгованість клієнта {name}"
+      - "Борг клієнта {name}"
+      - "Який борг у клієнта {name} зараз?"
+
+    parameters:
+      - name: "@ClientName"
+        type: "nvarchar"
+        description: "Ім'я або частина імені клієнта"
+        example: "Іванов"
+
+    sql: |
+      SELECT
+        [Client].[Name] AS ClientName,
+        CASE
+          WHEN CONVERT(money, SUM(dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE()))) IS NULL
+          THEN 0
+          ELSE CONVERT(money, SUM(dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE())))
+        END AS TotalDebtEuro
+      FROM [ClientInDebt]
+      LEFT JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID
+      LEFT JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID
+      LEFT JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID
+      WHERE [ClientInDebt].Deleted = 0
+        AND [Debt].Deleted = 0
+        AND [Client].[Name] LIKE '%' + @ClientName + '%'
+      GROUP BY [Client].[Name]
+
+    notes:
+      - "dbo.GetExchangedToEuroValue конвертує в EUR за поточним курсом"
+      - "Grouped by client name for total across all agreements"
+
+  # ============================================================
+  # CASE 2: Debt at specific date (historical)
+  # ============================================================
+  debt_at_date:
+    name: "Борг на певну дату"
+    questions:
+      - "Який борг у клієнта {name} на вчора?"
+      - "Який борг у клієнта {name} на {date}?"
+      - "Покажи заборгованість на {date}"
+      - "Історичний борг клієнта"
+
+    parameters:
+      - name: "@ClientName"
+        type: "nvarchar"
+        description: "Ім'я клієнта"
+      - name: "@AsOfDate"
+        type: "datetime"
+        description: "Дата для розрахунку"
+        example: "DATEADD(DAY, -1, GETDATE()) -- вчора"
+
+    sql: |
+      SELECT
+        [Client].[Name] AS ClientName,
+        CONVERT(money, SUM(
+          dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, @AsOfDate)
+        )) AS TotalDebtEuro,
+        @AsOfDate AS AsOfDate
+      FROM [ClientInDebt]
+      LEFT JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID
+      LEFT JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID
+      LEFT JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID
+      WHERE [ClientInDebt].Deleted = 0
+        AND [Debt].Deleted = 0
+        AND [Debt].[Created] <= @AsOfDate
+        AND [Client].[Name] LIKE '%' + @ClientName + '%'
+      GROUP BY [Client].[Name]
+
+    notes:
+      - "Фільтр Debt.Created <= @AsOfDate показує борги що існували на дату"
+      - "Курс валюти береться на дату @AsOfDate"
+
+  # ============================================================
+  # CASE 3: Debt by all agreements (detailed)
+  # ============================================================
+  debt_by_agreement:
+    name: "Борг по договорах"
+    questions:
+      - "Який борг у клієнта {name} по всім договорам?"
+      - "Покажи борги по кожному договору клієнта {name}"
+      - "Деталізація боргу по договорам"
+      - "Борг клієнта по договорам"
+
+    parameters:
+      - name: "@ClientName"
+        type: "nvarchar"
+        description: "Ім'я клієнта"
+
+    sql: |
+      SELECT
+        [Client].[Name] AS ClientName,
+        [Agreement].[ID] AS AgreementID,
+        [Agreement].[Name] AS AgreementName,
+        [Currency].[Code] AS Currency,
+        SUM([Debt].Total) AS DebtInCurrency,
+        CONVERT(money, SUM(
+          dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE())
+        )) AS DebtInEuro
+      FROM [ClientInDebt]
+      LEFT JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID
+      LEFT JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID
+      LEFT JOIN [Currency] ON [Currency].ID = [Agreement].CurrencyID
+      LEFT JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID
+      WHERE [ClientInDebt].Deleted = 0
+        AND [Debt].Deleted = 0
+        AND [Client].[Name] LIKE '%' + @ClientName + '%'
+      GROUP BY
+        [Client].[Name],
+        [Agreement].[ID],
+        [Agreement].[Name],
+        [Currency].[Code]
+      ORDER BY DebtInEuro DESC
+
+    notes:
+      - "Grouped by Agreement for per-contract breakdown"
+      - "Shows both original currency and EUR equivalent"
+
+  # ============================================================
+  # CASE 4: Debt with days overdue
+  # ============================================================
+  debt_with_overdue:
+    name: "Борг з простроченням"
+    questions:
+      - "Скільки днів прострочки у клієнта {name}?"
+      - "Які прострочені борги у клієнта?"
+      - "Покажи прострочену заборгованість"
+      - "Борги з днями прострочки"
+
+    parameters:
+      - name: "@ClientName"
+        type: "nvarchar"
+        description: "Ім'я клієнта"
+
+    sql: |
+      SELECT
+        [Client].[Name] AS ClientName,
+        [Debt].[Total] AS DebtAmount,
+        [Debt].[Created] AS DebtDate,
+        DATEDIFF(DAY, [Debt].[Created], GETUTCDATE()) AS TotalDays,
+        [Agreement].[NumberDaysDebt] AS AllowedDays,
+        CASE
+          WHEN DATEDIFF(DAY, [Debt].[Created], GETUTCDATE()) > [Agreement].[NumberDaysDebt]
+          THEN DATEDIFF(DAY, [Debt].[Created], GETUTCDATE()) - [Agreement].[NumberDaysDebt]
+          ELSE 0
+        END AS DaysOverdue,
+        dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE()) AS EuroTotal
+      FROM [ClientInDebt]
+      LEFT JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID
+      LEFT JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID
+      LEFT JOIN [Client] ON [Client].ID = [ClientInDebt].ClientID
+      WHERE [ClientInDebt].Deleted = 0
+        AND [Debt].Deleted = 0
+        AND [Client].[Name] LIKE '%' + @ClientName + '%'
+      ORDER BY DaysOverdue DESC
+
+    notes:
+      - "Agreement.NumberDaysDebt = кількість дозволених днів відстрочки"
+      - "DaysOverdue = фактичні дні - дозволені дні"
+      - "Від'ємне значення означає ще є час до прострочки"
+
+  # ============================================================
+  # CASE 5: Debt for client structure (with sub-clients)
+  # ============================================================
+  debt_with_subclient:
+    name: "Борг по структурі клієнта"
+    questions:
+      - "Який борг у всієї структури клієнта {name}?"
+      - "Загальний борг клієнта з підлеглими"
+      - "Борг головного клієнта і всіх філій"
+      - "Консолідований борг клієнта"
+
+    parameters:
+      - name: "@ClientNetId"
+        type: "uniqueidentifier"
+        description: "NetUID головного клієнта"
+
+    sql: |
+      WITH SubClientDebts_CTE(TotalSubClientsDebt, RootClientID) AS (
+        SELECT
+          SUM(Debt.Total) AS TotalSubClientsDebt,
+          ClientSubClient.RootClientID AS RootClientID
+        FROM ClientInDebt
+        LEFT OUTER JOIN Debt ON Debt.ID = ClientInDebt.DebtID
+        LEFT OUTER JOIN ClientSubClient ON ClientSubClient.RootClientID = (
+          SELECT ID FROM Client WHERE NetUID = @ClientNetId
+        ) AND ClientSubClient.Deleted = 0
+        WHERE ClientInDebt.ClientID = ClientSubClient.SubClientID
+          AND ClientInDebt.Deleted = 0
+        GROUP BY ClientSubClient.RootClientID
+      )
+      SELECT
+        [Client].[Name] AS RootClientName,
+        ISNULL([RootDebt].Total, 0) AS RootClientDebt,
+        ISNULL([SubClientDebts_CTE].TotalSubClientsDebt, 0) AS SubClientsDebt,
+        ISNULL([RootDebt].Total, 0) + ISNULL([SubClientDebts_CTE].TotalSubClientsDebt, 0) AS TotalStructureDebt
+      FROM [Client]
+      LEFT JOIN [SubClientDebts_CTE] ON [SubClientDebts_CTE].RootClientID = [Client].ID
+      LEFT JOIN (
+        SELECT ClientInDebt.ClientID, SUM(Debt.Total) AS Total
+        FROM ClientInDebt
+        LEFT JOIN Debt ON Debt.ID = ClientInDebt.DebtID
+        WHERE ClientInDebt.Deleted = 0
+        GROUP BY ClientInDebt.ClientID
+      ) AS [RootDebt] ON [RootDebt].ClientID = [Client].ID
+      WHERE [Client].NetUID = @ClientNetId
+
+    notes:
+      - "CTE обчислює суму боргів всіх SubClient"
+      - "RootClientDebt = борг самого головного клієнта"
+      - "SubClientsDebt = сума боргів всіх підлеглих"
+      - "TotalStructureDebt = консолідований борг"
+
+  # ============================================================
+  # CASE 6: Debt details (individual records)
+  # ============================================================
+  debt_details:
+    name: "Деталі боргів"
+    questions:
+      - "Покажи всі борги клієнта {name}"
+      - "Список боргів клієнта"
+      - "Деталізація заборгованості"
+
+    parameters:
+      - name: "@ClientId"
+        type: "int"
+        description: "ID клієнта"
+
+    sql: |
+      SELECT
+        [ClientInDebt].*,
+        [Debt].*,
+        [Sale].[SaleNumberID],
+        dbo.GetExchangedToEuroValue([Debt].Total, [Agreement].CurrencyID, GETDATE()) AS [EuroTotal]
+      FROM [ClientInDebt]
+      LEFT JOIN [Debt] ON [Debt].ID = [ClientInDebt].DebtID
+      LEFT JOIN [Sale] ON [Sale].ID = [ClientInDebt].SaleID
+      LEFT JOIN [Agreement] ON [Agreement].ID = [ClientInDebt].AgreementID
+      WHERE [ClientInDebt].ClientID = @ClientId
+        AND [Debt].Deleted = 0
+        AND [ClientInDebt].Deleted = 0
+      ORDER BY [Debt].[Created] DESC
+
+    notes:
+      - "Повертає всі записи про борги для клієнта"
+      - "Включає зв'язок з Sale для відстеження джерела боргу"
+
+# Key UDF functions used in debt calculations
+udfs:
+  - name: "dbo.GetExchangedToEuroValue"
+    description: "Конвертує суму в EUR за курсом на дату"
+    parameters:
+      - amount: "Сума в вихідній валюті"
+      - currencyId: "ID валюти"
+      - date: "Дата для курсу"
+    returns: "Сума в EUR"
+
+  - name: "dbo.GetExchangeRateByCurrencyIdAndCode"
+    description: "Отримує курс валюти"
+    parameters:
+      - currencyId: "ID валюти (може бути NULL)"
+      - currencyCode: "Код валюти (напр. 'EUR')"
+      - date: "Дата курсу"
+    returns: "Курс обміну"
+
+# Question classification keywords (Ukrainian)
+keywords:
+  debt_indicators:
+    - "борг"
+    - "заборгованість"
+    - "винен"
+    - "боржник"
+    - "прострочен"
+    - "кредит"
+
+  time_indicators:
+    current: ["зараз", "поточн", "сьогодні", "наразі"]
+    historical: ["вчора", "на дату", "було", "історія", "раніше"]
+
+  detail_indicators:
+    summary: ["всього", "загальн", "сума", "скільки"]
+    detailed: ["по договор", "деталі", "список", "всі борги", "кожн"]
+    structure: ["структур", "філії", "підлегл", "консолід"]

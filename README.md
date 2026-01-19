@@ -76,4 +76,15 @@ python tools/apply_table_rules.py
 ## Notes
 - The backend blocks non-SELECT statements and enforces `TOP` limits.
 - For production, use a read-only SQL user instead of `sa`.
+
+## SQL examples
+- Curated few-shot examples live in `backend/schema/sql_examples.yaml`.
+- Extracted examples can be generated from:
+  - Repo sources: `python -m tools.extract_gba_examples --repo C:\Users\123\RiderProjects\gba-server\src`
+  - DB objects: `python -m tools.extract_db_examples`
+- Runtime can load multiple extracted YAML files via `SQL_EXAMPLES_EXTRACTED_PATH` (comma-separated), e.g.
+  `backend/schema/sql_examples_extracted.yaml,backend/schema/sql_examples_extracted_db.yaml`.
+- Build a SQLite index (examples + schema metadata) for fast retrieval:
+  `python -m tools.build_sql_index`
+- Enable index usage at runtime with `SQL_INDEX_ENABLED=1`.
 - If SQL joins look off, add more context to your question or create reporting views.
