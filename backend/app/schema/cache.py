@@ -18,6 +18,7 @@ class ColumnInfo:
 class TableInfo:
     schema: str
     name: str
+    object_type: str = "table"
     columns: list[ColumnInfo] = field(default_factory=list)
     primary_key: list[str] = field(default_factory=list)
 
@@ -62,13 +63,14 @@ class SchemaCache:
                 SELECT
                     s.name AS schema_name,
                     t.name AS table_name,
+                    t.type AS object_type,
                     c.name AS column_name,
                     ty.name AS data_type,
                     c.max_length,
                     c.is_nullable,
                     CASE WHEN pk_cols.column_id IS NOT NULL THEN 1 ELSE 0 END AS is_primary_key,
                     pk_cols.key_ordinal
-                FROM sys.tables t
+                FROM sys.objects t
                 JOIN sys.schemas s ON t.schema_id = s.schema_id
                 JOIN sys.columns c ON c.object_id = t.object_id
                 JOIN sys.types ty ON c.user_type_id = ty.user_type_id
@@ -78,6 +80,7 @@ class SchemaCache:
                     JOIN sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
                     WHERE i.is_primary_key = 1
                 ) pk_cols ON pk_cols.object_id = t.object_id AND pk_cols.column_id = c.column_id
+                WHERE t.type IN ('U', 'V') AND t.is_ms_shipped = 0
                 ORDER BY s.name, t.name, c.column_id;
                 """
             )
@@ -85,12 +88,27 @@ class SchemaCache:
             pk_columns: dict[str, list[tuple[str, int]]] = {}
 
             for row in cursor.fetchall():
-                schema_name, table_name, column_name, data_type, max_length, is_nullable, is_pk, pk_ordinal = row
+                (
+                    schema_name,
+                    table_name,
+                    object_type,
+                    column_name,
+                    data_type,
+                    max_length,
+                    is_nullable,
+                    is_pk,
+                    pk_ordinal,
+                ) = row
                 key = f"{schema_name}.{table_name}"
 
                 # Create table if not exists
                 if key not in self.tables:
-                    self.tables[key] = TableInfo(schema=schema_name, name=table_name)
+                    table_type = "view" if str(object_type).upper() == "V" else "table"
+                    self.tables[key] = TableInfo(
+                        schema=schema_name,
+                        name=table_name,
+                        object_type=table_type,
+                    )
 
                 # Add column
                 self.tables[key].columns.append(

@@ -13,6 +13,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     history: list[ChatMessage] = Field(default_factory=list)
+    skip_answer: bool = Field(default=False, description="Skip LLM answer generation for faster response")
 
 
 class ChatResponse(BaseModel):

@@ -22,17 +22,36 @@ DANGEROUS_KEYWORDS = {
 
 
 def extract_sql(text: str) -> str:
-    """Extract SQL from LLM response, handling markdown code blocks."""
+    """Extract SQL from LLM response, handling various output formats.
+
+    Handles:
+    - Markdown code blocks: ```sql ... ```
+    - SQLCoder format: [SQL] ... [/SQL]
+    - Raw SQL statements
+    """
     if not text:
         return ""
+
     # Try ```sql block first
     fenced = re.search(r"```sql\s*(.*?)```", text, re.IGNORECASE | re.DOTALL)
     if fenced:
         return fenced.group(1).strip()
+
     # Try generic ``` block
     fenced = re.search(r"```\s*(.*?)```", text, re.DOTALL)
     if fenced:
         return fenced.group(1).strip()
+
+    # Try SQLCoder [SQL]...[/SQL] format
+    sqlcoder = re.search(r"\[SQL\]\s*(.*?)(?:\[/SQL\]|$)", text, re.IGNORECASE | re.DOTALL)
+    if sqlcoder:
+        return sqlcoder.group(1).strip()
+
+    # Try to find SELECT statement directly (common in raw outputs)
+    select_match = re.search(r"(SELECT\s+.*?)(?:;|\Z)", text, re.IGNORECASE | re.DOTALL)
+    if select_match:
+        return select_match.group(1).strip()
+
     return text.strip()
 
 

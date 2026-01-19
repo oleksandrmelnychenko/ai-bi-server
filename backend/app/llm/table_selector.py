@@ -1,15 +1,25 @@
-"""Table selection using LLM."""
+"""Table selection using vector + lexical retrieval."""
 
 from __future__ import annotations
 
+from collections import defaultdict
 from dataclasses import dataclass
 import logging
-from typing import Any
+import re
+from typing import Any, Iterable
 
-from .client import call_ollama, extract_json
-from .prompts import TABLE_SELECTION_SYSTEM
+from ..core.config import get_settings
+from ..retrieval.schema_hints import is_available as schema_vectors_available, search_schema
 
 logger = logging.getLogger(__name__)
+
+_TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
+_CAMEL_RE = re.compile(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|\d+")
+
+_TABLE_TOKEN_CACHE: dict[str, Any] = {
+    "loaded_at": None,
+    "tokens": {},
+}
 
 
 @dataclass
@@ -19,72 +29,269 @@ class SelectionResult:
     clarifying_question: str
 
 
-def _validate_selection_payload(payload: dict[str, Any]) -> tuple[list[str], bool, str]:
-    """Validate and extract fields from table selection response."""
-    # Extract tables with type validation
-    tables_raw = payload.get("tables")
-    if tables_raw is None:
-        logger.warning("No 'tables' field in selection payload")
-        tables = []
-    elif isinstance(tables_raw, list):
-        # Filter to only strings
-        tables = [t for t in tables_raw if isinstance(t, str)]
-        if len(tables) != len(tables_raw):
-            logger.warning(f"Filtered out non-string items from tables list")
-    elif isinstance(tables_raw, str):
-        # LLM returned a single table as string instead of list
-        logger.warning(f"'tables' is a string, not list: {tables_raw}")
-        tables = [tables_raw]
-    else:
-        logger.error(f"Unexpected type for 'tables': {type(tables_raw)}")
-        tables = []
-
-    # Extract clarification fields
-    need_clarification = bool(payload.get("need_clarification", False))
-    clarifying_question = payload.get("clarifying_question", "")
-
-    if not isinstance(clarifying_question, str):
-        logger.warning(f"clarifying_question is not string: {type(clarifying_question)}")
-        clarifying_question = str(clarifying_question) if clarifying_question else ""
-
-    return tables, need_clarification, clarifying_question
+def _split_identifier(text: str) -> list[str]:
+    cleaned = text.replace("[", "").replace("]", "")
+    parts = _TOKEN_RE.findall(cleaned)
+    tokens: list[str] = []
+    for part in parts:
+        for token in _CAMEL_RE.findall(part):
+            token = token.lower()
+            if token:
+                tokens.append(token)
+    return tokens
 
 
-def select_tables(question: str, table_keys: list[str]) -> SelectionResult:
-    """Ask LLM to select relevant tables for the question."""
-    table_list = "\n".join(f"- {name}" for name in table_keys)
-    user_prompt = f"Question:\n{question}\n\nAvailable tables:\n{table_list}\n"
+def _normalize_identifier(raw: str) -> str:
+    cleaned = raw.strip().strip(",;")
+    cleaned = cleaned.replace("[", "").replace("]", "").replace('"', "")
+    return cleaned
 
-    logger.info(f"Selecting tables for question: {question[:100]}...")
 
-    content = call_ollama(
-        [
-            {"role": "system", "content": TABLE_SELECTION_SYSTEM},
-            {"role": "user", "content": user_prompt},
-        ],
-        temperature=0.1,
-        max_tokens=800,
+def _tokenize_question(question: str) -> set[str]:
+    tokens = set()
+    for token in _split_identifier(question):
+        if len(token) > 1:
+            tokens.add(token)
+    return tokens
+
+
+def _build_alias_map(table_keys: Iterable[str]) -> dict[str, list[str]]:
+    alias_map: dict[str, list[str]] = defaultdict(list)
+    for key in table_keys:
+        if not key:
+            continue
+        cleaned = _normalize_identifier(key).lower()
+        base = cleaned.split(".")[-1]
+        if cleaned not in alias_map:
+            alias_map[cleaned] = []
+        if base not in alias_map:
+            alias_map[base] = []
+        alias_map[cleaned].append(key)
+        if base != cleaned:
+            alias_map[base].append(key)
+    return alias_map
+
+
+def _resolve_table_keys(name: str, alias_map: dict[str, list[str]]) -> list[str]:
+    cleaned = _normalize_identifier(name).lower()
+    if not cleaned:
+        return []
+    base = cleaned.split(".")[-1]
+    resolved: list[str] = []
+    for key in alias_map.get(cleaned, []):
+        if key not in resolved:
+            resolved.append(key)
+    if base != cleaned:
+        for key in alias_map.get(base, []):
+            if key not in resolved:
+                resolved.append(key)
+    return resolved
+
+
+def _get_table_tokens(schema_cache: Any, table_keys: list[str]) -> dict[str, set[str]]:
+    loaded_at = getattr(schema_cache, "loaded_at", None)
+    cache_loaded_at = _TABLE_TOKEN_CACHE.get("loaded_at")
+    if cache_loaded_at == loaded_at and _TABLE_TOKEN_CACHE.get("tokens"):
+        return _TABLE_TOKEN_CACHE["tokens"]
+
+    tokens_by_table: dict[str, set[str]] = {}
+    for key in table_keys:
+        table = schema_cache.table_info(key) if schema_cache else None
+        tokens = set(_split_identifier(key))
+        if table:
+            for column in table.columns:
+                tokens.update(_split_identifier(column.name))
+        tokens_by_table[key] = {t for t in tokens if len(t) > 1}
+
+    _TABLE_TOKEN_CACHE["loaded_at"] = loaded_at
+    _TABLE_TOKEN_CACHE["tokens"] = tokens_by_table
+    return tokens_by_table
+
+
+def _score_from_vectors(
+    question: str,
+    alias_map: dict[str, list[str]],
+    min_similarity: float,
+    top_k: int,
+    weights: dict[str, float],
+) -> dict[str, float]:
+    """Score tables using vector similarity search.
+
+    Args:
+        question: User question
+        alias_map: Table name alias mapping
+        min_similarity: Minimum cosine similarity threshold
+        top_k: Max results from vector search
+        weights: Dict with 'table', 'column', 'rel' weight values
+
+    Returns:
+        Dict mapping table keys to scores, empty dict if vector search unavailable/fails
+    """
+    if not schema_vectors_available():
+        logger.info("Schema vectors not available, skipping vector scoring")
+        return {}
+
+    scores: dict[str, float] = defaultdict(float)
+    try:
+        results = search_schema(
+            question,
+            top_k=top_k,
+            min_similarity=min_similarity,
+            entry_types=None,
+        )
+    except Exception as exc:
+        logger.warning(f"Schema vector search failed: {exc}")
+        return {}
+
+    for entry in results:
+        entry_type = entry.type
+        if entry_type == "table":
+            weight = weights.get("table", 1.0)
+            targets = _resolve_table_keys(entry.name, alias_map)
+        elif entry_type == "column":
+            weight = weights.get("column", 0.6)
+            table_name = entry.data.get("table") if isinstance(entry.data, dict) else None
+            if not table_name and entry.name:
+                table_name = entry.name.split(".")[0]
+            targets = _resolve_table_keys(table_name or "", alias_map)
+        elif entry_type == "relationship":
+            weight = weights.get("rel", 0.4)
+            targets = []
+            if isinstance(entry.data, dict):
+                for name in (entry.data.get("from"), entry.data.get("to")):
+                    targets.extend(_resolve_table_keys(name or "", alias_map))
+        else:
+            continue
+
+        for table_key in targets:
+            scores[table_key] += entry.similarity * weight
+
+    return scores
+
+
+def _score_from_lexical(
+    question: str,
+    table_keys: list[str],
+    schema_cache: Any,
+    weights: dict[str, float],
+) -> dict[str, float]:
+    """Score tables using lexical token matching.
+
+    Args:
+        question: User question
+        table_keys: List of table keys to score
+        schema_cache: Schema cache for column info
+        weights: Dict with 'token' and 'exact' weight values
+
+    Returns:
+        Dict mapping table keys to scores
+    """
+    tokens = _tokenize_question(question)
+    if not tokens:
+        return {}
+
+    token_weight = weights.get("token", 0.2)
+    exact_bonus = weights.get("exact", 1.0)
+
+    scores: dict[str, float] = defaultdict(float)
+    table_tokens = _get_table_tokens(schema_cache, table_keys) if schema_cache else {}
+    question_lower = question.lower()
+
+    for key in table_keys:
+        base = key.split(".")[-1].lower()
+        overlap = tokens & table_tokens.get(key, set())
+        if overlap:
+            scores[key] += len(overlap) * token_weight
+        if base and base in question_lower:
+            scores[key] += exact_bonus
+
+    return scores
+
+
+def select_tables(
+    question: str,
+    table_keys: list[str],
+    schema_cache: Any | None = None,
+) -> SelectionResult:
+    """Select relevant tables using vectors + lexical matching (no LLM).
+
+    Uses a hybrid approach:
+    1. Vector similarity search on schema embeddings
+    2. Lexical token matching on table/column names
+    3. Combined scoring with configurable weights
+
+    Falls back to lexical-only if vector search is unavailable.
+    """
+    if not question or not table_keys:
+        return SelectionResult(tables=[], need_clarification=False, clarifying_question="")
+
+    settings = get_settings()
+    max_tables = max(settings.table_selection_max_tables, 1)
+    min_score = max(settings.table_selection_min_score, 0.0)
+    top_k = max(settings.table_selection_vector_top_k, max_tables)
+
+    # Build weight dicts from config
+    vector_weights = {
+        "table": settings.table_selection_vector_table_weight,
+        "column": settings.table_selection_vector_column_weight,
+        "rel": settings.table_selection_vector_rel_weight,
+    }
+    lexical_weights = {
+        "token": settings.table_selection_lexical_token_weight,
+        "exact": settings.table_selection_lexical_exact_bonus,
+    }
+
+    alias_map = _build_alias_map(table_keys)
+    combined_scores: dict[str, float] = defaultdict(float)
+
+    # Try vector scoring first
+    vector_scores = _score_from_vectors(
+        question,
+        alias_map,
+        min_similarity=settings.table_selection_vector_min_similarity,
+        top_k=top_k,
+        weights=vector_weights,
     )
 
-    payload = extract_json(content)
-    tables, need_clarification, clarifying_question = _validate_selection_payload(payload)
+    # Always run lexical scoring (fallback + supplement)
+    lexical_scores = _score_from_lexical(question, table_keys, schema_cache, lexical_weights)
 
-    # Filter to valid tables only
-    valid_tables = set(table_keys)
-    filtered = [t for t in tables if t in valid_tables]
-    invalid = [t for t in tables if t not in valid_tables]
+    # Log which methods contributed
+    has_vector = bool(vector_scores)
+    has_lexical = bool(lexical_scores)
 
-    if invalid:
-        logger.warning(f"LLM selected invalid tables (not in schema): {invalid}")
+    if not has_vector and has_lexical:
+        logger.info("Using lexical-only scoring (vector search unavailable)")
+    elif has_vector and not has_lexical:
+        logger.info("Using vector-only scoring (no lexical matches)")
+    elif has_vector and has_lexical:
+        logger.info("Using combined vector + lexical scoring")
+    else:
+        logger.warning("No scores from either method")
 
-    logger.info(f"Selected {len(filtered)} tables, need_clarification={need_clarification}")
+    # Combine scores
+    for key, score in vector_scores.items():
+        combined_scores[key] += score
+    for key, score in lexical_scores.items():
+        combined_scores[key] += score
 
-    # Use meaningful fallback for clarification
-    if need_clarification and not clarifying_question:
-        clarifying_question = "Будь ласка, уточніть ваш запит. Які саме дані вас цікавлять?"
+    ranked = sorted(
+        combined_scores.items(),
+        key=lambda item: (-item[1], item[0]),
+    )
+
+    selected = [key for key, score in ranked if score >= min_score][:max_tables]
+
+    # Fallback: if no tables meet threshold, take top scoring ones
+    if not selected and ranked:
+        selected = [key for key, score in ranked if score > 0][:max_tables]
+        if selected:
+            logger.info(f"Fallback: selected {len(selected)} tables below threshold")
+
+    logger.info(f"Selected {len(selected)} tables (vector={has_vector}, lexical={has_lexical})")
 
     return SelectionResult(
-        tables=filtered,
-        need_clarification=need_clarification,
-        clarifying_question=clarifying_question
+        tables=selected,
+        need_clarification=False,
+        clarifying_question="",
     )

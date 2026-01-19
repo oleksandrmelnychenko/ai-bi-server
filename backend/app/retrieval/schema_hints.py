@@ -15,6 +15,8 @@ from typing import Optional
 
 import numpy as np
 
+from ..core.config import get_settings
+
 logger = logging.getLogger(__name__)
 
 # Default paths
@@ -51,7 +53,7 @@ def _get_model(model_name: str = None):
 
     if model_name is None:
         # Load from database metadata
-        db_path = _cache.get("db_path") or DEFAULT_SCHEMA_VECTOR_DB
+        db_path = _cache.get("db_path") or _get_db_path()
         if db_path.exists():
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
@@ -68,9 +70,20 @@ def _get_model(model_name: str = None):
     return _cache["model"]
 
 
+def _get_db_path(db_path: Path | None = None) -> Path:
+    if db_path is not None:
+        return db_path
+    settings = get_settings()
+    configured = settings.schema_vectors_path or ""
+    path = Path(configured) if configured else DEFAULT_SCHEMA_VECTOR_DB
+    if not path.is_absolute():
+        path = Path(__file__).parent.parent.parent / path
+    return path
+
+
 def _load_embeddings(db_path: Path = None) -> tuple[np.ndarray, list[dict]]:
     """Load all embeddings from database into memory."""
-    db_path = db_path or DEFAULT_SCHEMA_VECTOR_DB
+    db_path = _get_db_path(db_path)
 
     if _cache["embeddings"] is not None and _cache["db_path"] == db_path:
         return _cache["embeddings"], _cache["entries"]
@@ -154,7 +167,7 @@ def search_schema(
     Returns:
         List of SchemaEntry sorted by relevance
     """
-    db_path = db_path or DEFAULT_SCHEMA_VECTOR_DB
+    db_path = _get_db_path(db_path)
 
     # Load model and embeddings
     model = _get_model()
@@ -225,7 +238,7 @@ def get_schema_hints(
     Returns:
         Dictionary with 'tables', 'columns', 'functions', 'relationships' keys
     """
-    db_path = db_path or DEFAULT_SCHEMA_VECTOR_DB
+    db_path = _get_db_path(db_path)
 
     if not db_path.exists():
         logger.warning(f"Schema vector database not found: {db_path}")
@@ -298,12 +311,12 @@ def format_schema_hints(hints: dict) -> str:
 
 def is_available() -> bool:
     """Check if schema vector search is available."""
-    return DEFAULT_SCHEMA_VECTOR_DB.exists()
+    return _get_db_path().exists()
 
 
 def get_stats(db_path: Path = None) -> dict:
     """Get statistics about the schema vector index."""
-    db_path = db_path or DEFAULT_SCHEMA_VECTOR_DB
+    db_path = _get_db_path(db_path)
 
     if not db_path.exists():
         return {"error": "Schema vector database not found"}

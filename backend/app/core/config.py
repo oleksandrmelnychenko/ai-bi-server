@@ -118,6 +118,7 @@ class Settings:
 
     # Schema and examples paths
     join_rules_path: str
+    schema_vectors_path: str
     sql_examples_path: str
     sql_examples_extracted_path: str
     sql_examples_max_categories: int
@@ -125,6 +126,17 @@ class Settings:
     sql_examples_max_total: int
     sql_index_path: str
     sql_index_enabled: bool
+    table_selection_max_tables: int
+    table_selection_vector_top_k: int
+    table_selection_vector_min_similarity: float
+    table_selection_min_score: float
+
+    # Table selection scoring weights
+    table_selection_vector_table_weight: float
+    table_selection_vector_column_weight: float
+    table_selection_vector_rel_weight: float
+    table_selection_lexical_token_weight: float
+    table_selection_lexical_exact_bonus: float
 
     @property
     def db_connection_string(self) -> str:
@@ -207,6 +219,7 @@ def get_settings() -> Settings:
     """Load settings from environment variables."""
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     default_rules = os.path.join(base_dir, "schema", "join_rules.yaml")
+    default_schema_vectors = os.path.join(base_dir, "schema", "schema_vectors.sqlite")
     default_examples = os.path.join(base_dir, "schema", "sql_examples.yaml")
     default_extracted = os.path.join(base_dir, "schema", "sql_examples_extracted.yaml")
     default_index = os.path.join(base_dir, "schema", "sql_index.sqlite")
@@ -274,6 +287,7 @@ def get_settings() -> Settings:
 
         # Paths
         join_rules_path=os.getenv("JOIN_RULES_PATH", default_rules),
+        schema_vectors_path=os.getenv("SCHEMA_VECTORS_PATH", default_schema_vectors),
         sql_examples_path=os.getenv("SQL_EXAMPLES_PATH", default_examples),
         sql_examples_extracted_path=os.getenv("SQL_EXAMPLES_EXTRACTED_PATH", default_extracted),
         sql_examples_max_categories=int(os.getenv("SQL_EXAMPLES_MAX_CATEGORIES", "8")),
@@ -281,6 +295,17 @@ def get_settings() -> Settings:
         sql_examples_max_total=int(os.getenv("SQL_EXAMPLES_MAX_TOTAL", "80")),
         sql_index_path=os.getenv("SQL_INDEX_PATH", default_index),
         sql_index_enabled=os.getenv("SQL_INDEX_ENABLED", "0").lower() in ("1", "true", "yes", "y"),
+        table_selection_max_tables=int(os.getenv("TABLE_SELECTION_MAX_TABLES", "8")),
+        table_selection_vector_top_k=int(os.getenv("TABLE_SELECTION_VECTOR_TOP_K", "50")),
+        table_selection_vector_min_similarity=float(os.getenv("TABLE_SELECTION_VECTOR_MIN_SIMILARITY", "0.2")),
+        table_selection_min_score=float(os.getenv("TABLE_SELECTION_MIN_SCORE", "0.25")),
+
+        # Table selection scoring weights
+        table_selection_vector_table_weight=float(os.getenv("TABLE_SELECTION_VECTOR_TABLE_WEIGHT", "1.0")),
+        table_selection_vector_column_weight=float(os.getenv("TABLE_SELECTION_VECTOR_COLUMN_WEIGHT", "0.6")),
+        table_selection_vector_rel_weight=float(os.getenv("TABLE_SELECTION_VECTOR_REL_WEIGHT", "0.4")),
+        table_selection_lexical_token_weight=float(os.getenv("TABLE_SELECTION_LEXICAL_TOKEN_WEIGHT", "0.2")),
+        table_selection_lexical_exact_bonus=float(os.getenv("TABLE_SELECTION_LEXICAL_EXACT_BONUS", "1.0")),
     )
 
 

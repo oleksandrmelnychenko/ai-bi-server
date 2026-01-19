@@ -203,14 +203,16 @@ def test_database(db_type: str) -> dict[str, Any]:
 def query_llm(
     q: str = Query(..., min_length=1, max_length=2000, description="Question in Ukrainian or English"),
     db: str = Query(default="local", description="Database to query (local, identity)"),
+    skip_answer: bool = Query(default=False, description="Skip LLM answer generation for faster response"),
 ) -> ChatResponse:
     """
     Query the database using natural language.
 
     - **q**: Your question (e.g., "Який борг клієнта Acme?")
     - **db**: Target database (default: local)
+    - **skip_answer**: Skip answer generation (faster, returns data only)
 
-    Returns SQL query, results, and natural language answer.
+    Returns SQL query, results, and natural language answer (unless skip_answer=true).
     """
     # Validate database type
     try:
@@ -235,7 +237,7 @@ def query_llm(
     try:
         with _state_lock:
             table_keys = schema_cache.table_keys()
-        selection = select_tables(message, table_keys)
+        selection = select_tables(message, table_keys, schema_cache=schema_cache)
     except LLMError as exc:
         logger.error(f"LLM error during table selection: {exc}")
         raise_error(502, "llm_error", f"LLM service error: {exc}")
@@ -259,7 +261,9 @@ def query_llm(
         available_edges = join_rules.to_edges() if join_rules.joins else edges_from_foreign_keys(schema_cache.foreign_keys)
     adjacency = build_adjacency(available_edges)
     join_edges, missing = build_join_plan(adjacency, selection.tables)
-    table_details = _format_table_details(selection.tables)
+    join_tables = _tables_from_join_edges(join_edges)
+    detail_tables = _merge_table_keys(selection.tables, join_tables)
+    table_details = _format_table_details(detail_tables)
     join_hints = _format_join_hints(join_edges)
 
     logger.info(f"Selected {len(selection.tables)} tables, {len(join_edges)} joins")
@@ -272,7 +276,7 @@ def query_llm(
             table_details,
             join_hints,
             settings.max_rows,
-            selected_tables=selection.tables,
+            selected_tables=detail_tables,
             model=sql_model,
         )
     except LLMError as exc:
@@ -302,15 +306,19 @@ def query_llm(
         logger.error(f"Unexpected error: {exc}")
         raise_error(500, "query_error", f"Query execution failed: {exc}")
 
-    # Stage 3: Answer Composition
-    try:
-        answer = compose_answer(message, sql, columns, rows)
-    except LLMError as exc:
-        logger.error(f"LLM error during answer composition: {exc}")
-        raise_error(502, "llm_error", f"LLM service error: {exc}")
-    except httpx.HTTPError as exc:
-        logger.error(f"HTTP error during answer composition: {exc}")
-        raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
+    # Stage 3: Answer Composition (optional)
+    if skip_answer:
+        answer = f"Запит виконано. Отримано {len(rows)} рядків."
+        logger.info("Skipping answer composition (skip_answer=true)")
+    else:
+        try:
+            answer = compose_answer(message, sql, columns, rows)
+        except LLMError as exc:
+            logger.error(f"LLM error during answer composition: {exc}")
+            raise_error(502, "llm_error", f"LLM service error: {exc}")
+        except httpx.HTTPError as exc:
+            logger.error(f"HTTP error during answer composition: {exc}")
+            raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
 
     # Collect warnings
     warnings: list[str] = []
@@ -320,6 +328,8 @@ def query_llm(
         warnings.append(f"results_truncated: {settings.max_rows}")
     if db != "local":
         warnings.append(f"database: {db}")
+    if skip_answer:
+        warnings.append("answer_skipped")
 
     logger.info("GET query complete")
 
@@ -342,10 +352,28 @@ def _format_table_details(table_keys: list[str]) -> str:
             filters = default_filters if default_filters else "none"
             columns = ", ".join(f"{col.name} ({col.data_type})" for col in table.columns)
             primary_key = ", ".join(table.primary_key) if table.primary_key else "none"
+            object_type = getattr(table, "object_type", "table")
             lines.append(
-                f"{table.key}: role: {role}; default_filters: {filters}; columns: {columns}; primary_key: {primary_key}"
+                f"{table.key} ({object_type}): role: {role}; default_filters: {filters}; columns: {columns}; primary_key: {primary_key}"
             )
     return "\n".join(lines)
+
+
+def _tables_from_join_edges(edges: list) -> list[str]:
+    tables: list[str] = []
+    for edge in edges:
+        for name in (edge.left_table, edge.right_table):
+            if name and name not in tables:
+                tables.append(name)
+    return tables
+
+
+def _merge_table_keys(primary: list[str], additional: list[str]) -> list[str]:
+    merged = list(primary)
+    for name in additional:
+        if name not in merged:
+            merged.append(name)
+    return merged
 
 
 def _format_join_hints(edges: list) -> str:
@@ -381,7 +409,7 @@ def chat(request: ChatRequest) -> ChatResponse:
     try:
         with _state_lock:
             table_keys = schema_cache.table_keys()
-        selection = select_tables(message, table_keys)
+        selection = select_tables(message, table_keys, schema_cache=schema_cache)
     except LLMError as exc:
         logger.error(f"LLM error during table selection: {exc}")
         raise_error(502, "llm_error", f"LLM service error: {exc}")
@@ -405,7 +433,9 @@ def chat(request: ChatRequest) -> ChatResponse:
         available_edges = join_rules.to_edges() if join_rules.joins else edges_from_foreign_keys(schema_cache.foreign_keys)
     adjacency = build_adjacency(available_edges)
     join_edges, missing = build_join_plan(adjacency, selection.tables)
-    table_details = _format_table_details(selection.tables)
+    join_tables = _tables_from_join_edges(join_edges)
+    detail_tables = _merge_table_keys(selection.tables, join_tables)
+    table_details = _format_table_details(detail_tables)
     join_hints = _format_join_hints(join_edges)
 
     logger.info(f"Selected {len(selection.tables)} tables, {len(join_edges)} joins")
@@ -420,7 +450,7 @@ def chat(request: ChatRequest) -> ChatResponse:
             table_details,
             join_hints,
             settings.max_rows,
-            selected_tables=selection.tables,
+            selected_tables=detail_tables,
             model=sql_model,
         )
     except LLMError as exc:
@@ -452,15 +482,19 @@ def chat(request: ChatRequest) -> ChatResponse:
         logger.error(f"Unexpected error during query execution: {exc}")
         raise_error(500, "query_error", f"Query execution failed: {exc}")
 
-    # Stage 3: Answer Composition
-    try:
-        answer = compose_answer(message, sql, columns, rows)
-    except LLMError as exc:
-        logger.error(f"LLM error during answer composition: {exc}")
-        raise_error(502, "llm_error", f"LLM service error: {exc}")
-    except httpx.HTTPError as exc:
-        logger.error(f"HTTP error during answer composition: {exc}")
-        raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
+    # Stage 3: Answer Composition (optional)
+    if request.skip_answer:
+        answer = f"Запит виконано. Отримано {len(rows)} рядків."
+        logger.info("Skipping answer composition (skip_answer=true)")
+    else:
+        try:
+            answer = compose_answer(message, sql, columns, rows)
+        except LLMError as exc:
+            logger.error(f"LLM error during answer composition: {exc}")
+            raise_error(502, "llm_error", f"LLM service error: {exc}")
+        except httpx.HTTPError as exc:
+            logger.error(f"HTTP error during answer composition: {exc}")
+            raise_error(502, "llm_connection_error", f"Failed to connect to LLM: {exc}")
 
     # Collect warnings
     warnings: list[str] = []
@@ -468,6 +502,8 @@ def chat(request: ChatRequest) -> ChatResponse:
         warnings.append(f"missing_join_path: {', '.join(missing)}")
     if len(rows) == settings.max_rows:
         warnings.append(f"results_truncated: {settings.max_rows}")
+    if request.skip_answer:
+        warnings.append("answer_skipped")
 
     logger.info("Chat response complete")
 

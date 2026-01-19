@@ -10,7 +10,7 @@ A local BI chat assistant that turns Ukrainian questions into SQL Server queries
 ## Architecture
 - Backend: `backend/app`
   - Loads schema (tables, columns, PKs, FKs)
-  - Picks tables with the LLM
+  - Selects tables via schema vectors + lexical matching (no LLM)
   - Builds join hints from foreign keys
   - Generates SQL (SELECT only) + enforces row limits
   - Executes SQL and summarizes results in Ukrainian
@@ -87,4 +87,6 @@ python tools/apply_table_rules.py
 - Build a SQLite index (examples + schema metadata) for fast retrieval:
   `python -m tools.build_sql_index`
 - Enable index usage at runtime with `SQL_INDEX_ENABLED=1`.
+- Build schema vectors (tables/columns + optional YAML merge) for semantic table selection:
+  `python -m tools.build_schema_vectors`
 - If SQL joins look off, add more context to your question or create reporting views.
