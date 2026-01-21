@@ -1,4 +1,8 @@
-"""Table selection using vector + lexical retrieval."""
+"""Table selection using lexical matching.
+
+Selects relevant tables based on token matching between the question
+and table/column names. Simple, fast, and effective for most queries.
+"""
 
 from __future__ import annotations
 
@@ -9,7 +13,6 @@ import re
 from typing import Any, Iterable
 
 from ..core.config import get_settings
-from ..retrieval.schema_hints import is_available as schema_vectors_available, search_schema
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +33,7 @@ class SelectionResult:
 
 
 def _split_identifier(text: str) -> list[str]:
+    """Split an identifier into tokens (handles CamelCase)."""
     cleaned = text.replace("[", "").replace("]", "")
     parts = _TOKEN_RE.findall(cleaned)
     tokens: list[str] = []
@@ -42,12 +46,14 @@ def _split_identifier(text: str) -> list[str]:
 
 
 def _normalize_identifier(raw: str) -> str:
+    """Normalize table/column identifier."""
     cleaned = raw.strip().strip(",;")
     cleaned = cleaned.replace("[", "").replace("]", "").replace('"', "")
     return cleaned
 
 
 def _tokenize_question(question: str) -> set[str]:
+    """Extract tokens from user question."""
     tokens = set()
     for token in _split_identifier(question):
         if len(token) > 1:
@@ -56,6 +62,7 @@ def _tokenize_question(question: str) -> set[str]:
 
 
 def _build_alias_map(table_keys: Iterable[str]) -> dict[str, list[str]]:
+    """Build mapping from normalized names to original table keys."""
     alias_map: dict[str, list[str]] = defaultdict(list)
     for key in table_keys:
         if not key:
@@ -72,23 +79,8 @@ def _build_alias_map(table_keys: Iterable[str]) -> dict[str, list[str]]:
     return alias_map
 
 
-def _resolve_table_keys(name: str, alias_map: dict[str, list[str]]) -> list[str]:
-    cleaned = _normalize_identifier(name).lower()
-    if not cleaned:
-        return []
-    base = cleaned.split(".")[-1]
-    resolved: list[str] = []
-    for key in alias_map.get(cleaned, []):
-        if key not in resolved:
-            resolved.append(key)
-    if base != cleaned:
-        for key in alias_map.get(base, []):
-            if key not in resolved:
-                resolved.append(key)
-    return resolved
-
-
 def _get_table_tokens(schema_cache: Any, table_keys: list[str]) -> dict[str, set[str]]:
+    """Get tokens for each table (from name + column names)."""
     loaded_at = getattr(schema_cache, "loaded_at", None)
     cache_loaded_at = _TABLE_TOKEN_CACHE.get("loaded_at")
     if cache_loaded_at == loaded_at and _TABLE_TOKEN_CACHE.get("tokens"):
@@ -108,72 +100,10 @@ def _get_table_tokens(schema_cache: Any, table_keys: list[str]) -> dict[str, set
     return tokens_by_table
 
 
-def _score_from_vectors(
-    question: str,
-    alias_map: dict[str, list[str]],
-    min_similarity: float,
-    top_k: int,
-    weights: dict[str, float],
-) -> dict[str, float]:
-    """Score tables using vector similarity search.
-
-    Args:
-        question: User question
-        alias_map: Table name alias mapping
-        min_similarity: Minimum cosine similarity threshold
-        top_k: Max results from vector search
-        weights: Dict with 'table', 'column', 'rel' weight values
-
-    Returns:
-        Dict mapping table keys to scores, empty dict if vector search unavailable/fails
-    """
-    if not schema_vectors_available():
-        logger.info("Schema vectors not available, skipping vector scoring")
-        return {}
-
-    scores: dict[str, float] = defaultdict(float)
-    try:
-        results = search_schema(
-            question,
-            top_k=top_k,
-            min_similarity=min_similarity,
-            entry_types=None,
-        )
-    except Exception as exc:
-        logger.warning(f"Schema vector search failed: {exc}")
-        return {}
-
-    for entry in results:
-        entry_type = entry.type
-        if entry_type == "table":
-            weight = weights.get("table", 1.0)
-            targets = _resolve_table_keys(entry.name, alias_map)
-        elif entry_type == "column":
-            weight = weights.get("column", 0.6)
-            table_name = entry.data.get("table") if isinstance(entry.data, dict) else None
-            if not table_name and entry.name:
-                table_name = entry.name.split(".")[0]
-            targets = _resolve_table_keys(table_name or "", alias_map)
-        elif entry_type == "relationship":
-            weight = weights.get("rel", 0.4)
-            targets = []
-            if isinstance(entry.data, dict):
-                for name in (entry.data.get("from"), entry.data.get("to")):
-                    targets.extend(_resolve_table_keys(name or "", alias_map))
-        else:
-            continue
-
-        for table_key in targets:
-            scores[table_key] += entry.similarity * weight
-
-    return scores
-
-
-def _score_from_lexical(
+def _score_tables(
     question: str,
     table_keys: list[str],
     schema_cache: Any,
-    weights: dict[str, float],
 ) -> dict[str, float]:
     """Score tables using lexical token matching.
 
@@ -181,7 +111,6 @@ def _score_from_lexical(
         question: User question
         table_keys: List of table keys to score
         schema_cache: Schema cache for column info
-        weights: Dict with 'token' and 'exact' weight values
 
     Returns:
         Dict mapping table keys to scores
@@ -190,8 +119,8 @@ def _score_from_lexical(
     if not tokens:
         return {}
 
-    token_weight = weights.get("token", 0.2)
-    exact_bonus = weights.get("exact", 1.0)
+    token_weight = 0.2
+    exact_bonus = 1.0
 
     scores: dict[str, float] = defaultdict(float)
     table_tokens = _get_table_tokens(schema_cache, table_keys) if schema_cache else {}
@@ -213,14 +142,15 @@ def select_tables(
     table_keys: list[str],
     schema_cache: Any | None = None,
 ) -> SelectionResult:
-    """Select relevant tables using vectors + lexical matching (no LLM).
+    """Select relevant tables using lexical matching.
 
-    Uses a hybrid approach:
-    1. Vector similarity search on schema embeddings
-    2. Lexical token matching on table/column names
-    3. Combined scoring with configurable weights
+    Args:
+        question: User's question
+        table_keys: Available table keys
+        schema_cache: Optional schema cache for column info
 
-    Falls back to lexical-only if vector search is unavailable.
+    Returns:
+        SelectionResult with selected tables
     """
     if not question or not table_keys:
         return SelectionResult(tables=[], need_clarification=False, clarifying_question="")
@@ -228,58 +158,17 @@ def select_tables(
     settings = get_settings()
     max_tables = max(settings.table_selection_max_tables, 1)
     min_score = max(settings.table_selection_min_score, 0.0)
-    top_k = max(settings.table_selection_vector_top_k, max_tables)
 
-    # Build weight dicts from config
-    vector_weights = {
-        "table": settings.table_selection_vector_table_weight,
-        "column": settings.table_selection_vector_column_weight,
-        "rel": settings.table_selection_vector_rel_weight,
-    }
-    lexical_weights = {
-        "token": settings.table_selection_lexical_token_weight,
-        "exact": settings.table_selection_lexical_exact_bonus,
-    }
+    # Score tables using lexical matching
+    scores = _score_tables(question, table_keys, schema_cache)
 
-    alias_map = _build_alias_map(table_keys)
-    combined_scores: dict[str, float] = defaultdict(float)
-
-    # Try vector scoring first
-    vector_scores = _score_from_vectors(
-        question,
-        alias_map,
-        min_similarity=settings.table_selection_vector_min_similarity,
-        top_k=top_k,
-        weights=vector_weights,
-    )
-
-    # Always run lexical scoring (fallback + supplement)
-    lexical_scores = _score_from_lexical(question, table_keys, schema_cache, lexical_weights)
-
-    # Log which methods contributed
-    has_vector = bool(vector_scores)
-    has_lexical = bool(lexical_scores)
-
-    if not has_vector and has_lexical:
-        logger.info("Using lexical-only scoring (vector search unavailable)")
-    elif has_vector and not has_lexical:
-        logger.info("Using vector-only scoring (no lexical matches)")
-    elif has_vector and has_lexical:
-        logger.info("Using combined vector + lexical scoring")
-    else:
-        logger.warning("No scores from either method")
-
-    # Combine scores
-    for key, score in vector_scores.items():
-        combined_scores[key] += score
-    for key, score in lexical_scores.items():
-        combined_scores[key] += score
-
+    # Rank by score
     ranked = sorted(
-        combined_scores.items(),
+        scores.items(),
         key=lambda item: (-item[1], item[0]),
     )
 
+    # Select tables meeting threshold
     selected = [key for key, score in ranked if score >= min_score][:max_tables]
 
     # Fallback: if no tables meet threshold, take top scoring ones
@@ -288,7 +177,7 @@ def select_tables(
         if selected:
             logger.info(f"Fallback: selected {len(selected)} tables below threshold")
 
-    logger.info(f"Selected {len(selected)} tables (vector={has_vector}, lexical={has_lexical})")
+    logger.info(f"Selected {len(selected)} tables from {len(table_keys)} available")
 
     return SelectionResult(
         tables=selected,

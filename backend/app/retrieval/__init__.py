@@ -1,47 +1,48 @@
-"""SQL example retrieval module.
+"""Retrieval module for schema knowledge and curated queries.
 
-Contains YAML-based example loading, keyword matching, and vector search.
+This module provides:
+- schema_knowledge: Loads actual column definitions from schema_knowledge.yaml
+- curated_queries: Loads real SQL examples from domain catalogs (debt_catalog.yaml, etc.)
+
+The approach is to inject actual schema documentation into the LLM prompt
+so it understands what columns exist, rather than pattern matching against examples.
 """
 
-from .examples import (
-    classify_question,
-    extract_table_names,
-    get_all_categories,
-    get_category_info,
+from .schema_knowledge import (
+    format_table_schema,
+    format_tables_for_prompt,
+    get_full_context_for_tables,
+    get_function_docs,
+    get_relationships,
+    get_table_schema,
+    get_tables_schema,
+)
+
+from .curated_queries import (
+    format_query_as_example,
+    get_available_domains,
+    get_domain_keywords,
+    get_domain_queries,
+    get_few_shot_examples,
     get_relevant_examples,
-    load_examples,
-    load_extracted_examples,
-    reload_examples,
-)
-from .schema_hints import (
-    format_schema_hints,
-    get_schema_hints,
-    is_available as schema_vectors_available,
-)
-from .vector_search import (
-    SQLExampleResult,
-    get_relevant_examples as get_vector_examples,
-    get_stats as get_vector_stats,
-    search_similar,
+    match_question_to_query,
 )
 
 __all__ = [
-    # examples.py
-    "classify_question",
-    "extract_table_names",
-    "get_all_categories",
-    "get_category_info",
+    # schema_knowledge.py - actual column definitions
+    "format_table_schema",
+    "format_tables_for_prompt",
+    "get_full_context_for_tables",
+    "get_function_docs",
+    "get_relationships",
+    "get_table_schema",
+    "get_tables_schema",
+    # curated_queries.py - real SQL examples
+    "format_query_as_example",
+    "get_available_domains",
+    "get_domain_keywords",
+    "get_domain_queries",
+    "get_few_shot_examples",
     "get_relevant_examples",
-    "load_examples",
-    "load_extracted_examples",
-    "reload_examples",
-    # schema_hints.py
-    "format_schema_hints",
-    "get_schema_hints",
-    "schema_vectors_available",
-    # vector_search.py
-    "SQLExampleResult",
-    "get_vector_examples",
-    "get_vector_stats",
-    "search_similar",
+    "match_question_to_query",
 ]

@@ -8,7 +8,6 @@ Package Structure:
     schema/     - Database schema management (cache, join graph, join rules)
     llm/        - LLM interaction (client, prompts, table selection, SQL generation)
     retrieval/  - SQL example retrieval (YAML-based, vector search)
-    domain/     - Domain-specific query templates (client queries)
     security/   - SQL validation and guardrails
 """
 
@@ -61,40 +60,11 @@ from .llm.prompts import (
     SQL_GENERATION_SYSTEM,
     TABLE_SELECTION_SYSTEM,
 )
-from .llm.sql_generator import generate_sql, get_relevant_examples
+from .llm.sql_generator import generate_sql
 from .llm.table_selector import SelectionResult, select_tables
 
 # Security
 from .security.sql_guard import apply_row_limit, extract_sql, is_safe_sql
-
-# Domain
-from .domain.base import ClientQuery, ExtractedParams
-from .domain.matcher import (
-    CONTEXT_KEYWORDS,
-    detect_context,
-    detect_modifiers,
-    get_query,
-    is_client_question,
-)
-from .domain.params import (
-    CURRENCY_PATTERNS,
-    extract_currency,
-    extract_exchange_rate,
-    extract_parameters,
-    has_custom_rate,
-)
-from .domain.queries import (
-    ALL_CLIENT_QUERIES,
-    format_for_prompt,
-)
-from .domain.schemas import (
-    DomainContext,
-    DomainResponse,
-    QUERY_SCHEMAS,
-    CONTEXT_SCHEMAS,
-    get_schema_for_query,
-    parse_rows_to_schema,
-)
 
 __all__ = [
     # Core - Config
@@ -143,33 +113,10 @@ __all__ = [
     "SQL_GENERATION_SYSTEM",
     "TABLE_SELECTION_SYSTEM",
     "generate_sql",
-    "get_relevant_examples",
     "SelectionResult",
     "select_tables",
     # Security
     "apply_row_limit",
     "extract_sql",
     "is_safe_sql",
-    # Domain
-    "ClientQuery",
-    "ExtractedParams",
-    "CONTEXT_KEYWORDS",
-    "detect_context",
-    "detect_modifiers",
-    "get_query",
-    "is_client_question",
-    "CURRENCY_PATTERNS",
-    "extract_currency",
-    "extract_exchange_rate",
-    "extract_parameters",
-    "has_custom_rate",
-    "ALL_CLIENT_QUERIES",
-    "format_for_prompt",
-    # Domain Schemas
-    "DomainContext",
-    "DomainResponse",
-    "QUERY_SCHEMAS",
-    "CONTEXT_SCHEMAS",
-    "get_schema_for_query",
-    "parse_rows_to_schema",
 ]

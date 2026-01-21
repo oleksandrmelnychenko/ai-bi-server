@@ -9,7 +9,7 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 
 class DatabaseType(str, Enum):
@@ -24,27 +24,29 @@ class DatabaseConnection:
     name: str
     host: str
     database: str
-    user: str
-    password: str
+    user: str = ""
+    password: str = ""
     driver: str = "ODBC Driver 17 for SQL Server"
     trust_cert: bool = True
     timeout: int = 30
     encrypt: bool = False
     enabled: bool = True
+    trusted_connection: bool = False  # Windows Authentication
 
     @property
     def connection_string(self) -> str:
         """Generate pyodbc connection string."""
         trust = "yes" if self.trust_cert else "no"
-        return (
+        base = (
             f"DRIVER={{{self.driver}}};"
             f"SERVER={self.host};"
             f"DATABASE={self.database};"
-            f"UID={self.user};"
-            f"PWD={self.password};"
-            f"TrustServerCertificate={trust};"
-            f"Connection Timeout={self.timeout};"
         )
+        if self.trusted_connection:
+            auth = "Trusted_Connection=yes;"
+        else:
+            auth = f"UID={self.user};PWD={self.password};"
+        return base + auth + f"TrustServerCertificate={trust};Connection Timeout={self.timeout};"
 
     @property
     def ado_connection_string(self) -> str:
@@ -185,6 +187,7 @@ def _create_connection_from_env(prefix: str, name: str) -> Optional[DatabaseConn
     conn_str = os.getenv(f"{prefix}_CONNECTION_STRING", "")
     if conn_str:
         parsed = _parse_ado_connection_string(conn_str)
+        integrated = parsed.get("integrated_security", "").lower() in ("true", "sspi", "yes")
         return DatabaseConnection(
             name=name,
             host=parsed.get("data_source", ""),
@@ -194,6 +197,7 @@ def _create_connection_from_env(prefix: str, name: str) -> Optional[DatabaseConn
             timeout=int(parsed.get("connect_timeout", "30")),
             encrypt=parsed.get("encrypt", "").lower() == "true",
             trust_cert=parsed.get("trustservercertificate", "").lower() == "true",
+            trusted_connection=integrated,
             enabled=bool(parsed.get("data_source")),
         )
 
@@ -202,15 +206,17 @@ def _create_connection_from_env(prefix: str, name: str) -> Optional[DatabaseConn
     if not host:
         return None
 
+    trusted = os.getenv(f"{prefix}_TRUSTED_CONNECTION", "").lower() in ("1", "true", "yes", "y")
     return DatabaseConnection(
         name=name,
         host=host,
         database=os.getenv(f"{prefix}_DATABASE", ""),
-        user=os.getenv(f"{prefix}_USER", ""),
-        password=os.getenv(f"{prefix}_PASSWORD", ""),
+        user=os.getenv(f"{prefix}_USER", "") if not trusted else "",
+        password=os.getenv(f"{prefix}_PASSWORD", "") if not trusted else "",
         driver=os.getenv(f"{prefix}_DRIVER", "ODBC Driver 17 for SQL Server"),
         timeout=int(os.getenv(f"{prefix}_TIMEOUT", "30")),
         trust_cert=os.getenv(f"{prefix}_TRUST_CERT", "yes").lower() in ("1", "true", "yes", "y"),
+        trusted_connection=trusted,
         enabled=True,
     )
 
@@ -291,8 +297,8 @@ def get_settings() -> Settings:
         sql_examples_path=os.getenv("SQL_EXAMPLES_PATH", default_examples),
         sql_examples_extracted_path=os.getenv("SQL_EXAMPLES_EXTRACTED_PATH", default_extracted),
         sql_examples_max_categories=int(os.getenv("SQL_EXAMPLES_MAX_CATEGORIES", "8")),
-        sql_examples_max_per_category=int(os.getenv("SQL_EXAMPLES_MAX_PER_CATEGORY", "12")),
-        sql_examples_max_total=int(os.getenv("SQL_EXAMPLES_MAX_TOTAL", "80")),
+        sql_examples_max_per_category=int(os.getenv("SQL_EXAMPLES_MAX_PER_CATEGORY", "5")),
+        sql_examples_max_total=int(os.getenv("SQL_EXAMPLES_MAX_TOTAL", "15")),
         sql_index_path=os.getenv("SQL_INDEX_PATH", default_index),
         sql_index_enabled=os.getenv("SQL_INDEX_ENABLED", "0").lower() in ("1", "true", "yes", "y"),
         table_selection_max_tables=int(os.getenv("TABLE_SELECTION_MAX_TABLES", "8")),

@@ -171,21 +171,37 @@ def is_safe_sql(sql: str, allowed_tables: set[str] | None = None) -> Tuple[bool,
 
 
 def apply_row_limit(sql: str, max_rows: int) -> str:
-    """Inject TOP clause if not already present."""
+    """Inject TOP clause if not already present.
+
+    Also converts LIMIT (MySQL/PostgreSQL) to TOP (SQL Server).
+    """
+    # Remove trailing semicolons and whitespace
+    sql = sql.rstrip().rstrip(';').rstrip()
+
+    # Remove LIMIT clause (MySQL/PostgreSQL syntax) - not valid in SQL Server
+    limit_match = re.search(r'\bLIMIT\s+(\d+)\s*$', sql, re.IGNORECASE)
+    if limit_match:
+        limit_val = int(limit_match.group(1))
+        sql = re.sub(r'\s*LIMIT\s+\d+\s*$', '', sql, flags=re.IGNORECASE)
+        # Use the smaller of LIMIT value or max_rows
+        max_rows = min(max_rows, limit_val)
+
     # Already has TOP
     if re.search(r"(?is)\bTOP\s*\(\s*\d+\s*\)", sql):
         return sql
     # Already has FETCH NEXT (OFFSET-FETCH pagination)
     if re.search(r"(?is)\bFETCH\s+NEXT\b", sql):
         return sql
-    # CTE query - inject TOP after the SELECT in the main query
+    # CTE query - inject TOP after the LAST SELECT (main query, not CTE internals)
     if re.search(r"(?is)^\s*WITH\b", sql):
-        match = re.search(r"(?is)\bSELECT\s+(DISTINCT\s+)?", sql)
-        if not match:
+        # Find all SELECTs and inject TOP into the last one (the main query)
+        matches = list(re.finditer(r"(?i)\bSELECT\s+(DISTINCT\s+)?", sql))
+        if not matches:
             return sql
-        distinct = match.group(1) or ""
-        replacement = f"SELECT {distinct}TOP ({max_rows}) "
-        return re.sub(r"(?is)\bSELECT\s+(DISTINCT\s+)?", replacement, sql, count=1)
+        last_match = matches[-1]
+        distinct = last_match.group(1) or ""
+        start, end = last_match.span()
+        return sql[:start] + f"SELECT {distinct}TOP ({max_rows}) " + sql[end:]
     # Regular SELECT
     match = re.match(r"(?is)^\s*SELECT\s+(DISTINCT\s+)?", sql)
     if not match:

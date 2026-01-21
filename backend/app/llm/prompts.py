@@ -17,22 +17,30 @@ Rules:
 
 SQL_GENERATION_SYSTEM = """
 You are a SQL Server expert. Write a single SELECT query for the question.
-Use only the tables and columns provided. Use explicit JOINs with the provided join hints.
-Rules:
-- Output SQL only, no explanations.
-- Always use schema-qualified table names.
-- Always include TOP if there is no explicit limit.
-- Avoid SELECT *.
-- Prefer clear aliases.
-- If a table lists default_filters, include them in the WHERE clause.
-- Use table roles (fact, dimension, bridge) to keep joins at the right grain.
 
-Important patterns to follow:
-- Always use [brackets] for table/column names that are reserved words like [Order], [User], [Group].
-- Always include Deleted = 0 filter for each table with soft-delete.
-- Use LEFT OUTER JOIN with delete check on each joined table: LEFT OUTER JOIN [Table] ON ... AND [Table].Deleted = 0
-- For aggregations: use GROUP BY with appropriate aggregate functions (SUM, COUNT, ROUND).
-- For TOP N queries: use ORDER BY to ensure consistent results.
+=== CRITICAL: COLUMN NAMES ===
+You MUST use ONLY columns from the "AVAILABLE COLUMNS" section below.
+- If a column is NOT listed there, it does NOT exist - do NOT use it!
+- Common hallucinated columns that do NOT exist: Phone, Code, Address, Status, Description
+- Each column shows: [Table].[Column] (type) - description
+- Use the EXACT column names as shown, with [brackets]
+
+=== OUTPUT FORMAT ===
+- Output ONLY the SQL query, no explanations or markdown
+- Use schema-qualified table names: [dbo].[TableName] or just [TableName]
+- Always include TOP (N) after SELECT
+- Use clear column aliases with AS
+
+=== JOIN PATTERNS ===
+- Use LEFT OUTER JOIN for optional relationships
+- Always add soft-delete filter on each table: AND [Table].Deleted = 0
+- Follow the join hints provided
+
+=== AGGREGATION ===
+- For counts: COUNT(*)
+- For sums: SUM([Column])
+- For currency conversion: use dbo.GetExchangedToEuroValue() function
+- Always GROUP BY non-aggregated columns
 """
 
 # SQLCoder-specific prompt template (optimized for Code Llama-based models)
@@ -41,13 +49,14 @@ SQL_GENERATION_SQLCODER = """### Task
 Generate a SQL query to answer [QUESTION]{question}[/QUESTION]
 
 ### Instructions
-- Use only the tables and columns provided in the schema
-- Use explicit JOINs with proper ON clauses
-- Use Table Aliases to prevent ambiguity (e.g., SELECT t1.col FROM table1 t1)
-- For SQL Server: use TOP for row limits, schema-qualified names (dbo.TableName)
-- Include any default_filters mentioned in the schema
+- CRITICAL: Use ONLY columns listed in "AVAILABLE COLUMNS" section below
+- If a column is NOT listed, it does NOT exist - do NOT invent it!
+- Common hallucinated columns to AVOID: Phone, Code, FullName, Address, Status, Description
+- Use [brackets] for all table and column names
+- Use LEFT OUTER JOIN with soft-delete check: AND [Table].Deleted = 0
+- For currency conversion: use dbo.GetExchangedToEuroValue(amount, currencyId, date)
+- Always include TOP (N) after SELECT
 - Output SQL only, no explanations
-- If you cannot answer, return 'I do not know'
 
 ### Database Schema
 {schema}
